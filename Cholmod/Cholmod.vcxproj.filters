@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{babc5e4f-d662-47b5-bf16-797041fd7978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\check">
+      <UniqueIdentifier>{73c66a28-2bca-4dea-85cb-d90faed14066}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\cholesky">
+      <UniqueIdentifier>{5aed38fc-b2eb-41b4-a7e2-7c1371b0c8ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\core">
+      <UniqueIdentifier>{6f681b3b-0806-485d-b327-1b9481437e57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\h">
+      <UniqueIdentifier>{c104a249-8afd-4933-9947-c4e3bda34320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\matOps">
+      <UniqueIdentifier>{2f883ce4-1620-4c93-a354-867518b8ba31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\modify">
+      <UniqueIdentifier>{74fda862-c9c1-4950-8973-a55331c2acda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\partition">
+      <UniqueIdentifier>{addf1e07-0d69-4fad-8239-efcd2f380d03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\supernodal">
+      <UniqueIdentifier>{781248cd-7723-4200-a0b8-6cb6f1adab0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\AMD">
+      <UniqueIdentifier>{aa1826c8-a369-4a91-a5bf-857977a9769b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\COLAMD">
+      <UniqueIdentifier>{ba451e62-e963-47bc-830d-1d3266c431b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\metis">
+      <UniqueIdentifier>{5456072e-1f9e-4a39-86af-20b23f2b47c4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CHOLMOD\Check\cholmod_check.c">
+      <Filter>include\check</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Check\cholmod_read.c">
+      <Filter>include\check</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Check\cholmod_write.c">
+      <Filter>include\check</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_amd.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_analyze.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_colamd.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_etree.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_factorize.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_postorder.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_rcond.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_resymbol.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_rowcolcounts.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_rowfac.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_solve.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\cholmod_spsolve.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\t_cholmod_lsolve.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\t_cholmod_ltsolve.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\t_cholmod_rowfac.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Cholesky\t_cholmod_solve.c">
+      <Filter>include\cholesky</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_aat.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_add.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_band.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_change_factor.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_common.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_complex.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_copy.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_dense.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_error.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_factor.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_memory.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_sparse.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_transpose.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\cholmod_triplet.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\t_cholmod_change_factor.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\t_cholmod_dense.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\t_cholmod_transpose.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Core\t_cholmod_triplet.c">
+      <Filter>include\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_drop.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_horzcat.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_norm.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_scale.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_sdmult.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_ssmult.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_submatrix.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_symmetry.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\cholmod_vertcat.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\MatrixOps\t_cholmod_sdmult.c">
+      <Filter>include\matOps</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Modify\cholmod_rowadd.c">
+      <Filter>include\modify</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Modify\cholmod_rowdel.c">
+      <Filter>include\modify</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Modify\cholmod_updown.c">
+      <Filter>include\modify</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Modify\t_cholmod_updown.c">
+      <Filter>include\modify</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Modify\t_cholmod_updown_numkr.c">
+      <Filter>include\modify</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Partition\cholmod_camd.c">
+      <Filter>include\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Partition\cholmod_ccolamd.c">
+      <Filter>include\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Partition\cholmod_csymamd.c">
+      <Filter>include\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Partition\cholmod_metis.c">
+      <Filter>include\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Partition\cholmod_nesdis.c">
+      <Filter>include\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Supernodal\cholmod_super_numeric.c">
+      <Filter>include\supernodal</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Supernodal\cholmod_super_solve.c">
+      <Filter>include\supernodal</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Supernodal\cholmod_super_symbolic.c">
+      <Filter>include\supernodal</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Supernodal\t_cholmod_super_numeric.c">
+      <Filter>include\supernodal</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\Supernodal\t_cholmod_super_solve.c">
+      <Filter>include\supernodal</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_1.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_2.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_aat.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_control.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_defaults.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_dump.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_global.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_info.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_order.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_post_tree.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_postorder.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_preprocess.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\AMD\amd_valid.c">
+      <Filter>include\AMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_1.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_2.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_aat.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_control.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_defaults.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_dump.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_global.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_info.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_order.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_postorder.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_preprocess.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CAMD\camd_valid.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CCOLAMD\ccolamd.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\CCOLAMD\ccolamd_global.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\COLAMD\colamd.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\COLAMD\colamd_global.c">
+      <Filter>include\COLAMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\balance.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\bucketsort.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\ccgraph.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\coarsen.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\compress.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\debug.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\estmem.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\fm.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\fortran.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\frename.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\graph.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\initpart.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\kmetis.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\kvmetis.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\kwayfm.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\kwayrefine.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\kwayvolfm.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\kwayvolrefine.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\match.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mbalance.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mbalance2.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mcoarsen.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\memory.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mesh.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\meshpart.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mfm.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mfm2.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mincover.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\minitpart.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\minitpart2.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mkmetis.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mkwayfmh.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mkwayrefine.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mmatch.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mmd.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mpmetis.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mrefine.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mrefine2.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\mutil.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\myqsort.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\ometis.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\parmetis.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\pmetis.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\pqueue.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\refine.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\separator.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\sfm.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\srefine.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\stat.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\subdomains.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\timing.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="CHOLMOD\METIS\util.c">
+      <Filter>include\metis</Filter>
+    </ClCompile>
+    <ClCompile Include="cholmod.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CHOLMOD\Include\cholmod.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_blas.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_check.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_cholesky.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_complexity.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_config.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_core.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_internal.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_io64.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_matrixops.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_modify.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_partition.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_supernodal.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CHOLMOD\Include\cholmod_template.h">
+      <Filter>include\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CholmodInclude.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.txt" />
+  </ItemGroup>
+</Project>

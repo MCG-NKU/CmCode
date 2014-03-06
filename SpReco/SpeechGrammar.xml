@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!-- Refer to `Grammar XML Schema' for details about how to generate this file.  -->
+<GRAMMAR LANGID="409">
+  <DEFINE>
+    <ID NAME="Activate" VAL="1010"/>
+    <ID NAME="MkDeform" VAL="1011"/>
+    <ID NAME="ChangeMatCmd" VAL="1012"/>
+    <ID NAME="ChangeClrCmd" VAL="1013"/>
+    <ID NAME="MoveCmd" VAL="1014"/>
+  </DEFINE>
+  <RULE NAME="Activate" ID="Activate" TOPLEVEL="ACTIVE">
+    <P>+Activate -the</P>
+    <RULEREF NAME="ObjectAndDescription" PROPNAME="ObjDes"/>
+  </RULE>
+  <RULE NAME="MkDeform" ID="MkDeform" TOPLEVEL="ACTIVE">
+    <P>+Make -the</P>
+    <RULEREF NAME="ObjectAndDescription" PROPNAME="ObjDes"/>
+    <RULEREF NAME="DeformType" PROPNAME="DType"/>
+  </RULE>
+  <RULE NAME="ChangeClrCmd" ID="ChangeClrCmd" TOPLEVEL="ACTIVE">
+    <P>+Change -the</P>
+    <RULEREF NAME="ObjectAndDescription" PROPNAME="ObjDes"/>
+    <OPT>-from</OPT>
+    <RULEREF NAME="ColorAtri" PROPNAME="Color1"/>
+    <P>-to</P>
+    <RULEREF NAME="ColorAtri" PROPNAME="Color2"/>
+  </RULE>
+  <RULE NAME="ChangeMatCmd" ID="ChangeMatCmd" TOPLEVEL="ACTIVE">
+    <P>+Change -the</P>
+    <RULEREF NAME="ObjectAndDescription" PROPNAME="ObjDes"/>
+    <OPT>-from</OPT>
+    <RULEREF NAME="MaterialAtri" PROPNAME="Material1"/>
+    <P>-to</P>
+    <RULEREF NAME="MaterialAtri" PROPNAME="Material2"/>
+  </RULE>
+  <RULE NAME="MoveCmd" ID="MoveCmd" TOPLEVEL="ACTIVE">
+    <L>
+      <P>Move</P>
+      <P>Repeat</P>
+    </L>
+    <P>-the</P>
+    <RULEREF NAME="ObjectAndDescription" PROPNAME="ObjDes"/>
+    <RULEREF NAME="MoveDirection" PROPNAME="MvDir"/>
+    <OPT>
+      <P>along -the</P>
+      <RULEREF NAME="ObjectAndDescription" PROPNAME="ObjDes2"/>
+    </OPT>
+  </RULE>
+  <RULE NAME="ObjectAndDescription">
+    <RULEREF NAME="ColorAtri" PROPNAME="ClrAtri"/>
+    <RULEREF NAME="MaterialAtri" PROPNAME="MaterAtri"/>
+    <RULEREF NAME="ObjectName" PROPNAME="ObjName"/>
+    <RULEREF NAME="PositionAtri" PROPNAME="PosAtri"/>
+  </RULE>
+  <RULE NAME="ObjectName" DYNAMIC="TRUE">
+    <L>
+      <P PROPNAME="NUMBER" VAL="0">wall</P>
+      <P PROPNAME="NUMBER" VAL="1">floor</P>
+      <P PROPNAME="NUMBER" VAL="2">picture</P>
+      <P PROPNAME="NUMBER" VAL="3">cabinet</P>
+      <P PROPNAME="NUMBER" VAL="4">chair</P>
+      <P PROPNAME="NUMBER" VAL="5">table</P>
+      <P PROPNAME="NUMBER" VAL="6">window</P>
+      <P PROPNAME="NUMBER" VAL="7">door</P>
+      <P PROPNAME="NUMBER" VAL="8">ceiling</P>
+      <P PROPNAME="NUMBER" VAL="9">lamp</P>
+      <P PROPNAME="NUMBER" VAL="10">bed</P>
+      <P PROPNAME="NUMBER" VAL="11">desk</P>
+      <P PROPNAME="NUMBER" VAL="12">monitor</P>
+      <P PROPNAME="NUMBER" VAL="13">car</P>
+      <P PROPNAME="NUMBER" VAL="14">blinds</P>
+      <P PROPNAME="NUMBER" VAL="15">television</P>
+      <P PROPNAME="NUMBER" VAL="16">sofa</P>
+      <P PROPNAME="NUMBER" VAL="17">counter</P>
+    </L>
+  </RULE>
+  <RULE NAME="ColorAtri">
+    <OPT>
+      <L>
+        <P PROPNAME="NUMBER" VAL="0">black</P>
+        <P PROPNAME="NUMBER" VAL="1">blue</P>
+        <P PROPNAME="NUMBER" VAL="2">brown</P>
+        <P PROPNAME="NUMBER" VAL="3">gray</P>
+        <P PROPNAME="NUMBER" VAL="4">green</P>
+        <P PROPNAME="NUMBER" VAL="5">orange</P>
+        <P PROPNAME="NUMBER" VAL="6">pink</P>
+        <P PROPNAME="NUMBER" VAL="7">purple</P>
+        <P PROPNAME="NUMBER" VAL="8">red</P>
+        <P PROPNAME="NUMBER" VAL="9">white</P>
+        <P PROPNAME="NUMBER" VAL="10">yellow</P>
+      </L>
+    </OPT>
+  </RULE>
+  <RULE NAME="PositionAtri">
+    <OPT>
+      <P>-in</P>
+      <L>
+        <P PROPNAME="NUMBER" VAL="0">top-left</P>
+        <P PROPNAME="NUMBER" VAL="1">top-middle</P>
+        <P PROPNAME="NUMBER" VAL="2">top-right</P>
+        <P PROPNAME="NUMBER" VAL="3">center-left</P>
+        <P PROPNAME="NUMBER" VAL="4">center-middle</P>
+        <P PROPNAME="NUMBER" VAL="5">center-right</P>
+        <P PROPNAME="NUMBER" VAL="6">bottom-left</P>
+        <P PROPNAME="NUMBER" VAL="7">bottom-middle</P>
+        <P PROPNAME="NUMBER" VAL="8">bottom-right</P>
+      </L>
+    </OPT>
+  </RULE>
+  <RULE NAME="MaterialAtri">
+    <OPT>
+      <L>
+        <P PROPNAME="NUMBER" VAL="0">wood</P>
+        <P PROPNAME="NUMBER" VAL="1">painted</P>
+        <P PROPNAME="NUMBER" VAL="2">cotton</P>
+        <P PROPNAME="NUMBER" VAL="3">paper</P>
+        <P PROPNAME="NUMBER" VAL="4">glass</P>
+        <P PROPNAME="NUMBER" VAL="5">brick</P>
+        <P PROPNAME="NUMBER" VAL="6">metal</P>
+        <P PROPNAME="NUMBER" VAL="7">leather</P>
+        <P PROPNAME="NUMBER" VAL="8">plastic</P>
+      </L>
+    </OPT>
+  </RULE>
+  <RULE NAME="MoveDirection">
+    <L>
+      <P>up</P>
+      <P>down</P>
+      <P>left</P>
+      <P>right</P>
+    </L>
+  </RULE>
+  <RULE NAME="DeformType">
+    <L>
+      <P>lowwer</P>
+      <P>taller</P>
+      <P>smaller</P>
+      <P>larger</P>
+    </L>
+  </RULE>
+</GRAMMAR>

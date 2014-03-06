@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Basic">
+      <UniqueIdentifier>{72160f19-63be-4466-95f1-4516e933e980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cluster">
+      <UniqueIdentifier>{7f9c1fdb-179c-426e-8645-b02227ac3f1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Illustration">
+      <UniqueIdentifier>{25b0c526-71b9-4dff-a94d-51920e70157d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OhterAlg">
+      <UniqueIdentifier>{bed275b1-3d0a-431e-9af2-037c9f0bc767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Saliency">
+      <UniqueIdentifier>{4b7b0192-685c-42f9-bc00-f30c1e466b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Segmentation">
+      <UniqueIdentifier>{4c48c7f7-5709-449f-91cf-584b15f845f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Segmentation\EfficientGraphBased">
+      <UniqueIdentifier>{e962403a-3c5a-41f7-81c0-48f5ecb70f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Segmentation\Maxflow">
+      <UniqueIdentifier>{23337835-39a8-4684-9426-b26dc6bf9f32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CRF">
+      <UniqueIdentifier>{8d14fadf-3740-4150-99b4-08f4d56b98e2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic\CmDefinition.h">
+      <Filter>Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic\CmFile.h">
+      <Filter>Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic\CmTimer.h">
+      <Filter>Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Cluster\CmAPCluster.h">
+      <Filter>Cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="Cluster\CmColorQua.h">
+      <Filter>Cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="Cluster\CmGMM.h">
+      <Filter>Cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="Illustration\CmEvaluation.h">
+      <Filter>Illustration</Filter>
+    </ClInclude>
+    <ClInclude Include="CmLib.h" />
+    <ClInclude Include="Illustration\CmShow.h">
+      <Filter>Illustration</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic\CmCv.h">
+      <Filter>Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherAlg\CmCurveEx.h">
+      <Filter>OhterAlg</Filter>
+    </ClInclude>
+    <ClInclude Include="Saliency\CmSaliencyRC.h">
+      <Filter>Saliency</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\EfficientGraphBased\disjoint-set.h">
+      <Filter>Segmentation\EfficientGraphBased</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\EfficientGraphBased\segment-graph.h">
+      <Filter>Segmentation\EfficientGraphBased</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\EfficientGraphBased\segment-image.h">
+      <Filter>Segmentation\EfficientGraphBased</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\Maxflow\block.h">
+      <Filter>Segmentation\Maxflow</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\Maxflow\graph.h">
+      <Filter>Segmentation\Maxflow</Filter>
+    </ClInclude>
+    <ClInclude Include="CRF\fastmath.h">
+      <Filter>CRF</Filter>
+    </ClInclude>
+    <ClInclude Include="CRF\permutohedral.h">
+      <Filter>CRF</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\CmDefinition.cpp">
+      <Filter>Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\CmFile.cpp">
+      <Filter>Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Cluster\CmAPCluster.cpp">
+      <Filter>Cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="Cluster\CmColorQua.cpp">
+      <Filter>Cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="Cluster\CmGMM.cpp">
+      <Filter>Cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="Illustration\CmEvaluation.cpp">
+      <Filter>Illustration</Filter>
+    </ClCompile>
+    <ClCompile Include="Illustration\CmShow.cpp">
+      <Filter>Illustration</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\CmCv.cpp">
+      <Filter>Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherAlg\CmCurveEx.cpp">
+      <Filter>OhterAlg</Filter>
+    </ClCompile>
+    <ClCompile Include="Saliency\CmSaliencyRC.cpp">
+      <Filter>Saliency</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\EfficientGraphBased\segment-image.cpp">
+      <Filter>Segmentation\EfficientGraphBased</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

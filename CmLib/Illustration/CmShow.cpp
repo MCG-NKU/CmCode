@@ -195,7 +195,7 @@ Mat CmShow::HistBins(CMat& color3f, CMat& val, CStr& title, bool descendShow, CM
 	if (with.size() == val.size())
 		with.convertTo(width1i, CV_32S, 400/sum(with).val[0]); // Default shown width
 	else
-		width1i = Mat(1, n, CV_32S, Scalar(10)); // Default bin width = 10
+		width1i = Mat(1, n, CV_32S, Scalar(600.0/(val.cols*val.rows))); // Default bin width = 10
 	int W = cvRound(sum(width1i).val[0]);
 	color3f.convertTo(binColor3b, CV_8UC3, 255);
 	double maxVal, minVal;

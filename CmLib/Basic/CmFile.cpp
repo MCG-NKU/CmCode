@@ -84,6 +84,14 @@ int CmFile::Rename(CStr& _srcNames, CStr& _dstDir, const char *nameCommon, const
 	return fNum;
 }
 
+void CmFile::RenameSuffix(CStr dir, CStr orgSuf, CStr dstSuf)
+{
+	vecS namesNS;
+	int fNum = CmFile::GetNamesNoSuffix(dir + "*" + orgSuf, namesNS, orgSuf);
+	for (int i = 0; i < fNum; i++)
+		CmFile::Move(dir + namesNS[i] + orgSuf, dir + namesNS[i] + dstSuf);
+}
+
 void CmFile::RmFolder(CStr& dir)
 {
 	CleanFolder(dir);

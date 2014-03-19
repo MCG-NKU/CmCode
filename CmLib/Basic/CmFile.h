@@ -30,6 +30,7 @@ struct CmFile
 
 	// Eg: RenameImages("D:/DogImages/*.jpg", "F:/Images", "dog", ".jpg");
 	static int Rename(CStr& srcNames, CStr& dstDir, const char* nameCommon, const char* nameExt);
+	static void RenameSuffix(CStr dir, CStr orgSuf, CStr dstSuf);
 
 	static inline void RmFile(CStr& fileW);
 	static void RmFolder(CStr& dir);

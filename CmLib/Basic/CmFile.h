@@ -32,6 +32,8 @@ struct CmFile
 	static int Rename(CStr& srcNames, CStr& dstDir, const char* nameCommon, const char* nameExt);
 	static void RenameSuffix(CStr dir, CStr orgSuf, CStr dstSuf);
 
+	static int ChangeImgFormat(CStr &imgW, CStr dstW); // "./*.jpg", "./Out/%s_O.png"
+
 	static inline void RmFile(CStr& fileW);
 	static void RmFolder(CStr& dir);
 	static void CleanFolder(CStr& dir, bool subFolder = false);

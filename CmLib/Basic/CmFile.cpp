@@ -84,6 +84,19 @@ int CmFile::Rename(CStr& _srcNames, CStr& _dstDir, const char *nameCommon, const
 	return fNum;
 }
 
+int CmFile::ChangeImgFormat(CStr &imgW, CStr dstW)
+{
+	vecS names;
+	string inDir, ext = GetExtention(imgW);
+	int iNum = GetNames(imgW, names, inDir);
+#pragma omp parallel for
+	for (int i = 0; i < iNum; i++) {
+		Mat img = imread(inDir + names[i]);
+		imwrite(format(_S(dstW), _S(GetNameNE(names[i]))), img);
+	}
+	return iNum;
+}
+
 void CmFile::RenameSuffix(CStr dir, CStr orgSuf, CStr dstSuf)
 {
 	vecS namesNS;

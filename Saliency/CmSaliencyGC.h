@@ -31,7 +31,7 @@ public:
 	void MergeGMMs();
 	Mat GetSaliencyCues();
 	
-	static int Demo(CStr &wkDir); // C:/Data/SaliencyFT/
+	static int Demo(CStr imgDir, CStr salDir); // C:/Data/SaliencyFT/
 
 private: // Data values
 	CmGMM _gmm;

@@ -253,21 +253,19 @@ Mat CmSaliencyGC::GetSalFromGMMs(vecD &val, bool bNormlize)
 
 // See my CVPR 11 paper http://mmcheng.net/SalObj/ for source code used to generate
 // nice statistical plots, many comparison figures and latex (see supplemental material).
-int CmSaliencyGC::Demo(CStr &wkDir)
+int CmSaliencyGC::Demo(CStr imgDir, CStr salDir)
 {
-	CStr inDir = wkDir + "Src/";
-	CStr outDir = wkDir + "SalGC/";
-	CmFile::MkDir(outDir);
+	CmFile::MkDir(salDir);
 	vecS namesNE, des;
-	int imgNum = CmFile::GetNamesNE(inDir + "*.jpg", namesNE);
+	int imgNum = CmFile::GetNamesNE(imgDir + "*.jpg", namesNE);
 	CmTimer tm("Maps");
 	tm.Start();
-	printf("%d images found in %s\n", imgNum, _S(inDir + "*.jpg"));
+	printf("%d images found in %s\n", imgNum, _S(imgDir + "*.jpg"));
 
 #pragma omp parallel for
 	for (int i = 0; i < imgNum; i++){
-		Mat img = imread(inDir + namesNE[i] + ".jpg");
-		CStr outName = outDir + namesNE[i];
+		Mat img = imread(imgDir + namesNE[i] + ".jpg");
+		CStr outName = salDir + namesNE[i];
 		img.convertTo(img, CV_32FC3, 1.0/255);
 		CmSaliencyGC sGC(img, outName);
 		sGC.HistgramGMMs();
@@ -278,7 +276,7 @@ int CmSaliencyGC::Demo(CStr &wkDir)
 	printf("Speed: %g seconds = %g fps\n", tm.TimeInSeconds()/imgNum, imgNum/tm.TimeInSeconds());
 
 	des.push_back("_GC");
-	CmEvaluation::MeanAbsoluteError(inDir, outDir, des);
+	CmEvaluation::MeanAbsoluteError(imgDir, salDir, des);
 	//CmSaliency::Evaluate(inDir + "*.png", outDir, wkDir + "Eval.m", des);
 	return 0;
 }

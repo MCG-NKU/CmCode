@@ -212,7 +212,7 @@ double CmEvaluation::FMeasure(CMat &res, CMat &truM)
 	return 1.3*p*r / (0.3 *p + r);
 }
 
-void CmEvaluation::MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des)
+void CmEvaluation::MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des, CStr resFileName)
 {
 	vecS namesNE;
 	int imgNum = CmFile::GetNamesNE(inDir + "*.jpg", namesNE);
@@ -235,7 +235,19 @@ void CmEvaluation::MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des)
 		}
 	}
 
-	for (size_t j = 0; j < des.size(); j++)
-		printf("%s:%g	", _S(des[j]), costs[j]/imgNum);
+	for (size_t j = 0; j < des.size(); j++){
+		costs[j] /= imgNum;
+		printf("%s:%g	", _S(des[j]), costs[j]);
+	}
 	printf("\n");
+
+	if (resFileName.size())	{
+		FILE *f = fopen(_S(resFileName), "w");
+		CV_Assert_(f != NULL, ("Can't open %s\n", _S(resFileName)));
+		for (size_t j = 0; j < des.size(); j++)
+			fprintf(f, "%%%s:%g\n", _S(des[j]), costs[j]);
+		PrintVector(f, costs, "MAE");
+		fprintf(f, "bar(MAE);\n");
+		fclose(f);
+	}
 }

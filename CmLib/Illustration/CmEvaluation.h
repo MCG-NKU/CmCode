@@ -26,7 +26,7 @@ struct CmEvaluation
 	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &maskExt, bool back = false, bool alertNul = true);
 	static double FMeasure(CMat &mask1u, CMat &gtMask1u); // The two mask should contain values of either 0 or 255.
 
-	static void MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des);
+	static void MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des, CStr resFileName = "Res.m");
 	
 	// Format change from OpenCV region (x, y, width, height) to VOC bounding box (minx, minY, maxX, maxY)
 	static inline Vec4i reg2Box(const Rect &reg) {return Vec4i(reg.x, reg.y, reg.x + reg.width - 1, reg.y + reg.height - 1);}

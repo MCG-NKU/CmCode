@@ -14,15 +14,9 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CmSaliencyGC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CmSaliencyGC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SaliencyMain.cpp">

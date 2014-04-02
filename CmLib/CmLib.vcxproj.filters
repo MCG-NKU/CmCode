@@ -88,6 +88,9 @@
     <ClInclude Include="CRF\permutohedral.h">
       <Filter>CRF</Filter>
     </ClInclude>
+    <ClInclude Include="Saliency\CmSaliencyGC.h">
+      <Filter>Saliency</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -125,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="Segmentation\EfficientGraphBased\segment-image.cpp">
       <Filter>Segmentation\EfficientGraphBased</Filter>
+    </ClCompile>
+    <ClCompile Include="Saliency\CmSaliencyGC.cpp">
+      <Filter>Saliency</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

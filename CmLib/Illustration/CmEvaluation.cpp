@@ -15,7 +15,7 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 	};
 	FILE* f = fopen(_S(resName), "w");
 	CV_Assert(f != NULL);
-	fprintf(f, "clear;\nclose all;\nclc;\nsubplot('121');\nhold on;\n\n\n");
+	fprintf(f, "clear;\nclose all;\nclc;\nsubplot('131');\nhold on;\n\n\n");
 	vecD thr(MI);
 	for (int i = 0; i < MI; i++)
 		thr[i] = i * STEP;
@@ -29,6 +29,7 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 	string leglendStr("legend(");
 	vecS strPre(TN), strRecall(TN), strTpr(TN), strFpr(TN);
 	for (int i = 0; i < TN; i++){
+		CStr validateRange = changeT[i] != -1 ? format("(1:%d)", changeT[i]) : "";
 		strPre[i] = format("Precision%s", _S(des[i]));
 		strRecall[i] = format("Recall%s", _S(des[i]));
 		strTpr[i] = format("TPR%s", _S(des[i]));
@@ -37,35 +38,37 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 		PrintVector(f, precision[i], strPre[i]);
 		PrintVector(f, tpr[i], strTpr[i]);
 		PrintVector(f, fpr[i], strFpr[i]);
-		fprintf(f, "plot(%s, %s, %s, 'linewidth', 2);\n", _S(strRecall[i]), _S(strPre[i]), c[i % CN]);
+		fprintf(f, "plot(%s, %s, %s, 'linewidth', 2);\n", _S(strRecall[i] + validateRange), _S(strPre[i] + validateRange), c[i % CN]);
 		leglendStr += format("'%s', ",  _S(des[i].substr(1)));
 	}
 	leglendStr.resize(leglendStr.size() - 2);
 	leglendStr += ");";
-	for (int i = 0; i < TN; i++)
-		if (changeT[i] != -1)
-			fprintf(f, "plot(%s(%d), %s(%d), 'r*', 'linewidth', 2);\n", _S(strRecall[i]), changeT[i], _S(strPre[i]), changeT[i]);
+	//for (int i = 0; i < TN; i++)
+	//	if (changeT[i] != -1)
+	//		fprintf(f, "plot(%s(%d), %s(%d), 'r*', 'linewidth', 2);\n", _S(strRecall[i]), changeT[i], _S(strPre[i]), changeT[i]);
 	string xLabel = "label('Recall');\n";
 	string yLabel = "label('Precision')\n";
 	fprintf(f, "hold off;\nx%sy%s\n%s\ngrid on;\naxis([0 1 0 1]);\n", _S(xLabel), _S(yLabel), _S(leglendStr));
 
 
-	fprintf(f, "\n\nsubplot('122');\nhold on;\n");
+	fprintf(f, "\n\nsubplot('132');\nhold on;\n");
 	for (int i = 0; i < TN; i++)
 		fprintf(f, "plot(%s, %s,  %s, 'linewidth', 2);\n", _S(strFpr[i]), _S(strTpr[i]), c[i % CN]);
 	xLabel = "label('False positive rate');\n";
 	yLabel = "label('True positive rate')\n";
 	fprintf(f, "hold off;\nx%sy%s\n%s\ngrid on;\naxis([0 1 0 1]);\n\n\n", _S(xLabel), _S(yLabel), _S(leglendStr));
 
-
+	vecD areaROC(TN);
 	for (int i = 0; i < TN; i++){
-		double areaROC = 0;
+		areaROC[i] = 0;
 		CV_Assert(fpr[i].size() == tpr[i].size());
 		for (size_t t = 1; t < fpr[i].size(); t++)
-			areaROC += (tpr[i][t] + tpr[i][t - 1]) * (fpr[i][t - 1] - fpr[i][t]) / 2.0;
-		fprintf(f, "%%ROC%s: %g\n", _S(des[i]), areaROC);
+			areaROC[i] += (tpr[i][t] + tpr[i][t - 1]) * (fpr[i][t - 1] - fpr[i][t]) / 2.0;
+		fprintf(f, "%%ROC%s: %g\n", _S(des[i]), areaROC[i]);
 	}
 
+	PrintVector(f, areaROC, "AUC");
+	fprintf(f, "\n\nsubplot('133');\nhold on;\nbar(AUC)");
 
 	fclose(f);
 	printf("%-70s\r", "");
@@ -139,7 +142,7 @@ int CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &preci
 		val2[thr] /= imgNum;
 		tpr[thr] /= imgNum;
 		fpr[thr] /= imgNum;
-		if (precision[thr] - val2[thr] > 0.01 && res == -1)//Too many recall = 0 maps after this threshold
+		if (precision[thr] - val2[thr] > 0.05 && res == -1)//Too many recall = 0 maps after this threshold
 			res = thr;
 	}
 	return res;

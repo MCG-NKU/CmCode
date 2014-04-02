@@ -115,6 +115,7 @@ using namespace cv;
 
 // Saliency detection algorithms
 #include "./Saliency/CmSaliencyRC.h"
+#include "./Saliency/CmSaliencyGC.h"
 //#include "./Saliency/CmSalCut.h"
 //#include "./Saliency/CmGrabCutUI.h"
 //

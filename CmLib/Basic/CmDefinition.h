@@ -177,6 +177,10 @@ void splitStr(CStr& str, CStr& delimiters , vector<string>& tokens);
 wstring s2ws(const std::string& s);
 inline double MatMin(CMat &m) {double minVal; minMaxLoc(m, &minVal, NULL); return minVal; }
 inline double MatMax(CMat &m) {double maxVal; minMaxLoc(m, NULL, &maxVal); return maxVal; }
+
+vecS strList2VecS(string strs[], int num);
+void strListAdd2VecS(string str[], int num, vecS &strVec);
+
 template<class T> inline Point_<T> operator / (const Point_<T> &p, double s) { return Point_<T>((T)(p.x /s), (T)(p.y/s));}
 template<class T> inline void operator /= (Point_<T> &p, double s) {p.x /= s, p.y /= s;}
 template<class T> inline Vec<T, 3> operator / (const Vec<T, 3> &v, double s) { return Vec<T, 3>((T)(v[0]/s), (T)(v[1]/s), (T)(v[2]/s));}

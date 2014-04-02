@@ -1,9 +1,9 @@
 #include "StdAfx.h"
 #include "CmAPCluster.h"
 
-CmAPCluster::CmAPCluster(void) : dlh(NULL)
+CmAPCluster::CmAPCluster(bool warningIfNotLoad) : dlh(NULL)
 {
-	if (!(dlh=LoadLibrary("apclusterwin.dll"))) // Download the corresponding dll from (Notice: only 32bit dll is public available at the moment): http://www.psi.toronto.edu/index.php?q=affinity+propagation
+	if (!(dlh=LoadLibrary("apclusterwin.dll")) && warningIfNotLoad) // Download the corresponding dll from (Notice: only 32bit dll is public available at the moment): http://www.psi.toronto.edu/index.php?q=affinity+propagation
 		printf("LoadLibrary() failed: %d. %s:%d\n", GetLastError(), __FILE__, __LINE__); 
 
 	apoptions.cbSize = sizeof(APOPTIONS);
@@ -17,7 +17,7 @@ CmAPCluster::CmAPCluster(void) : dlh(NULL)
 
 	apFun = (apcluster32)GetProcAddress(dlh, "apcluster32");
 	kcFun = (kcenters32)GetProcAddress(dlh, "kcenters32");
-	if (kcFun == NULL || apFun == NULL)
+	if (warningIfNotLoad && (kcFun == NULL || apFun == NULL))
 		printf("GetProcAddress() failed: %d\n", GetLastError());
 }
 

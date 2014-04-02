@@ -246,10 +246,13 @@ int CmColorQua::D_Quantize(CMat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNu
 
 	// Build color pallet
 	for (int y = 0; y < rows; y++)	{
-		const float* imgData = img3f.ptr<float>(y);
+		const float* imgDataP = img3f.ptr<float>(y);
 		int* idx = idx1i.ptr<int>(y);
-		for (int x = 0; x < cols; x++, imgData += 3)
+#pragma omp parallel for
+		for (int x = 0; x < cols; x++){
+			const float* imgData = imgDataP + 3*x;
 			idx[x] = (int)(imgData[0]*clrTmp[0])*w[0] + (int)(imgData[1]*clrTmp[1])*w[1] + (int)(imgData[2]*clrTmp[2]);
+		}
 	}
 	map<int, int> pallet;
 	for (int y = 0; y < rows; y++)	{
@@ -279,8 +282,10 @@ int CmColorQua::D_Quantize(CMat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNu
 		for (int i = 0; i < maxNum; i++)
 			pallet[num[i].second] = i; 
 
-		vector<Vec3i> color3i(num.size());
-		for (unsigned int i = 0; i < num.size(); i++) {
+		int numSZ = num.size();
+		vector<Vec3i> color3i(numSZ);
+#pragma omp parallel for
+		for (int i = 0; i < numSZ; i++) {
 			color3i[i][0] = num[i].second / w[0];
 			color3i[i][1] = num[i].second % w[0] / w[1];
 			color3i[i][2] = num[i].second % w[1];
@@ -288,6 +293,7 @@ int CmColorQua::D_Quantize(CMat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNu
 
 		for (unsigned int i = maxNum; i < num.size(); i++)	{
 			int simIdx = 0, simVal = INT_MAX;
+#pragma omp parallel for
 			for (int j = 0; j < maxNum; j++) {
 				int d_ij = vecSqrDist(color3i[i], color3i[j]);
 				if (d_ij < simVal)
@@ -306,8 +312,9 @@ int CmColorQua::D_Quantize(CMat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNu
 		const Vec3f* imgData = img3f.ptr<Vec3f>(y);
 		int* idx = idx1i.ptr<int>(y);
 #pragma omp parallel for
-		for (int x = 0; x < cols; x++)	{
+		for (int x = 0; x < cols; x++)	
 			idx[x] = pallet[idx[x]];
+		for (int x = 0; x < cols; x++)	{
 			color[idx[x]] += imgData[x];
 			colorNum[idx[x]] ++;
 		}

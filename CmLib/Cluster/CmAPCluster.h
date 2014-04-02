@@ -9,7 +9,7 @@
 class CmAPCluster
 {
 public:
-	CmAPCluster(void);
+	CmAPCluster(bool warningIfNotLoad = false);
 	~CmAPCluster(void);
 
 	typedef struct {

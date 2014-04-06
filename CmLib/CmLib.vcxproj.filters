@@ -31,6 +31,9 @@
     <Filter Include="Segmentation\MeanShift">
       <UniqueIdentifier>{abfa9b9e-e081-4b22-a093-5087111de2fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Segmentation\PlanarCut">
+      <UniqueIdentifier>{c0ccce2f-83dd-46f7-b8f5-5c82d6e9031b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -112,6 +115,36 @@
     <ClInclude Include="Segmentation\MeanShift\msSys.h">
       <Filter>Segmentation\MeanShift</Filter>
     </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\BlockAllocator.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\CGraph.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\CutGrid.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\CutPlanar.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\CutPlanarDefs.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\CutSegment.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\CutShape.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\DynPath.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\Planar.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\PlanarCut\code\PlanarException.h">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -170,6 +203,30 @@
     </ClCompile>
     <ClCompile Include="Segmentation\MeanShift\msSysPrompt.cpp">
       <Filter>Segmentation\MeanShift</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CGraph.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutGrid.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutPlanar.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutSegment.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutShape.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\DynPath.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\Planar.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\PlanarException.cpp">
+      <Filter>Segmentation\PlanarCut</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

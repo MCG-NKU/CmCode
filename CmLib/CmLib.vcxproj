@@ -169,6 +169,16 @@
     <ClInclude Include="Segmentation\MeanShift\RAList.h" />
     <ClInclude Include="Segmentation\MeanShift\rlist.h" />
     <ClInclude Include="Segmentation\MeanShift\tdef.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\BlockAllocator.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\CGraph.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\CutGrid.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\CutPlanar.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\CutPlanarDefs.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\CutSegment.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\CutShape.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\DynPath.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\Planar.h" />
+    <ClInclude Include="Segmentation\PlanarCut\code\PlanarException.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +200,38 @@
     <ClCompile Include="Segmentation\MeanShift\msSysPrompt.cpp" />
     <ClCompile Include="Segmentation\MeanShift\RAList.cpp" />
     <ClCompile Include="Segmentation\MeanShift\rlist.cpp" />
+    <ClCompile Include="Segmentation\PlanarCut\code\CGraph.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutGrid.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutPlanar.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutSegment.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\CutShape.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\DynPath.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\Planar.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segmentation\PlanarCut\code\PlanarException.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

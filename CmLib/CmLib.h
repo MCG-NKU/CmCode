@@ -90,9 +90,9 @@ using namespace cv;
 //
 //
 //////Segmentation algorithms
-//#include "./Segmentation/PlanarCut/code/CutPlanar.h" // For Planar Cut
-//#include "./Segmentation/PlanarCut/code/CutGrid.h"
-//#include "./Segmentation/PlanarCut/code/CutShape.h"
+#include "./Segmentation/PlanarCut/code/CutPlanar.h" // For Planar Cut
+#include "./Segmentation/PlanarCut/code/CutGrid.h"
+#include "./Segmentation/PlanarCut/code/CutShape.h"
 #include "./Segmentation/Maxflow/graph.h"
 #include "./Segmentation/EfficientGraphBased/segment-image.h"
 #include "./Segmentation/MeanShift/msImageProcessor.h"

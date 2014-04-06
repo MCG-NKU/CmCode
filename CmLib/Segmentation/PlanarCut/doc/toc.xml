@@ -1,0 +1,216 @@
+<toc label="PlanarGC" topic="index.html">
+  <topic label="Documentation" href="index.html"/>
+  <topic label="Tutorial: CutPlanar" href="a00005.html">
+    <topic label="Planar Embedding" href="a00005.html#sec_planar"/>
+    <topic label="Maximum Flow" href="a00005.html#sec_maxflow"/>
+    <topic label="Extract Minimal Cut" href="a00005.html#sec_getcut"/>
+  </topic>
+  <topic label="Tutorial: CutGrid" href="a00006.html">
+    <topic label="Edges&apos; Capacity" href="a00006.html#sec_capGrid"/>
+    <topic label="Maximum Flow" href="a00006.html#sec_maxflowGrid"/>
+    <topic label="Extract the Minimal Cut" href="a00006.html#sec_getcutGrid"/>
+  </topic>
+  <topic label="Tutorial: CutSegment" href="a00007.html">
+    <topic label="Gradient Dependent Capacity" href="a00007.html#sec_gradientSeg"/>
+    <topic label="Maximum Flow" href="a00007.html#sec_maxflowSeg"/>
+    <topic label="Minimal Cut" href="a00007.html#sec_getcutSeg"/>
+  </topic>
+  <topic label="Tutorial: CutShape" href="a00008.html">
+    <topic label="Dissimilarity Matrix" href="a00008.html#sec_gradientShp"/>
+    <topic label="Matching Score" href="a00008.html#sec_matchingShp"/>
+    <topic label="Optimal Matching" href="a00008.html#sec_getcutShp"/>
+  </topic>
+  <topic label="Data Structures">
+    <topic label="Data Structures" href="annotated.html">
+      <topic label="CDijkNode" href="a00009.html">
+        <topic label="dijkWeight" href="a00009.html#a996c5a6bbb2e452a7b8f5d9b61946450"/>
+        <topic label="node" href="a00009.html#ac6a3e47af83258a118dda154d7c3403b"/>
+        <topic label="heapId" href="a00009.html#a8b9c0ca6c0c0adac5f493ed4ba0d0b35"/>
+        <topic label="heapNr" href="a00009.html#ad5be160c05118a9b825d24247ea435a4"/>
+      </topic>
+      <topic label="CGEdge" href="a00010.html">
+        <topic label="head" href="a00010.html#ac44bb9181ade43fafab135d9b502c0cc"/>
+        <topic label="next" href="a00010.html#acb87bc67cd5f72b8e729dceeb00c6af7"/>
+        <topic label="sister" href="a00010.html#a1a14c1ea1eef1d4ba4969f548e12fee4"/>
+        <topic label="weight" href="a00010.html#a0447ba93f7b39f8015a5efe273868980"/>
+      </topic>
+      <topic label="CGNode" href="a00011.html">
+        <topic label="first" href="a00011.html#a892fd4f5d7f89720bdcfcf9a79eadfe6"/>
+        <topic label="tag" href="a00011.html#a9a023ede5be3c9b4ecd679cfb62d334e"/>
+        <topic label="type" href="a00011.html#a212aac59a25700b3018d2d7d293d6489"/>
+        <topic label="heapId" href="a00011.html#a232b512b78d8b1e1a2a650f744d016b9"/>
+        <topic label="dijkWeight" href="a00011.html#a0c91804a761a15207b26beffad7b013f"/>
+        <topic label="dijkPrev" href="a00011.html#a582651541a404ff5c4f1dbf74728ba9a"/>
+      </topic>
+      <topic label="CGraph" href="a00012.html">
+        <topic label="CGraph" href="a00012.html#a917241517ce8db2f1590a1ef357c8aac"/>
+        <topic label="~CGraph" href="a00012.html#af939e78d0fef6cea7711ae44f58f5a16"/>
+        <topic label="clear" href="a00012.html#a53d8157bf811ebac4e9e6f0df18a848f"/>
+        <topic label="addNode" href="a00012.html#a35b116ab5cdc1a3bee0acb6cfaf99ab8"/>
+        <topic label="addNode" href="a00012.html#a45cbdf6ee66ac7c4dd729c6d3afc7cf5"/>
+        <topic label="addEdge" href="a00012.html#ad4729ba389a09cd194af7d3ff9d24001"/>
+        <topic label="setEdgeWeight" href="a00012.html#af9c84e7f121e22731398f080975bb66d"/>
+        <topic label="runDijkstra" href="a00012.html#a0a0b32e0eb702d0b81809d18cc5d5e94"/>
+        <topic label="runDijkstraMulti" href="a00012.html#a485c0d56be4bf6a803da816c41bccaa0"/>
+        <topic label="getShortestPath" href="a00012.html#a439abe4717fc030f3e2f1ce44ac3f257"/>
+        <topic label="printShortestPath" href="a00012.html#a93d9a1726f87917251b7e4e4af8f645f"/>
+      </topic>
+      <topic label="CutGrid" href="a00013.html">
+        <topic label="EDir" href="a00013.html#aa6cd9f5a92249e24275933054e182227">
+          <topic label="DIR_EAST" href="a00013.html#aa6cd9f5a92249e24275933054e182227a7e9ffe4456aaa21d0eb97ea26111f57c"/>
+          <topic label="DIR_NORTH" href="a00013.html#aa6cd9f5a92249e24275933054e182227a0bc0dca36823c705e9472b4ecc911933"/>
+          <topic label="DIR_WEST" href="a00013.html#aa6cd9f5a92249e24275933054e182227ad2ae5884c9205af2a4f30094cdcff70f"/>
+          <topic label="DIR_SOUTH" href="a00013.html#aa6cd9f5a92249e24275933054e182227a3d4e2e8cc0c4ec4841d60f72aaed6974"/>
+        </topic>
+        <topic label="CutGrid" href="a00013.html#aaf9451998cd6a4164f290cb9141c325e"/>
+        <topic label="~CutGrid" href="a00013.html#a443d29599d9069e39ba217017869c84e"/>
+        <topic label="setSource" href="a00013.html#a6f59d27717bde7636f75283adcde79ee"/>
+        <topic label="setSink" href="a00013.html#a8c71b2544107cbd2f90c676983b5b761"/>
+        <topic label="getSource" href="a00013.html#a685e08cd30045408d1030f4275be9dba"/>
+        <topic label="getSink" href="a00013.html#a2b645cacf13ccd145c8428346873f45c"/>
+        <topic label="setEdgeCostFunction" href="a00013.html#a132d15a5fd6ef1b9215a0a239a6e1b0c"/>
+        <topic label="edgeCost" href="a00013.html#a55e1ee8a86ead09b026f8cfc9f779afd"/>
+        <topic label="getMaxFlow" href="a00013.html#af87c1597a79356c09b6d1665ed9cb936"/>
+        <topic label="getLabel" href="a00013.html#a363ca83b7da4990b15fe3c0410617c77"/>
+        <topic label="getLabels" href="a00013.html#ade48fa853f0e136a586f8eea360840e2"/>
+      </topic>
+      <topic label="CutPlanar" href="a00014.html">
+        <topic label="ECheckFlags" href="a00014.html#a4458e544274ff10532f3d31c150c0110">
+          <topic label="CHECK_NONE" href="a00014.html#a4458e544274ff10532f3d31c150c0110ab74ad417a936bbd77827fe2b560ca9a4"/>
+          <topic label="CHECK_CONNECTIVITY" href="a00014.html#a4458e544274ff10532f3d31c150c0110a7a72cb29c193c0029de062d851c40006"/>
+          <topic label="CHECK_NON_NEGATIVE_COST" href="a00014.html#a4458e544274ff10532f3d31c150c0110a0da108f71c5e9ba59ffd097b36fc4952"/>
+          <topic label="CHECK_PLANARITY" href="a00014.html#a4458e544274ff10532f3d31c150c0110a74dda39f2501ddcf8c1822b930c54f8b"/>
+          <topic label="CHECK_ALL" href="a00014.html#a4458e544274ff10532f3d31c150c0110af0958b77d78384feb3acccf4e6ffdc02"/>
+        </topic>
+        <topic label="ELabel" href="a00014.html#a0e28d67a0303b0b1a43bb9abbad02989">
+          <topic label="LABEL_SINK" href="a00014.html#a0e28d67a0303b0b1a43bb9abbad02989a322bd84e5ca9be01787d0c08b488c127"/>
+          <topic label="LABEL_SOURCE" href="a00014.html#a0e28d67a0303b0b1a43bb9abbad02989a4a87e4f2960247d1c734c50865a6c842"/>
+        </topic>
+        <topic label="CutPlanar" href="a00014.html#a9c9bcc2d4f1809b4799346e6ec14ed5b"/>
+        <topic label="~CutPlanar" href="a00014.html#ab64514d394394d5095db7f199960c71c"/>
+        <topic label="initialize" href="a00014.html#a415e8e9f3222cc883aa92964847d9fbe"/>
+        <topic label="setSource" href="a00014.html#a8ea383a874b9b9eb68708b0dc41df26d"/>
+        <topic label="setSink" href="a00014.html#a4b7c9212072ac58174b4ad0a9691b961"/>
+        <topic label="getMaxFlow" href="a00014.html#a843ed38fe06946e7fdbdad011a71639e"/>
+        <topic label="getLabel" href="a00014.html#acf0d49ee5b2e7ce0fa5fda70898bbd23"/>
+        <topic label="getLabels" href="a00014.html#aa170890c9d7ed4a668cfa738ad7ed503"/>
+        <topic label="getCutBoundary" href="a00014.html#a2ecd800c5a00d2839f282ba69d360d62"/>
+        <topic label="getCircularPath" href="a00014.html#afde8ab5c6700ea7ab214e2bb8082086f"/>
+        <topic label="preFlow" href="a00014.html#a01a9e90b3328391eae17620dea2fabb3"/>
+        <topic label="performChecks" href="a00014.html#af2f6768ff02dbf059f9fcdc019684e1a"/>
+        <topic label="FIRST_VERT" href="a00014.html#af983f91190c5224893356521f21e99a9"/>
+        <topic label="LAST_VERT" href="a00014.html#a95213936871b5116719676330cbc75c2"/>
+      </topic>
+      <topic label="CutSegment" href="a00015.html">
+        <topic label="CutSegment" href="a00015.html#a135405b0e11645adef2d53b24acde00f"/>
+        <topic label="~CutSegment" href="a00015.html#a2ad1fcccd8b1ac27549053cc248488a6"/>
+        <topic label="setImageData" href="a00015.html#add5dccff76d4f4d03cdf4a7af379ff49"/>
+        <topic label="setImageData" href="a00015.html#a273918788a65e884296f6c2dde1de4fa"/>
+        <topic label="setSourceSink" href="a00015.html#afd744543aac8af47a9df134569b80358"/>
+        <topic label="gradient" href="a00015.html#aacf6591687eb8d6ecbbc769cec0a711f"/>
+        <topic label="gradient" href="a00015.html#a2a6f6f03d56eaae0c4ee3e3f66a191ca"/>
+        <topic label="segment" href="a00015.html#a781014344a508ef988bca1836e349c39"/>
+        <topic label="getLabel" href="a00015.html#ac5f5144a2f5b6355abd1fac7decd7084"/>
+        <topic label="getLabels" href="a00015.html#ad6d3c208ed3796f318844e6dc253ad07"/>
+      </topic>
+      <topic label="CutShape" href="a00016.html">
+        <topic label="DTWMode" href="a00016.html#acff797acf2ec08d0f6518751453cd8e2">
+          <topic label="VERTEX_BASED" href="a00016.html#acff797acf2ec08d0f6518751453cd8e2ad1b041cb55ee7a7d902d047638991f94"/>
+          <topic label="EDGE_BASED" href="a00016.html#acff797acf2ec08d0f6518751453cd8e2a09903e76363ec9eb25fd4721769b0ac5"/>
+        </topic>
+        <topic label="CutShape" href="a00016.html#a68ad4cd012c38f7d3e12662fce682ee4"/>
+        <topic label="~CutShape" href="a00016.html#ad293aca8ed4ee90fad7db6ab83367213"/>
+        <topic label="setDissimilarityMatrix" href="a00016.html#a39a6a0ce3f60a9be1318d267d37a355b"/>
+        <topic label="getMatchingScore" href="a00016.html#a8759740ccadb605b22d924f2c0c9f450"/>
+        <topic label="getMatching" href="a00016.html#a6880ca2298450793d473522c20a7eed3"/>
+      </topic>
+      <topic label="DijkHeap" href="a00017.html">
+        <topic label="DijkHeap" href="a00017.html#a31f0df12773af4396d6281249f385416"/>
+        <topic label="~DijkHeap" href="a00017.html#aaf1f945ebf8b12a4ac7e097ee6cac97c"/>
+        <topic label="insert" href="a00017.html#a84a5e2751e62b24dab1bbf534be4b380"/>
+        <topic label="decrease" href="a00017.html#a4371a71520254321ee04fb907f5b803f"/>
+        <topic label="deleteMin" href="a00017.html#a5da0bfacf4aa799aaf19d313058b708c"/>
+        <topic label="getMin" href="a00017.html#a41a0bd5fca86d5051dbf48d39be4652c"/>
+        <topic label="getMin" href="a00017.html#a6ae0a851139708712a8941f47917d296"/>
+        <topic label="isempty" href="a00017.html#afced5d1858bb10bfd44bdacf2d85697c"/>
+        <topic label="deleteLast" href="a00017.html#acd31b2db3c07cb848c78b8ee132c91d4"/>
+        <topic label="insert" href="a00017.html#a489617bbb9a01dfd6f13b8c5f0a9b314"/>
+      </topic>
+      <topic label="ExceptionCheckConnectivity" href="a00018.html">
+      </topic>
+      <topic label="ExceptionCheckNonNegativeCost" href="a00019.html">
+      </topic>
+      <topic label="ExceptionCheckPlanarity" href="a00020.html">
+      </topic>
+      <topic label="ExceptionSinkNotDefined" href="a00021.html">
+      </topic>
+      <topic label="ExceptionSourceNotDefined" href="a00022.html">
+      </topic>
+      <topic label="ExceptionSourceSinkIdentical" href="a00023.html">
+      </topic>
+      <topic label="ExceptionUnexpectedError" href="a00024.html">
+      </topic>
+      <topic label="PlanarEdge" href="a00025.html">
+        <topic label="PlanarEdge" href="a00025.html#a58ee3abf4c78082186dd0a6f486a763b"/>
+        <topic label="getCapacity" href="a00025.html#a57ea16f3e1ee1b896a6429ab070851f9"/>
+        <topic label="getRevCapacity" href="a00025.html#ad8e5b373fac163e65dd7c336d0537c58"/>
+        <topic label="setCapacity" href="a00025.html#a9efe6cae1df6651ca86b9d0ad1ef0d88"/>
+        <topic label="setRevCapacity" href="a00025.html#a0e70931a3878cbf26a4059894dcb8455"/>
+        <topic label="setEdge" href="a00025.html#a5925dae5531f32dce166b70d510b68ad"/>
+        <topic label="setFlags" href="a00025.html#af542602ac3e6fd862378540aac401566"/>
+        <topic label="getFlags" href="a00025.html#a5d65ae2b6827da09a810e69e41928e7d"/>
+        <topic label="getHead" href="a00025.html#a985bd04c284fd2527cfd8841b3cae49a"/>
+        <topic label="getTail" href="a00025.html#a3590b0fe6674ff0828705ad52f40908d"/>
+        <topic label="getHeadDual" href="a00025.html#a4056d9b002ec9db739e8f608e0c0c01b"/>
+        <topic label="getTailDual" href="a00025.html#a2c49a53683819fcfbccda2e3cb9b04e1"/>
+        <topic label="PlanarVertex" href="a00025.html#ae691dd582ea147101f33e641aa953de4"/>
+      </topic>
+      <topic label="PlanarFace" href="a00026.html"/>
+      <topic label="PlanarVertex" href="a00027.html">
+        <topic label="PlanarVertex" href="a00027.html#aeff0261a041fd159e3c1c16094d61ca0"/>
+        <topic label="~PlanarVertex" href="a00027.html#adc8b56d8ff53b0875d177a252367b6ae"/>
+        <topic label="getNumEdges" href="a00027.html#a33477752176de2324e782acad7d65d2b"/>
+        <topic label="getEdge" href="a00027.html#a59deac4a342fff7e0dda28aa83937909"/>
+        <topic label="setEdgesCCW" href="a00027.html#a96f79bc032b6354c1c436eee2e72256b"/>
+        <topic label="getEdgeID" href="a00027.html#aa32cd7f948bf71d7d8fba1f2d374d087"/>
+        <topic label="PlanarEdge" href="a00027.html#a633fc000a7f785eefc4172715e3ff7c1"/>
+      </topic>
+    </topic>
+    <topic label="Class Hierarchy" href="hierarchy.html">
+      <topic label="CDijkNode" href="a00009.html"/>
+      <topic label="CGEdge" href="a00010.html"/>
+      <topic label="CGNode" href="a00011.html"/>
+      <topic label="CGraph" href="a00012.html"/>
+      <topic label="CutGrid" href="a00013.html">
+        <topic label="CutSegment" href="a00015.html"/>
+      </topic>
+      <topic label="CutPlanar" href="a00014.html"/>
+      <topic label="CutShape" href="a00016.html"/>
+      <topic label="DijkHeap" href="a00017.html"/>
+      <topic label="ExceptionCheckConnectivity" href="a00018.html"/>
+      <topic label="ExceptionCheckNonNegativeCost" href="a00019.html"/>
+      <topic label="ExceptionCheckPlanarity" href="a00020.html"/>
+      <topic label="ExceptionSinkNotDefined" href="a00021.html"/>
+      <topic label="ExceptionSourceNotDefined" href="a00022.html"/>
+      <topic label="ExceptionSourceSinkIdentical" href="a00023.html"/>
+      <topic label="ExceptionUnexpectedError" href="a00024.html"/>
+      <topic label="PlanarEdge" href="a00025.html"/>
+      <topic label="PlanarFace" href="a00026.html"/>
+      <topic label="PlanarVertex" href="a00027.html"/>
+    </topic>
+    <topic label="Data Fields" href="functions.html">
+      <topic label="All" href="functions.html"/>
+      <topic label="Functions" href="functions_func.html"/>
+      <topic label="Variables" href="functions_vars.html"/>
+      <topic label="Enumerations" href="functions_enum.html"/>
+      <topic label="Enumerator" href="functions_eval.html"/>
+      <topic label="Related Functions" href="functions_rela.html"/>
+    </topic>
+  </topic>
+  <topic label="Examples" href="examples.html">
+    <topic label="cutgrid.cpp" href="a00002.html"/>
+    <topic label="cutplanar.cpp" href="a00001.html"/>
+    <topic label="cutsegment.cpp" href="a00003.html"/>
+    <topic label="cutshape.cpp" href="a00004.html"/>
+  </topic>
+</toc>

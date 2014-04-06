@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\CutPlanar">
+      <UniqueIdentifier>{0d5c8a03-070f-47d0-84b0-b252d3bf6438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\CutPlanar">
+      <UniqueIdentifier>{7919a0a1-d183-4794-9676-226b36585bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testCutGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\code\CGraph.cpp">
+      <Filter>Source Files\CutPlanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\code\CutGrid.cpp">
+      <Filter>Source Files\CutPlanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\code\CutPlanar.cpp">
+      <Filter>Source Files\CutPlanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\code\DynPath.cpp">
+      <Filter>Source Files\CutPlanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\code\Planar.cpp">
+      <Filter>Source Files\CutPlanar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\code\PlanarException.cpp">
+      <Filter>Source Files\CutPlanar</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\BlockAllocator.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\CGraph.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\CutGrid.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\CutPlanar.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\CutPlanarDefs.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\DynPath.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\Planar.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\code\PlanarException.h">
+      <Filter>Header Files\CutPlanar</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

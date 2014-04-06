@@ -28,6 +28,9 @@
     <Filter Include="CRF">
       <UniqueIdentifier>{8d14fadf-3740-4150-99b4-08f4d56b98e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Segmentation\MeanShift">
+      <UniqueIdentifier>{abfa9b9e-e081-4b22-a093-5087111de2fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -91,6 +94,24 @@
     <ClInclude Include="Saliency\CmSaliencyGC.h">
       <Filter>Saliency</Filter>
     </ClInclude>
+    <ClInclude Include="Segmentation\MeanShift\ms.h">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\MeanShift\msImageProcessor.h">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\MeanShift\RAList.h">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\MeanShift\rlist.h">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\MeanShift\tdef.h">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClInclude>
+    <ClInclude Include="Segmentation\MeanShift\msSys.h">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -131,6 +152,24 @@
     </ClCompile>
     <ClCompile Include="Saliency\CmSaliencyGC.cpp">
       <Filter>Saliency</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\MeanShift\ms.cpp">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\MeanShift\msImageProcessor.cpp">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\MeanShift\RAList.cpp">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\MeanShift\rlist.cpp">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\MeanShift\msSys.cpp">
+      <Filter>Segmentation\MeanShift</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmentation\MeanShift\msSysPrompt.cpp">
+      <Filter>Segmentation\MeanShift</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

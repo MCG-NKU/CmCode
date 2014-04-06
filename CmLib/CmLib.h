@@ -95,7 +95,7 @@ using namespace cv;
 //#include "./Segmentation/PlanarCut/code/CutShape.h"
 #include "./Segmentation/Maxflow/graph.h"
 #include "./Segmentation/EfficientGraphBased/segment-image.h"
-//#include "./Segmentation/MeanShiftEdison/msImageProcessor.h"
+#include "./Segmentation/MeanShift/msImageProcessor.h"
 
 
 // Clustering algorithms

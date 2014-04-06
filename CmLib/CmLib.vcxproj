@@ -163,6 +163,12 @@
     <ClInclude Include="Segmentation\EfficientGraphBased\segment-image.h" />
     <ClInclude Include="Segmentation\Maxflow\block.h" />
     <ClInclude Include="Segmentation\Maxflow\graph.h" />
+    <ClInclude Include="Segmentation\MeanShift\ms.h" />
+    <ClInclude Include="Segmentation\MeanShift\msImageProcessor.h" />
+    <ClInclude Include="Segmentation\MeanShift\msSys.h" />
+    <ClInclude Include="Segmentation\MeanShift\RAList.h" />
+    <ClInclude Include="Segmentation\MeanShift\rlist.h" />
+    <ClInclude Include="Segmentation\MeanShift\tdef.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +184,12 @@
     <ClCompile Include="Saliency\CmSaliencyGC.cpp" />
     <ClCompile Include="Saliency\CmSaliencyRC.cpp" />
     <ClCompile Include="Segmentation\EfficientGraphBased\segment-image.cpp" />
+    <ClCompile Include="Segmentation\MeanShift\ms.cpp" />
+    <ClCompile Include="Segmentation\MeanShift\msImageProcessor.cpp" />
+    <ClCompile Include="Segmentation\MeanShift\msSys.cpp" />
+    <ClCompile Include="Segmentation\MeanShift\msSysPrompt.cpp" />
+    <ClCompile Include="Segmentation\MeanShift\RAList.cpp" />
+    <ClCompile Include="Segmentation\MeanShift\rlist.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

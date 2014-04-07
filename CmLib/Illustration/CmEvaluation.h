@@ -23,7 +23,8 @@ struct CmEvaluation
 	static void Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des); 
 	static void Evaluate(CStr gtW, CStr &salDir, CStr &resName, CStr &des) {vecS descri(1); descri[0] = des; Evaluate(gtW, salDir, resName, descri);} 
 
-	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &maskExt, bool back = false, bool alertNul = true);
+	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false);
+	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &maskExt, bool alertNul = true);
 	static double FMeasure(CMat &mask1u, CMat &gtMask1u); // The two mask should contain values of either 0 or 255.
 
 	static void MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des, CStr resFileName = "Res.m");
@@ -35,11 +36,11 @@ struct CmEvaluation
 	static double interUnionBBox(const Rect &reg1, const Rect &reg2) {return interUnionBBox(reg2Box(reg1), reg2Box(reg2));}
 	
 	static int STEP; // Evaluation threshold density
+	static void PrintVector(FILE *f, const vecD &v, CStr &name);
 private:
 	static const int COLOR_NUM = 255;  
 	static const int MI;  // Number of difference threshold
 
-	static void PrintVector(FILE *f, const vecD &v, CStr &name);
 
 	static int Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr);
 };

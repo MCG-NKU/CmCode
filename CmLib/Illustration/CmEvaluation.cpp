@@ -166,7 +166,7 @@ double CmEvaluation::interUnionBBox(const Vec4i &box1, const Vec4i &box2) // eac
 	return ov;
 }
 
-void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &maskExt, bool back, bool alertNul)
+void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &maskExt, bool alertNul)
 {
 	vecS names;
 	string gtDir;
@@ -183,23 +183,59 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &maskEx
 				printf("Truth(%d, %d), Res(%d, %d): %s\n", truM.cols, truM.rows, res.cols, res.rows, _S(names[i] + maskExt));
 			continue;
 		}
-		compare(truM, 128, truM, back ? CMP_LE : CMP_GE);
-		compare(res, 128, res, back ? CMP_LE : CMP_GE);
+		compare(truM, 128, truM, CMP_GE);
+		compare(res, 128, res, CMP_GE);
 		Mat commMat;
 		bitwise_and(truM, res, commMat);
 		double commV = sum(commMat).val[0];
 		p += commV/(sum(res).val[0] + EPS);
 		r += commV/(sum(truM).val[0] + EPS);
-
-		bitwise_not(truM, truInvM);
-		bitwise_and(truInvM, res, commMat);
-		commV = sum(commMat).val[0];
-		fn += commV / (sum(truInvM).val[0] + EPS);
 		count++;
 	}	
-	p /= count, r /= count, fn /= count;
+	p /= count, r /= count;
 	double f = 1.3 * p * r / (0.3 * p + r);
-	printf("%s: precision = %.3g, recall = %.3g, FMeasure = %.3g, InvFalseNegative = %.3g\n", _S(maskExt), p, r, f, fn);
+	printf("%s: precision = %.3g, recall = %.3g, FMeasure = %.3g\n", _S(maskExt), p, r, f);
+}
+
+void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr, bool alertNul)
+{
+	vecS namesNS; 
+	string gtDir;
+	int imgNum = CmFile::GetNamesNoSuffix(gtW, namesNS, gtExt, gtDir);
+	int methodNum = (int)des.size();
+	vecD pr(methodNum), rec(methodNum), count(methodNum), fm(methodNum);
+	for (int i = 0; i < imgNum; i++){
+		Mat truM = imread(gtDir + namesNS[i] + gtExt, CV_LOAD_IMAGE_GRAYSCALE);
+		for (int m = 0; m < methodNum; m++)	{
+			Mat res = imread(maskDir + namesNS[i] + des[m] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
+			if (truM.data == NULL || res.data == NULL || truM.size != res.size){
+				if (alertNul)
+					printf("Truth(%d, %d), Res(%d, %d): %s\n", truM.cols, truM.rows, res.cols, res.rows, _S(namesNS[i] + des[m] + ".png"));
+				continue;
+			}
+			compare(truM, 128, truM, CMP_GE);
+			compare(res, 128, res, CMP_GE);
+			Mat commMat;
+			bitwise_and(truM, res, commMat);
+			double commV = sum(commMat).val[0];
+			double p = commV/(sum(res).val[0] + EPS);
+			double r = commV/(sum(truM).val[0] + EPS);
+			pr[m] += p;
+			rec[m] += r;
+			count[m]++;
+		}
+	}
+
+	for (int m = 0; m < methodNum; m++)
+		pr[m] /= count[m], rec[m] /= count[m];
+
+	FILE *f; 
+	fopen_s(&f, _S(resFile), "w");
+	CV_Assert(f != NULL);
+	CmEvaluation::PrintVector(f, pr, "Precision");
+	CmEvaluation::PrintVector(f, rec, "Recall");
+	fprintf(f, "BetaSqr = %g;\nFMeasure = Precision .* Recall * (1 + BetaSqr) ./ (Precision * BetaSqr + Recall);\nbar(FMeasure);\n", betaSqr);
+	fclose(f);
 }
 
 double CmEvaluation::FMeasure(CMat &res, CMat &truM)

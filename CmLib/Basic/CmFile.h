@@ -143,8 +143,8 @@ bool CmFile::FileExist(CStr& filePath)
 {
 	if (filePath.size() == 0)
 		return false;
-
-	return  GetFileAttributesA(_S(filePath)) == FILE_ATTRIBUTE_NORMAL; // ||  GetLastError() != ERROR_FILE_NOT_FOUND;
+	DWORD attr = GetFileAttributesA(_S(filePath));
+	return attr == FILE_ATTRIBUTE_NORMAL ||  attr == FILE_ATTRIBUTE_ARCHIVE;//GetLastError() != ERROR_FILE_NOT_FOUND;
 }
 
 bool CmFile::FilesExist(CStr& fileW)

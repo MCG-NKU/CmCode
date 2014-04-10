@@ -2,11 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CmLib", "CmLib\CmLib.vcxproj", "{925E8D9D-F4BB-431C-BE63-5F95F6CCC460}"
-	ProjectSection(ProjectDependencies) = postProject
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299} = {94EFCD64-86E6-40C6-8186-EC7D6FE91299}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cholmod", "Cholmod\Cholmod.vcxproj", "{94EFCD64-86E6-40C6-8186-EC7D6FE91299}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CurveExtractionHHME09", "CurveExtractionHHME09\CurveExtractionHHME09.vcxproj", "{53D80B8F-4841-45E7-BDA1-E52A18A9FE18}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -36,14 +31,6 @@ Global
 		{925E8D9D-F4BB-431C-BE63-5F95F6CCC460}.Release|Win32.Build.0 = Release|Win32
 		{925E8D9D-F4BB-431C-BE63-5F95F6CCC460}.Release|x64.ActiveCfg = Release|x64
 		{925E8D9D-F4BB-431C-BE63-5F95F6CCC460}.Release|x64.Build.0 = Release|x64
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Debug|Win32.ActiveCfg = Debug|Win32
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Debug|Win32.Build.0 = Debug|Win32
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Debug|x64.ActiveCfg = Debug|x64
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Debug|x64.Build.0 = Debug|x64
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Release|Win32.ActiveCfg = Release|Win32
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Release|Win32.Build.0 = Release|Win32
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Release|x64.ActiveCfg = Release|x64
-		{94EFCD64-86E6-40C6-8186-EC7D6FE91299}.Release|x64.Build.0 = Release|x64
 		{53D80B8F-4841-45E7-BDA1-E52A18A9FE18}.Debug|Win32.ActiveCfg = Debug|Win32
 		{53D80B8F-4841-45E7-BDA1-E52A18A9FE18}.Debug|Win32.Build.0 = Debug|Win32
 		{53D80B8F-4841-45E7-BDA1-E52A18A9FE18}.Debug|x64.ActiveCfg = Debug|x64

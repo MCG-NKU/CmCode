@@ -6,6 +6,7 @@ struct CmFile
 	static string BrowseFolder(); 
 
 	static inline string GetFolder(CStr& path);
+	static inline string GetSubFolder(CStr& path);
 	static inline string GetName(CStr& path);
 	static inline string GetNameNE(CStr& path);
 	static inline string GetPathNE(CStr& path);
@@ -74,6 +75,12 @@ struct CmFile
 string CmFile::GetFolder(CStr& path)
 {
 	return path.substr(0, path.find_last_of("\\/")+1);
+}
+
+string CmFile::GetSubFolder(CStr& path)
+{
+	string folder = path.substr(0, path.find_last_of("\\/"));
+	return folder.substr(folder.find_last_of("\\/")+1);
 }
 
 string CmFile::GetName(CStr& path)

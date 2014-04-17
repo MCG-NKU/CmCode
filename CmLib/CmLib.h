@@ -105,7 +105,7 @@ using namespace cv;
 //#include "./Cluster/CmUFSet.h"
 
 
-#include "../Cholmod/CholmodInclude.h"
+//#include "../Cholmod/CholmodInclude.h"
 //#include "./Mating/AlphaMatting.h"
 //#include "./Mating/CmMatingCF.h"
 //

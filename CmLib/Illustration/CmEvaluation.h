@@ -37,7 +37,8 @@ struct CmEvaluation
 	
 	static int STEP; // Evaluation threshold density
 	static void PrintVector(FILE *f, const vecD &v, CStr &name);
-private:
+
+protected:
 	static const int COLOR_NUM = 255;  
 	static const int MI;  // Number of difference threshold
 

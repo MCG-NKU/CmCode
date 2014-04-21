@@ -72,7 +72,7 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 		meanFMeasure += "mean(" + fMeasureStr + ") ";
 		maxFMeasure += "max(" + fMeasureStr + ") ";
 	}
-	fprintf(f, "%s];\n%s];\nbar([MeanFMeasure; MaxFMeasure]');\n", _S(meanFMeasure), _S(maxFMeasure));
+	fprintf(f, "%s];\n%s];\nbar([MeanFMeasure; MaxFMeasure]');\nlegend('Mean F_\\beta', 'Max F_\\beta');\n", _S(meanFMeasure), _S(maxFMeasure));
 
 
 	fclose(f);

@@ -15,21 +15,19 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 	};
 	FILE* f = fopen(_S(resName), "w");
 	CV_Assert(f != NULL);
-	fprintf(f, "clear;\nclose all;\nclc;\nsubplot('131');\nhold on;\n\n\n");
+	fprintf(f, "clear;\nclose all;\nclc;\n\n\n%%%%\nfigure(1);\nhold on;\n");
 	vecD thr(MI);
 	for (int i = 0; i < MI; i++)
 		thr[i] = i * STEP;
 	PrintVector(f, thr, "Threshold");
 	fprintf(f, "\n");
 
-	vecI changeT(TN, -1);
 	for (int i = 0; i < TN; i++)
-		changeT[i] = Evaluate_(gtW, salDir, des[i] + ".png", precision[i], recall[i], tpr[i], fpr[i]); //Evaluate(salDir + "*" + des[i] + ".png", gtW, val[i], recall[i], t);
+		Evaluate_(gtW, salDir, des[i] + ".png", precision[i], recall[i], tpr[i], fpr[i]); //Evaluate(salDir + "*" + des[i] + ".png", gtW, val[i], recall[i], t);
 
 	string leglendStr("legend(");
 	vecS strPre(TN), strRecall(TN), strTpr(TN), strFpr(TN);
 	for (int i = 0; i < TN; i++){
-		CStr validateRange = changeT[i] != -1 ? format("(1:%d)", changeT[i]) : "";
 		strPre[i] = format("Precision%s", _S(des[i]));
 		strRecall[i] = format("Recall%s", _S(des[i]));
 		strTpr[i] = format("TPR%s", _S(des[i]));
@@ -38,25 +36,22 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 		PrintVector(f, precision[i], strPre[i]);
 		PrintVector(f, tpr[i], strTpr[i]);
 		PrintVector(f, fpr[i], strFpr[i]);
-		fprintf(f, "plot(%s, %s, %s, 'linewidth', 2);\n", _S(strRecall[i] + validateRange), _S(strPre[i] + validateRange), c[i % CN]);
+		fprintf(f, "plot(%s, %s, %s, 'linewidth', 2);\n", _S(strRecall[i]), _S(strPre[i]), c[i % CN]);
 		leglendStr += format("'%s', ",  _S(des[i].substr(1)));
 	}
 	leglendStr.resize(leglendStr.size() - 2);
 	leglendStr += ");";
-	//for (int i = 0; i < TN; i++)
-	//	if (changeT[i] != -1)
-	//		fprintf(f, "plot(%s(%d), %s(%d), 'r*', 'linewidth', 2);\n", _S(strRecall[i]), changeT[i], _S(strPre[i]), changeT[i]);
 	string xLabel = "label('Recall');\n";
 	string yLabel = "label('Precision')\n";
 	fprintf(f, "hold off;\nx%sy%s\n%s\ngrid on;\naxis([0 1 0 1]);\n", _S(xLabel), _S(yLabel), _S(leglendStr));
 
 
-	fprintf(f, "\n\nsubplot('132');\nhold on;\n");
+	fprintf(f, "\n\n\n%%%%\nfigure(2);\nhold on;\n");
 	for (int i = 0; i < TN; i++)
 		fprintf(f, "plot(%s, %s,  %s, 'linewidth', 2);\n", _S(strFpr[i]), _S(strTpr[i]), c[i % CN]);
 	xLabel = "label('False positive rate');\n";
 	yLabel = "label('True positive rate')\n";
-	fprintf(f, "hold off;\nx%sy%s\n%s\ngrid on;\naxis([0 1 0 1]);\n\n\n", _S(xLabel), _S(yLabel), _S(leglendStr));
+	fprintf(f, "hold off;\nx%sy%s\n%s\ngrid on;\naxis([0 1 0 1]);\n\n\n%%%%\nfigure(3)\n", _S(xLabel), _S(yLabel), _S(leglendStr));
 
 	vecD areaROC(TN);
 	for (int i = 0; i < TN; i++){
@@ -66,9 +61,19 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 			areaROC[i] += (tpr[i][t] + tpr[i][t - 1]) * (fpr[i][t - 1] - fpr[i][t]) / 2.0;
 		fprintf(f, "%%ROC%s: %g\n", _S(des[i]), areaROC[i]);
 	}
-
 	PrintVector(f, areaROC, "AUC");
-	fprintf(f, "\n\nsubplot('133');\nhold on;\nbar(AUC)");
+	fprintf(f, "\nbar(AUC)\n\n\n\n%%%\nfigure(4)\nbeta = 0.3;\n");
+
+	string meanFMeasure = "MeanFMeasure = [", maxFMeasure = "MaxFMeasure = [";
+	for (int i = 0; i < TN; i++){
+		const char* dStr = _S(des[i]);
+		string fMeasureStr = format("FMeasure%s", dStr);
+		fprintf(f, "%s = ((1+beta)*Precision%s .* Recall%s) ./ (beta * Precision%s + Recall%s);\n", _S(fMeasureStr), dStr, dStr, dStr, dStr);
+		meanFMeasure += "mean(" + fMeasureStr + ") ";
+		maxFMeasure += "max(" + fMeasureStr + ") ";
+	}
+	fprintf(f, "%s];\n%s];\nbar([MeanFMeasure; MaxFMeasure]');\n", _S(meanFMeasure), _S(maxFMeasure));
+
 
 	fclose(f);
 	printf("%-70s\r", "");
@@ -83,7 +88,7 @@ void CmEvaluation::PrintVector(FILE *f, const vecD &v, CStr &name)
 }
 
 // Return the threshold when significant amount of recall reach 0
-int CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr)
+void CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr)
 {
 	vecS names;
 	string truthDir, gtExt;
@@ -92,10 +97,9 @@ int CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &preci
 	recall.resize(MI, 0);
 	tpr.resize(MI, 0);
 	fpr.resize(MI, 0);
-	vecD val2(MI, 0);
 	if (imgNum == 0){
 		printf("Can't load ground truth images %s\n", _S(gtImgW));
-		return -1;
+		return;
 	}
 	else
 		printf("Evaluating %d saliency maps ... \r", imgNum);
@@ -104,6 +108,7 @@ int CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &preci
 		printf("Evaluating %03d/%d %-40s\r", i, imgNum, _S(names[i] + resExt));
 		Mat resS = imread(inDir + names[i] + resExt, CV_LOAD_IMAGE_GRAYSCALE);
 		CV_Assert_(resS.data != NULL, ("Can't load saliency map: %s\n", _S(names[i]) + resExt));
+		normalize(resS, resS, 0, 255, NORM_MINMAX);
 		Mat gtFM = imread(truthDir + names[i] + gtExt, CV_LOAD_IMAGE_GRAYSCALE), gtBM;
 		if (gtFM.data == NULL) 
 			continue;
@@ -112,6 +117,7 @@ int CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &preci
 		bitwise_not(gtFM, gtBM);
 		double gtF = sum(gtFM).val[0];
 		double gtB = resS.cols * resS.rows * 255 - gtF;
+
 
 #pragma omp parallel for
 		for (int thr = 0; thr < MI; thr++){
@@ -127,7 +133,6 @@ int CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &preci
 			recall[thr] += tp/(gtF+EPS);
 			double total = EPS + tp + fp;
 			precision[thr] += (tp+EPS)/total;
-			val2[thr] += tp/total;
 
 			tpr[thr] += (tp + EPS) / (tp + fn + EPS);
 			fpr[thr] += (fp + EPS) / (fp + tn + EPS);
@@ -135,17 +140,12 @@ int CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &preci
 	}
 
 	int thrS = 0, thrE = MI, thrD = 1;
-	int res = -1;
 	for (int thr = thrS; thr != thrE; thr += thrD){
 		precision[thr] /= imgNum;
 		recall[thr] /= imgNum;
-		val2[thr] /= imgNum;
 		tpr[thr] /= imgNum;
 		fpr[thr] /= imgNum;
-		if (precision[thr] - val2[thr] > 0.05 && res == -1)//Too many recall = 0 maps after this threshold
-			res = thr;
 	}
-	return res;
 }
 
 double CmEvaluation::interUnionBBox(const Vec4i &box1, const Vec4i &box2) // each box minx, minY, maxX, maxY

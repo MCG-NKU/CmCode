@@ -286,6 +286,14 @@ void CmFile::RunProgram(CStr &fileName, CStr &parameters, bool waiteF, bool show
 		WaitForSingleObject(ShExecInfo.hProcess,INFINITE);
 }
 
+string CmFile::GetCompName() 
+{
+	char buf[1024];
+	DWORD dwCompNameLen = 1024;
+	GetComputerNameA(buf, &dwCompNameLen);
+	return string(buf);
+}
+
 void CmFile::SegOmpThrdNum(double ratio /* = 0.8 */)
 {
 	int thrNum = omp_get_max_threads();

@@ -42,6 +42,6 @@ private:
 	static const int MI;  // Number of difference threshold
 
 
-	static int Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr);
+	static void Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr);
 };
 

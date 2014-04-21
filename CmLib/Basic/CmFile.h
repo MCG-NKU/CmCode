@@ -55,6 +55,7 @@ struct CmFile
 	static void ChkImgs(CStr &imgW);
 
 	static void RunProgram(CStr &fileName, CStr &parameters = "", bool waiteF = false, bool showW = true);
+	static string GetCompName(); // Get the name of computer
 
 	static void SegOmpThrdNum(double ratio = 0.8);
 

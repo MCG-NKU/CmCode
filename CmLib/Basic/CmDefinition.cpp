@@ -87,21 +87,3 @@ wstring s2ws(const std::string& s)
 	delete[] buf;
 	return r;
 }
-
-vecS strList2VecS(string strs[], int num)
-{
-	vecS strVec(num);
-#pragma omp parallel for
-	for (int i = 0; i < num; i++)
-		strVec[i] = strs[i];
-	return strVec;
-}
-
-void strListAdd2VecS(string str[], int num, vecS &strVec)
-{
-	int sz = (int)(strVec.size());
-	strVec.resize(num + sz);
-#pragma omp parallel for
-	for (int i = 0; i < num; i++)
-		strVec[sz + i] = str[i];
-}

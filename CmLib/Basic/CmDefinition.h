@@ -173,13 +173,13 @@ template<typename T> inline bool lessThan(const Vec<T, 2> &v1, const Vec<T, 2> &
 	cv::error(cv::Exception(CV_StsAssert, msg, __FUNCTION__, __FILE__, __LINE__) ); }\
 }
 
+#define charPointers2StrVec(arrayOfCharPointer) (vecS(arrayOfCharPointer, std::end(arrayOfCharPointer)))
+
 void splitStr(CStr& str, CStr& delimiters , vector<string>& tokens);
 wstring s2ws(const std::string& s);
 inline double MatMin(CMat &m) {double minVal; minMaxLoc(m, &minVal, NULL); return minVal; }
 inline double MatMax(CMat &m) {double maxVal; minMaxLoc(m, NULL, &maxVal); return maxVal; }
 
-vecS strList2VecS(string strs[], int num);
-void strListAdd2VecS(string str[], int num, vecS &strVec);
 
 template<class T> inline Point_<T> operator / (const Point_<T> &p, double s) { return Point_<T>((T)(p.x /s), (T)(p.y/s));}
 template<class T> inline void operator /= (Point_<T> &p, double s) {p.x /= s, p.y /= s;}

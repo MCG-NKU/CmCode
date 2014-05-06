@@ -2,7 +2,7 @@
 #include "CmSaliencyRC.h"
 
 const char* CmSaliencyRC::SAL_TYPE_DES[SAL_TYPE_NUM] = {
-	"_RC", "_HC", "_FT", "_LC", "_SR"
+	"RC", "HC", "FT", "LC", "SR"
 };
 
 const CmSaliencyRC::GET_SAL_FUNC CmSaliencyRC::gFuns[SAL_TYPE_NUM] = {
@@ -40,7 +40,7 @@ void CmSaliencyRC::Get(CStr &imgNameW, CStr &salFileDir)
 			//sal = Get(img3f, gFuns[f], 400);			
 			sal = gFuns[f](img3f);
 			//timer[f].Stop();
-			imwrite(salFileDir + names[i] + SAL_TYPE_DES[f] + ".png", sal*255);
+			imwrite(salFileDir + names[i] + "_" + SAL_TYPE_DES[f] + ".png", sal*255);
 		}
 	}
 	//for (int f = 0; f < SAL_TYPE_NUM; f++)
@@ -367,6 +367,40 @@ void CmSaliencyRC::SmoothByRegion(Mat &sal1f, CMat &segIdx1i, int regNum, bool b
 		for (int x = 0; x < sal1f.cols; x++)
 			sal[x] = (float)saliecy[idx[x]];
 	}	
+}
+
+
+void CmSaliencyRC::SmoothByGMMs(CMat &_img3f, Mat &_sal1f, int fGmmNum, int bGmmNum, int wkSize)
+{
+	CV_Assert(_img3f.size == _sal1f.size && _img3f.type() == CV_32FC3 && _sal1f.type() == CV_32F);
+	Rect rect(0, 0, _img3f.cols, _img3f.rows);
+	if (wkSize > 0){
+		Mat wkMask;
+		compare(_sal1f, 0.05, wkMask, CMP_GT);
+		rect = CmCv::GetMaskRange(wkMask, 20);
+	}
+	CMat img3f = _img3f(rect);
+	Mat sal1f = _sal1f(rect); // constant input
+
+	CmGMM fGmm(fGmmNum), bGmm(bGmmNum);
+	Mat bComp1i, fComp1i;
+	fGmm.BuildGMMs(img3f, fComp1i, sal1f);
+	fGmm.RefineGMMs(img3f, fComp1i, sal1f);
+	sal1f = 1 - sal1f;
+
+	bGmm.BuildGMMs(img3f, bComp1i, sal1f);
+	bGmm.RefineGMMs(img3f, bComp1i, sal1f);
+
+	for (int r = 0; r < sal1f.rows; r++){
+		float *sal = sal1f.ptr<float>(r);
+		const Vec3f *img = img3f.ptr<Vec3f>(r);
+		for (int c = 0; c < sal1f.cols; c++){
+			float fg = fGmm.P(img[c]), bg = bGmm.P(img[c]);
+			sal[c] = fg / (fg + bg);
+		}
+	}
+
+	sal1f.copyTo(_sal1f(rect));
 }
 
 int CmSaliencyRC::Demo(CStr wkDir)

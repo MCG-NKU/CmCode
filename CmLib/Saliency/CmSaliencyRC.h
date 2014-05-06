@@ -32,6 +32,7 @@ struct CmSaliencyRC
 	static Mat Get(CMat &img3f, GET_SAL_FUNC fun, int wkSize);
 	static void SmoothByHist(CMat &img3f, Mat &sal1f, float delta);
 	static void SmoothByRegion(Mat &sal1f, CMat &idx1i, int regNum, bool bNormalize = true);
+	static void SmoothByGMMs(CMat &img3f, Mat &sal1f, int fNum = 5, int bNum = 5, int wkSize = 0);
 
 	static int Demo(CStr wkDir);
 

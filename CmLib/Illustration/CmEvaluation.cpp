@@ -23,21 +23,21 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 	fprintf(f, "\n");
 
 	for (int i = 0; i < TN; i++)
-		Evaluate_(gtW, salDir, des[i] + ".png", precision[i], recall[i], tpr[i], fpr[i]); //Evaluate(salDir + "*" + des[i] + ".png", gtW, val[i], recall[i], t);
+		Evaluate_(gtW, salDir, "_" + des[i] + ".png", precision[i], recall[i], tpr[i], fpr[i]); //Evaluate(salDir + "*" + des[i] + ".png", gtW, val[i], recall[i], t);
 
 	string leglendStr("legend(");
 	vecS strPre(TN), strRecall(TN), strTpr(TN), strFpr(TN);
 	for (int i = 0; i < TN; i++){
-		strPre[i] = format("Precision%s", _S(des[i]));
-		strRecall[i] = format("Recall%s", _S(des[i]));
-		strTpr[i] = format("TPR%s", _S(des[i]));
-		strFpr[i] = format("FPR%s", _S(des[i]));
+		strPre[i] = format("Precision_%s", _S(des[i]));
+		strRecall[i] = format("Recall_%s", _S(des[i]));
+		strTpr[i] = format("TPR_%s", _S(des[i]));
+		strFpr[i] = format("FPR_%s", _S(des[i]));
 		PrintVector(f, recall[i], strRecall[i]);
 		PrintVector(f, precision[i], strPre[i]);
 		PrintVector(f, tpr[i], strTpr[i]);
 		PrintVector(f, fpr[i], strFpr[i]);
 		fprintf(f, "plot(%s, %s, %s, 'linewidth', 2);\n", _S(strRecall[i]), _S(strPre[i]), c[i % CN]);
-		leglendStr += format("'%s', ",  _S(des[i].substr(1)));
+		leglendStr += format("'%s', ",  _S(des[i]));
 	}
 	leglendStr.resize(leglendStr.size() - 2);
 	leglendStr += ");";
@@ -59,7 +59,7 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 		CV_Assert(fpr[i].size() == tpr[i].size());
 		for (size_t t = 1; t < fpr[i].size(); t++)
 			areaROC[i] += (tpr[i][t] + tpr[i][t - 1]) * (fpr[i][t - 1] - fpr[i][t]) / 2.0;
-		fprintf(f, "%%ROC%s: %g\n", _S(des[i]), areaROC[i]);
+		fprintf(f, "%%ROC_%s: %g\n", _S(des[i]), areaROC[i]);
 	}
 	PrintVector(f, areaROC, "AUC");
 	fprintf(f, "\nbar(AUC)\n\n\n\n%%%\nfigure(4)\nbeta = 0.3;\n");
@@ -67,13 +67,12 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 	string meanFMeasure = "MeanFMeasure = [", maxFMeasure = "MaxFMeasure = [";
 	for (int i = 0; i < TN; i++){
 		const char* dStr = _S(des[i]);
-		string fMeasureStr = format("FMeasure%s", dStr);
-		fprintf(f, "%s = ((1+beta)*Precision%s .* Recall%s) ./ (beta * Precision%s + Recall%s);\n", _S(fMeasureStr), dStr, dStr, dStr, dStr);
+		string fMeasureStr = format("FMeasure_%s", dStr);
+		fprintf(f, "%s = ((1+beta)*Precision_%s .* Recall_%s) ./ (beta * Precision_%s + Recall_%s);\n", _S(fMeasureStr), dStr, dStr, dStr, dStr);
 		meanFMeasure += "mean(" + fMeasureStr + ") ";
 		maxFMeasure += "max(" + fMeasureStr + ") ";
 	}
 	fprintf(f, "%s];\n%s];\nbar([MeanFMeasure; MaxFMeasure]');\nlegend('Mean F_\\beta', 'Max F_\\beta');\n", _S(meanFMeasure), _S(maxFMeasure));
-
 
 	fclose(f);
 	printf("%-70s\r", "");
@@ -207,10 +206,10 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, C
 	for (int i = 0; i < imgNum; i++){
 		Mat truM = imread(gtDir + namesNS[i] + gtExt, CV_LOAD_IMAGE_GRAYSCALE);
 		for (int m = 0; m < methodNum; m++)	{
-			Mat res = imread(maskDir + namesNS[i] + des[m] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
+			Mat res = imread(maskDir + namesNS[i] + "_" + des[m] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
 			if (truM.data == NULL || res.data == NULL || truM.size != res.size){
 				if (alertNul)
-					printf("Truth(%d, %d), Res(%d, %d): %s\n", truM.cols, truM.rows, res.cols, res.rows, _S(namesNS[i] + des[m] + ".png"));
+					printf("Truth(%d, %d), Res(%d, %d): %s\n", truM.cols, truM.rows, res.cols, res.rows, _S(namesNS[i] + "_" + des[m] + ".png"));
 				continue;
 			}
 			compare(truM, 128, truM, CMP_GE);
@@ -258,12 +257,12 @@ void CmEvaluation::MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des, CStr 
 		//printf("%s.jpg ", _S(namesNE[i]));
 		gt.convertTo(gt, CV_32F, 1.0/255);
 		for (size_t j = 0; j < des.size(); j++){
-			Mat res = imread(salDir + namesNE[i] + des[j] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
-			CV_Assert_(res.data != NULL, ("Can't load file %s\n", _S(namesNE[i] + des[j] + ".png")));
+			Mat res = imread(salDir + namesNE[i] + "_" + des[j] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
+			CV_Assert_(res.data != NULL, ("Can't load file %s\n", _S(namesNE[i] + "_" + des[j] + ".png")));
 			if (res.size != gt.size){
-				printf("size don't match %s\n", _S(namesNE[i] + des[j] + ".png"));
+				printf("size don't match %s\n", _S(namesNE[i] + "_" + des[j] + ".png"));
 				resize(res, res, gt.size());
-				imwrite(string("C:/WkDir/Saliency/DataFT/Out/") + namesNE[i] + des[j] + ".png", res);
+				imwrite(string("C:/WkDir/Saliency/DataFT/Out/") + namesNE[i] + "_" + des[j] + ".png", res);
 			}
 			res.convertTo(res, CV_32F, 1.0/255);
 			cv::absdiff(gt, res, res);
@@ -281,7 +280,7 @@ void CmEvaluation::MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des, CStr 
 		FILE *f = fopen(_S(resFileName), "w");
 		CV_Assert_(f != NULL, ("Can't open %s\n", _S(resFileName)));
 		for (size_t j = 0; j < des.size(); j++)
-			fprintf(f, "%%MAE%s:%g\n", _S(des[j]), costs[j]);
+			fprintf(f, "%%MAE_%s:%g\n", _S(des[j]), costs[j]);
 		PrintVector(f, costs, "MAE");
 		fprintf(f, "bar(MAE);\n");
 		fclose(f);

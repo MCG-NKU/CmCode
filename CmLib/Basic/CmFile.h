@@ -68,6 +68,10 @@ struct CmFile
 	static bool matWrite(CStr& filename, CMat& M);
 	// Read matrix from binary file
 	static bool matRead( const string& filename, Mat& M);
+
+	// Needs 7-Zip to be installed and 7z.exe to be put under available path. compressLevel = 9 gives maximal compression
+	static void ZipFiles(CStr &filesW, CStr &zipFileName, int compressLevel = 0);
+	static void CmFile::UnZipFiles(CStr &zipFileName, CStr &tgtDir, bool overwriteWarning = true);
 };
 
 /************************************************************************/

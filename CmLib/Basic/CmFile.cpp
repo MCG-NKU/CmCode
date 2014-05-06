@@ -361,3 +361,20 @@ bool CmFile::matRead( const string& filename, Mat& _M){
 	M.copyTo(_M);
 	return true;
 }
+
+void CmFile::ZipFiles(CStr &filesW, CStr &zipFileName, int compressLevel)
+{
+	string param = format("u -tzip -mmt -mx%d \"%s\" \"%s\"", compressLevel, _S(zipFileName), _S(filesW));
+	printf("Zip files: %s --> %s\n", _S(filesW), _S(zipFileName));
+	RunProgram("7z.exe", param, true, false);
+}
+
+
+void CmFile::UnZipFiles(CStr &zipFileName, CStr &tgtDir, bool overwriteWarning/* = true*/)
+{
+	string param = format("e \"%s\" \"-o%s\" -r", _S(zipFileName), _S(tgtDir));
+	if (!overwriteWarning)
+		param += " -y";
+	printf("UnZip files: %s --> %s\n", _S(zipFileName), _S(tgtDir));
+	CmFile::RunProgram("7z.exe", param, true, overwriteWarning);
+}

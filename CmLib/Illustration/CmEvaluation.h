@@ -18,17 +18,17 @@
 
 struct CmEvaluation
 {
-	// Save the precision recall curve, and ROC curve to a Matlab file: resName
-	// Return area under ROC curve
+	// Save the precision recall curve, ROC curve, AUC, MaxFMeasure, MeanFMeasure and MAE to a Matlab file for direct ploting
 	static void Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des); 
 	static void Evaluate(CStr gtW, CStr &salDir, CStr &resName, CStr &des) {vecS descri(1); descri[0] = des; Evaluate(gtW, salDir, resName, descri);} 
 
+	// Plot the FMeasure bar
 	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false);
-	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &maskExt, bool alertNul = true);
-	static double FMeasure(CMat &mask1u, CMat &gtMask1u); // The two mask should contain values of either 0 or 255.
+	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false);
 
-	static void MeanAbsoluteError(CStr &inDir, CStr &salDir, vecS &des, CStr resFileName = "Res.m");
+public: // Assistant functions
 	
+	static double FMeasure(CMat &mask1u, CMat &gtMask1u); // The two mask should contain values of either 0 or 255.
 	// Format change from OpenCV region (x, y, width, height) to VOC bounding box (minx, minY, maxX, maxY)
 	static inline Vec4i reg2Box(const Rect &reg) {return Vec4i(reg.x, reg.y, reg.x + reg.width - 1, reg.y + reg.height - 1);}
 
@@ -42,7 +42,7 @@ protected:
 	static const int COLOR_NUM = 255;  
 	static const int MI;  // Number of difference threshold
 
-
-	static void Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr);
+	// Return mean absolute error (MAE)
+	static double Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr);
 };
 

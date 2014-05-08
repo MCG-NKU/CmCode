@@ -257,6 +257,18 @@ void CmFile::ChkImgs(CStr &imgW)
 }
 
 
+void CmFile::AppendStr(CStr fileName, CStr str)
+{
+	FILE *f = fopen(_S(fileName), "a");
+	if (f == NULL){
+		printf("File %s can't be opened\n", _S(fileName));
+		return;
+	}
+	fprintf(f, "%s", _S(str));
+	fclose(f);
+}
+
+
 void CmFile::RunProgram(CStr &fileName, CStr &parameters, bool waiteF, bool showW)
 {
 	string runExeFile = fileName;

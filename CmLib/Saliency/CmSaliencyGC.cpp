@@ -290,7 +290,6 @@ int CmSaliencyGC::Demo(CStr imgW, CStr salDir)
 	printf("Speed: %g seconds = %g fps\n", tm.TimeInSeconds()/imgNum, imgNum/tm.TimeInSeconds());
 
 	des.push_back("GC");
-	CmEvaluation::MeanAbsoluteError(imgDir, salDir, des);
 	CmEvaluation::Evaluate(imgDir + "*.png", salDir, salDir + "Eval.m", des);
 	return 0;
 }

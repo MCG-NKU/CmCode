@@ -3,7 +3,7 @@
 #pragma warning(disable: 4995)
 #pragma warning(disable: 4805)
 #pragma warning(disable: 4267)
-#define _CRT_SECURE_NO_DEPRECATE
+
 
 #include <assert.h>
 #include <string>
@@ -71,7 +71,7 @@ using namespace cv;
 #include "./Illustration/CmShow.h"
 //#include "./Illustration/CmIllustr.h"
 #include "./Illustration/CmEvaluation.h"
-//#include "./Illustration/CmIllu.h"
+#include "./Illustration/CmIllu.h"
 //
 //// Shape matching algorithms
 //#include "./ShapMatch/CmAffine.h"

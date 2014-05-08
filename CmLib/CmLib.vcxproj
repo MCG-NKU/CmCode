@@ -93,7 +93,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -128,7 +128,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
@@ -154,6 +154,7 @@
     <ClInclude Include="CRF\fastmath.h" />
     <ClInclude Include="CRF\permutohedral.h" />
     <ClInclude Include="Illustration\CmEvaluation.h" />
+    <ClInclude Include="Illustration\CmIllu.h" />
     <ClInclude Include="Illustration\CmShow.h" />
     <ClInclude Include="OtherAlg\CmCurveEx.h" />
     <ClInclude Include="Saliency\CmSaliencyGC.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="Cluster\CmColorQua.cpp" />
     <ClCompile Include="Cluster\CmGMM.cpp" />
     <ClCompile Include="Illustration\CmEvaluation.cpp" />
+    <ClCompile Include="Illustration\CmIllu.cpp" />
     <ClCompile Include="Illustration\CmShow.cpp" />
     <ClCompile Include="OtherAlg\CmCurveEx.cpp" />
     <ClCompile Include="Saliency\CmSaliencyGC.cpp" />

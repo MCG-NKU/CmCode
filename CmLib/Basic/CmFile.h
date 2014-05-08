@@ -51,6 +51,7 @@ struct CmFile
 	static Mat LoadMask(CStr& fileName);
 
 	static void WriteNullFile(CStr& fileName) {FILE *f = fopen(_S(fileName), "w"); fclose(f);}
+	static void AppendStr(CStr fileName, CStr str);
 
 	static void ChkImgs(CStr &imgW);
 

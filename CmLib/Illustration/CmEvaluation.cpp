@@ -180,13 +180,13 @@ double CmEvaluation::interUnionBBox(const Vec4i &box1, const Vec4i &box2) // eac
 	return ov;
 }
 
-void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &des, CStr resFile, double betaSqr, bool alertNul) 
+void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix) 
 {
 	vecS descri(1); descri[0] = des; 
-	EvalueMask(gtW, maskDir, gtExt, descri, resFile, betaSqr, alertNul);
+	EvalueMask(gtW, maskDir, gtExt, descri, resFile, betaSqr, alertNul, suffix);
 }
 
-void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr, bool alertNul)
+void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix)
 {
 	vecS namesNS; 
 	string gtDir;
@@ -196,10 +196,12 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, C
 	for (int i = 0; i < imgNum; i++){
 		Mat truM = imread(gtDir + namesNS[i] + gtExt, CV_LOAD_IMAGE_GRAYSCALE);
 		for (int m = 0; m < methodNum; m++)	{
-			Mat res = imread(maskDir + namesNS[i] + "_" + des[m] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
+			string mapName = maskDir + namesNS[i] + "_" + des[m];
+			mapName += suffix.empty() ? ".png" : "_" + suffix + ".png";
+			Mat res = imread(mapName, CV_LOAD_IMAGE_GRAYSCALE);
 			if (truM.data == NULL || res.data == NULL || truM.size != res.size){
 				if (alertNul)
-					printf("Truth(%d, %d), Res(%d, %d): %s\n", truM.cols, truM.rows, res.cols, res.rows, _S(namesNS[i] + "_" + des[m] + ".png"));
+					printf("Truth(%d, %d), Res(%d, %d): %s\n", truM.cols, truM.rows, res.cols, res.rows, _S(mapName));
 				continue;
 			}
 			compare(truM, 128, truM, CMP_GE);
@@ -215,15 +217,18 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, C
 		}
 	}
 
-	for (int m = 0; m < methodNum; m++)
+	for (int m = 0; m < methodNum; m++){
 		pr[m] /= count[m], rec[m] /= count[m];
+		fm[m] = (1 + betaSqr) * pr[m] * rec[m] / (betaSqr * pr[m] + rec[m] + EPS);
+	}
 
 	FILE *f; 
-	fopen_s(&f, _S(resFile), "w");
+	fopen_s(&f, _S(resFile), "a");
 	CV_Assert(f != NULL);
-	CmEvaluation::PrintVector(f, pr, "Precision");
-	CmEvaluation::PrintVector(f, rec, "Recall");
-	fprintf(f, "BetaSqr = %g;\nFMeasure = Precision .* Recall * (1 + BetaSqr) ./ (Precision * BetaSqr + Recall);\nbar(FMeasure);\ntitle('FMeasure')\n", betaSqr);
+	CmEvaluation::PrintVector(f, pr, "PrecisionMask" + suffix);
+	CmEvaluation::PrintVector(f, rec, "RecallMask" + suffix);
+	CmEvaluation::PrintVector(f, fm, "FMeasureMask" + suffix);
+	fprintf(f, "bar(%s);\ntitle('%s')\n", _S("FMeasureMask" + suffix), _S("FMeasureMask" + suffix));
 	fclose(f);
 }
 

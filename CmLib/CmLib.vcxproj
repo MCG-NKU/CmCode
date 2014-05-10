@@ -157,6 +157,7 @@
     <ClInclude Include="Illustration\CmIllu.h" />
     <ClInclude Include="Illustration\CmShow.h" />
     <ClInclude Include="OtherAlg\CmCurveEx.h" />
+    <ClInclude Include="OtherAlg\CmValStructVec.h" />
     <ClInclude Include="Saliency\CmSaliencyGC.h" />
     <ClInclude Include="Saliency\CmSaliencyRC.h" />
     <ClInclude Include="Segmentation\EfficientGraphBased\disjoint-set.h" />

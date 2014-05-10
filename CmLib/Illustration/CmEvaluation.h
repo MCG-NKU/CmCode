@@ -23,8 +23,8 @@ struct CmEvaluation
 	static void Evaluate(CStr gtW, CStr &salDir, CStr &resName, CStr &des) {vecS descri(1); descri[0] = des; Evaluate(gtW, salDir, resName, descri);} 
 
 	// Plot the FMeasure bar
-	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false);
-	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false);
+	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false, CStr suffix = "");
+	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false, CStr suffix = "");
 
 public: // Assistant functions
 	

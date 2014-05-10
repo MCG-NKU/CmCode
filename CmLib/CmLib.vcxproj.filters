@@ -148,6 +148,9 @@
     <ClInclude Include="Illustration\CmIllu.h">
       <Filter>Illustration</Filter>
     </ClInclude>
+    <ClInclude Include="OtherAlg\CmValStructVec.h">
+      <Filter>OhterAlg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

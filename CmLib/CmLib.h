@@ -82,6 +82,7 @@ using namespace cv;
 
 // Other algorithms
 #include "./OtherAlg/CmCurveEx.h"
+#include "./OtherAlg/CmValStructVec.h"
 //#include "./OtherAlg/CmNNF.h"
 //#include "./OtherAlg/CmWebImg.h"
 //#include "./OtherAlg/CmMatch.h"

@@ -140,3 +140,4 @@ extern bool dbgStop;
 #define DBG_POINT if (dbgStop) printf("%d:%s\n", __LINE__, __FILE__);
 
 #pragma comment(lib, lnkLIB("CmLib"))
+#define CM_CODE

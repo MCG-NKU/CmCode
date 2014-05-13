@@ -339,38 +339,51 @@ vecS CmFile::loadStrList(CStr &fName)
 
 
 // Write matrix to binary file
-bool CmFile::matWrite(CStr& filename, CMat& _M){
+bool CmFile::matWrite(CStr& filename, CMat& M){
+	FILE* f = fopen(_S(filename), "wb");
+	bool res = matWrite(f, M);
+	if (f != NULL)
+		fclose(f);	
+	return res;
+}
+
+bool CmFile::matWrite(FILE *f, CMat& _M)
+{
 	Mat M;
 	_M.copyTo(M);
-	FILE* file = fopen(_S(filename), "wb");
-	if (file == NULL || M.empty())
+	if (f == NULL || M.empty())
 		return false;
-	fwrite("CmMat", sizeof(char), 5, file);
+	fwrite("CmMat", sizeof(char), 5, f);
 	int headData[3] = {M.cols, M.rows, M.type()};
-	fwrite(headData, sizeof(int), 3, file);
-	fwrite(M.data, sizeof(char), M.step * M.rows, file);
-	fclose(file);
+	fwrite(headData, sizeof(int), 3, f);
+	fwrite(M.data, sizeof(char), M.step * M.rows, f);
 	return true;
 }
 
 /****************************************************************************/
 // Read matrix from binary file
-bool CmFile::matRead( const string& filename, Mat& _M){
+bool CmFile::matRead( const string& filename, Mat& M){
 	FILE* f = fopen(_S(filename), "rb");
+	bool res = matRead(f, M);
+	if (f != NULL)
+		fclose(f);
+	return res;
+}
+
+bool CmFile::matRead(FILE *f, Mat& M)
+{
 	if (f == NULL)
 		return false;
 	char buf[8];
 	int pre = (int)fread(buf,sizeof(char), 5, f);
 	if (strncmp(buf, "CmMat", 5) != 0)	{
-		printf("Invalidate CvMat data file %s\n", _S(filename));
+		printf("Invalidate CvMat data file: %d:%s\n", __LINE__, __FILE__);
 		return false;
 	}
 	int headData[3]; // Width, height, type
 	fread(headData, sizeof(int), 3, f);
-	Mat M(headData[1], headData[0], headData[2]);
+	M = Mat(headData[1], headData[0], headData[2]);
 	fread(M.data, sizeof(char), M.step * M.rows, f);
-	fclose(f);
-	M.copyTo(_M);
 	return true;
 }
 

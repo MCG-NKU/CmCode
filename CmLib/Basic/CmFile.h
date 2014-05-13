@@ -67,8 +67,10 @@ struct CmFile
 
 	// Write matrix to binary file
 	static bool matWrite(CStr& filename, CMat& M);
+	static bool matWrite(FILE *f, CMat& M); // default FILE mode: "wb"
 	// Read matrix from binary file
 	static bool matRead( const string& filename, Mat& M);
+	static bool matRead(FILE *f, Mat& M); // default FILE mode: "rb"
 
 	// Needs 7-Zip to be installed and 7z.exe to be put under available path. compressLevel = 9 gives maximal compression
 	static void ZipFiles(CStr &filesW, CStr &zipFileName, int compressLevel = 0);

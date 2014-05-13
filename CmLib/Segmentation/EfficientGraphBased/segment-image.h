@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
 
 //"Default: k = 500, sigma = 1.0, min_size = 1000\n") or k = 200, sigma = 0.5, min_size = 50
-int SegmentImage(CMat &_src3f, Mat &pImgInd, double sigma = 0.5, double c = 1, int min_size = 50);
+int SegmentImage(CMat &_src3f, Mat &pImgInd, double sigma = 0.5, double k = 200, int min_size = 50);
 
 
 void SegmentImageDemo(CStr& inImgW, CStr& outDir, double sigma, double k, int min_size);

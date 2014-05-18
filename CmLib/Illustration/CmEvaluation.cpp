@@ -37,7 +37,7 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 		PrintVector(f, precision[i], strPre[i]);
 		PrintVector(f, tpr[i], strTpr[i]);
 		PrintVector(f, fpr[i], strFpr[i]);
-		fprintf(f, "plot(%s, %s, %s, 'linewidth', 2);\n", _S(strRecall[i]), _S(strPre[i]), c[i % CN]);
+		fprintf(f, "plot(%s, %s, %s, 'linewidth', %d);\n", _S(strRecall[i]), _S(strPre[i]), c[i % CN], i < CN ? 2 : 1);
 		leglendStr += format("'%s', ",  _S(des[i]));
 	}
 	leglendStr.resize(leglendStr.size() - 2);
@@ -49,7 +49,7 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 
 	fprintf(f, "\n\n\n%%%%\nfigure(2);\nhold on;\n");
 	for (int i = 0; i < TN; i++)
-		fprintf(f, "plot(%s, %s,  %s, 'linewidth', 2);\n", _S(strFpr[i]), _S(strTpr[i]), c[i % CN]);
+		fprintf(f, "plot(%s, %s,  %s, 'linewidth', %d);\n", _S(strFpr[i]), _S(strTpr[i]), c[i % CN], i < CN ? 2 : 1);
 	xLabel = "label('False positive rate');\n";
 	yLabel = "label('True positive rate')\n";
 	fprintf(f, "hold off;\nx%sy%s\n%s\ngrid on;\naxis([0 1 0 1]);\n\n\n%%%%\nfigure(3);\ntitle('ROC curve');\n", _S(xLabel), _S(yLabel), _S(leglendStr));

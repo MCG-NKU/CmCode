@@ -68,9 +68,9 @@ void CmColorQua::S_Quantize(CMat& _img3f, Mat &idx1i, int method)
 
 	Mat img;
 	switch (method)	{
-	case 0: img = _img3f; break;
-	case 1: cvtColor(_img3f, img, CV_BGR2HSV); break;
-	case 2: cvtColor(_img3f, img, CV_BGR2Lab); break;
+	case S_BGR: img = _img3f; break;
+	case S_HSV: cvtColor(_img3f, img, CV_BGR2HSV); break;
+	case S_LAB: cvtColor(_img3f, img, CV_BGR2Lab); break;
 	}
 
 	idx1i.create(img.size(), CV_32S);

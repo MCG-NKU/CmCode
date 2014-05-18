@@ -72,7 +72,7 @@ bool CmTimer::Report()
 	}
 
 	float timeUsed = TimeInSeconds();
-	printf("[%s] CumuTime: %4gs, #run: %4d, AvgTime: %4gs\n", title.c_str(), timeUsed, n_starts, timeUsed/n_starts);
+	printf("[%s] CumuTime: %4gs, #run: %2d, AvgTime: %4gs\n", title.c_str(), timeUsed, n_starts, timeUsed/n_starts);
 	return true;
 }
 

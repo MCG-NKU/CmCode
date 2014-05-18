@@ -27,7 +27,7 @@ struct CmColorQua
 	static void TestColorQuantize(CStr &inImgs, CStr &outDir);
 
 	// Static quantization and recover without prior color statistics, img3f: BGR image
-	static void S_Quantize(CMat& img3f, Mat &idx1i, int method = 1);
+	static void S_Quantize(CMat& img3f, Mat &idx1i, int method = S_BGR);
 	static void S_Recover(CMat& idx1i, Mat& img3f, int method = 1, CMat &src3f = Mat()); // img3f and src3f are BGR.
 
 	static int D_Quantize(CMat& img3f, Mat &idx1i, Mat &_color3f, Mat &_colorNum1i, double ratio = 0.95, const int colorNums[3] = DefaultNums);

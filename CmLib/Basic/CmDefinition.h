@@ -127,18 +127,19 @@ template<typename T> vector<T> operator /(const vector<T>& v1, const vector<T> &
 	return result;
 }
 
-template<typename T> void operator /=(vector<T>& v, T s)
+template<typename T> void operator *=(vector<T>& v, T s)
 {
 	int vSize = (int)v.size();
 	for (int i = 0; i < vSize; i++)
-		v[i] /= s;
+		v[i] *= s;
 }
 
-template<typename T> vector<T> operator /(const vector<T>& v1, T s)
+
+template<typename T> vector<T> operator *(const vector<T>& v1, T s)
 {
 	vector<T> result(v1.size());
 	for (size_t i = 0, iEnd = v1.size(); i != iEnd; i++)
-		result[i] = v1[i] / s;
+		result[i] = v1[i] * s;
 	return result;
 }
 

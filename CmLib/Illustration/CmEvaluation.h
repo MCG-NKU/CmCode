@@ -27,6 +27,8 @@ struct CmEvaluation
 	static void EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &des, CStr resFile, double betaSqr = 0.3, bool alertNul = false, CStr suffix = "");
 
 public: // Assistant functions
+
+	static void MeanAbsoluteError(CStr inDir, CStr salDir, vecS des, bool zeroMapIfMissing = false);
 	
 	static double FMeasure(CMat &mask1u, CMat &gtMask1u); // The two mask should contain values of either 0 or 255.
 	// Format change from OpenCV region (x, y, width, height) to VOC bounding box (minx, minY, maxX, maxY)

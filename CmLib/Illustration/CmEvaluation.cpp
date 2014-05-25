@@ -241,3 +241,43 @@ double CmEvaluation::FMeasure(CMat &res, CMat &truM)
 	double r = commV/(sum(truM).val[0] + EPS);
 	return 1.3*p*r / (0.3 *p + r);
 }
+
+void CmEvaluation::MeanAbsoluteError(CStr inDir, CStr salDir, vecS des, bool zeroMapIfMissing)
+{
+	vecS namesNE;
+	int imgNum = CmFile::GetNamesNE(inDir + "*.jpg", namesNE), count = 0, methodNum = des.size();
+	vecD costs(des.size());
+	for (int i = 0; i < imgNum; i++){
+		Mat gt = imread(inDir + namesNE[i] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
+		if (gt.empty())	{
+			if (zeroMapIfMissing){
+				Mat img = imread(inDir + namesNE[i] + ".jpg");
+				gt = Mat::zeros(img.size(), CV_8U);
+			}
+			else 
+				continue; 
+		}		
+
+		//printf("%s.jpg ", _S(namesNE[i]));
+		gt.convertTo(gt, CV_32F, 1.0/255);
+#pragma omp parallel for
+		for (int j = 0; j < methodNum; j++){
+			Mat res = imread(salDir + namesNE[i] + "_" + des[j] + ".png", CV_LOAD_IMAGE_GRAYSCALE);
+			CV_Assert_(res.data != NULL, ("Can't load file %s\n", _S(namesNE[i] + "_" + des[j] + ".png")));
+			if (res.size != gt.size){
+				printf("size don't match %s\n", _S(namesNE[i] + "_" + des[j] + ".png"));
+				resize(res, res, gt.size());
+				CmFile::MkDir(salDir + "Out/");
+				imwrite(salDir + "Out/" + namesNE[i] + "_" + des[j] + ".png", res);
+			}
+			res.convertTo(res, CV_32F, 1.0/255);
+			cv::absdiff(gt, res, res);
+			costs[j] += sum(res).val[0] / (gt.rows * gt.cols);
+		}
+		count++;
+	}
+
+	for (size_t j = 0; j < des.size(); j++)
+		printf("%4s:%5.3f ", _S(des[j]), costs[j]/count);
+	printf("\n");
+}

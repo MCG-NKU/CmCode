@@ -5,10 +5,8 @@
 #include <string>
 #include <time.h>
 #include <assert.h>
-typedef const std::string CStr;
-//#include <Basic/CmTimer.h>
 
-#include "../CmDx/CmDx.h"
+#include <CmCode/CmDx/CmDx.h>
 
 
 #include <opencv2/opencv.hpp> 

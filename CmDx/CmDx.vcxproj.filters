@@ -20,9 +20,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CmDx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CmSRM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -38,6 +35,7 @@
     <ClInclude Include="CmDxBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CmDx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -56,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CmDxBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

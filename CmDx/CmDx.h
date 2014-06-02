@@ -60,6 +60,7 @@ typedef DirectX::PrimitiveBatch<DirectX::VertexPositionColor> CmVertexPosClrBatc
 
 #pragma comment(lib, lnkLIB("DXUT11"))
 #pragma comment(lib, lnkLIB("DirectXTK"))
+#pragma comment(lib, lnkLIB("CmDx"))
 #pragma comment(lib, "d3dcompiler")
 #pragma comment(lib, "comctl32")
 #pragma comment(lib, "d3d11")

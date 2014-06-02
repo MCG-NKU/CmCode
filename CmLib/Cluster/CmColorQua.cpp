@@ -140,7 +140,7 @@ void CmColorQua::S_Recover(CMat& idx1i, Mat& img3f, int method, CMat &src3f)
 	}
 }
 
-void CmColorQua::Show(CMat &counts1d, CStr title, int method, Mat &show3f)
+void CmColorQua::Show(CMat &counts1d, CStr title, Mat &show3f, int method)
 {
 	int n = binNum[method];
 	CV_Assert(method >= 0 && method < S_Q_NUM && counts1d.size() == Size(n, 1));

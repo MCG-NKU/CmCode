@@ -270,8 +270,8 @@ int CmSaliencyGC::Demo(CStr imgW, CStr salDir)
 {
 	CmFile::MkDir(salDir);
 	vecS namesNE, des;
-	string imgDir;
-	int imgNum = CmFile::GetNamesNE(imgW, namesNE, imgDir);
+	string imgDir, ext;
+	int imgNum = CmFile::GetNamesNE(imgW, namesNE, imgDir, ext);
 	CmTimer tm("Maps");
 	tm.Start();
 	printf("%d images found in %s\n", imgNum, _S(imgDir + "*.jpg"));

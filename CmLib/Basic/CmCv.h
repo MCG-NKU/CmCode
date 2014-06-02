@@ -46,7 +46,8 @@ struct CmCv {
 	
 	// Get continuous components for same label regions. Return region index mat,
 	// index-counter pair (Number of pixels for each index), and label of each idx
-	static int GetRegions(const Mat_<byte> &label1u, Mat_<int> &regIdx1i, vecI &idxCount, vecB &idxLabel = vecB(), bool noZero = false);
+	static int GetRegions(const Mat_<byte> &label1u, Mat_<int> &regIdx1i, vecI &idxCount, vecB &idxLabel, bool noZero = false);
+	static int GetRegions(const Mat_<byte> &label1u, Mat_<int> &regIdx1i, vecI &idxCount, bool noZero = false) {vecB idxLabel; return GetRegions(label1u, regIdx1i, idxCount, idxLabel, noZero);}
 
 	// Get continuous components for non-zero labels. Return region index mat (region index 
 	// of each mat position) and sum of label values in each region

@@ -13,11 +13,14 @@ struct CmFile
 	static inline string GetNameNoSuffix(CStr& path, CStr &suffix);
 
 	// Get file names from a wildcard. Eg: GetNames("D:\\*.jpg", imgNames);
-	static int GetNames(CStr &nameW, vecS &names, string &dir = string());
+	static int GetNames(CStr &nameW, vecS &names, string &dir);
+	static int GetNames(CStr &nameW, vecS &names){string dir; return GetNames(nameW, names, dir);};
 	static int GetNames(CStr& rootFolder, CStr &fileW, vecS &names);
-	static int GetNamesNE(CStr& nameWC, vecS &names, string &dir = string(), string &ext = string());
+	static int GetNamesNE(CStr& nameWC, vecS &names, string &dir, string &ext);
 	static int GetNamesNE(CStr& rootFolder, CStr &fileW, vecS &names);
-	static int GetNamesNoSuffix(CStr& nameWC, vecS &namesNS, CStr suffix, string &dir = string()); //e.g. suffix = "_C.jpg"
+	static int GetNamesNE(CStr& nameWC, vecS &names) {string dir, ext; return GetNamesNE(nameWC, names, dir, ext);}
+	static int GetNamesNoSuffix(CStr& nameWC, vecS &namesNS, CStr suffix, string &dir); //e.g. suffix = "_C.jpg"
+	static int GetNamesNoSuffix(CStr& nameWC, vecS &namesNS, CStr suffix) {string dir; return GetNamesNoSuffix(nameWC, namesNS, suffix, dir);}
 
 	static inline string GetExtention(CStr name);
 

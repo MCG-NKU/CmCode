@@ -12,8 +12,8 @@ const CmSaliencyRC::GET_SAL_FUNC CmSaliencyRC::gFuns[SAL_TYPE_NUM] = {
 void CmSaliencyRC::Get(CStr &imgNameW, CStr &salFileDir)
 {
 	vecS names; 
-	string inDir, ext = imgNameW.substr(imgNameW.find_last_of('.'));
-	int imgNum = CmFile::GetNamesNE(imgNameW, names, inDir);
+	string inDir, ext;
+	int imgNum = CmFile::GetNamesNE(imgNameW, names, inDir, ext);
 	CmFile::MkDir(salFileDir);
 	//vector<CmTimer> timer;
 	//for (int f = 0; f < SAL_TYPE_NUM; f++)

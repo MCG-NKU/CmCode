@@ -37,7 +37,8 @@ struct CmColorQua
 	// src3f are BGR, color3f are 1xBinDim matrix represent color fore each histogram bin
 	static int S_BinInf(CMat& idx1i, Mat &color3f, vecI &colorNum, int method = 1, CMat &src3f = Mat()); 
 
-	static void Show(CMat &counts1d, CStr title, int method = 1, Mat &show3f = Mat());
+	static void Show(CMat &counts1d, CStr title, Mat &show3f, int method = 1);
+	static void Show(CMat &counts1d, CStr title, int method = 1){Mat show3f; Show(counts1d, title, show3f, method);}
 
 	// Static quantization and recover without prior color statistics
 	static int SQ_BGR(const Vec3f &c);		// B,G,R[0,1] --> [0, 215]

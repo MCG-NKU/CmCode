@@ -51,7 +51,8 @@ public:
 
 	static void Demo(CMat &img1u, bool isCartoon);
 	static void Demo2(CStr &wkDir, bool isCartoon = true);
-	void SaveShowResult(CMat &img1f, CStr &title, Mat &show3u = Mat(), double longEdg = 50);
+	void SaveShowResult(CMat &img1f, CStr &title, Mat &show3u, double longEdg = 50);
+	void SaveShowResult(CMat &img1f, CStr &title, double longEdg = 50){Mat show3u; SaveShowResult(img1f, title, show3u, longEdg);}
 
 private:
 	static void MergeResults(CMat der1f[3], CMat ornt1f[3], Mat &der, Mat &ornt);

@@ -249,9 +249,9 @@ public:
 		// Compute the canonical simplex
 		for( int i=0; i<=d_; i++ ){
 			for( int j=0; j<=d_-i; j++ )
-				canonical[i*(d_+1)+j] = i;
+				canonical[i*(d_+1)+j] = (short)i;
 			for( int j=d_-i+1; j<=d_; j++ )
-				canonical[i*(d_+1)+j] = i - (d_+1);
+				canonical[i*(d_+1)+j] = (short)(i - (d_+1));
 		}
 		
 		// Expected standard deviation of our filter (p.6 in [Adams etal 2010])
@@ -298,13 +298,13 @@ public:
 			
 			// If the point doesn't lie on the plane (sum != 0) bring it back
 			for( int i=0; i<=d_; i++ ){
-				rank[i] += sum;
+				rank[i] += (short)sum;
 				if ( rank[i] < 0 ){
-					rank[i] += d_+1;
+					rank[i] += (short)(d_+1);
 					rem0[i] += d_+1;
 				}
 				else if ( rank[i] > d_ ){
-					rank[i] -= d_+1;
+					rank[i] -= (short)(d_+1);
 					rem0[i] -= d_+1;
 				}
 			}
@@ -357,8 +357,8 @@ public:
 					n1[k] = key[k] - 1;
 					n2[k] = key[k] + 1;
 				}
-				n1[j] = key[j] + d_;
-				n2[j] = key[j] - d_;
+				n1[j] = (short)(key[j] + d_);
+				n2[j] = (short)(key[j] - d_);
 				
 				blur_neighbors_[j*M_+i].n1 = hash_table.find( n1 );
 				blur_neighbors_[j*M_+i].n2 = hash_table.find( n2 );

@@ -85,8 +85,8 @@ void CmGMM::GetGMMs(CStr &smplW, CStr &annoExt, CmGMM &fGMM, CmGMM &bGMM)
 	frg3b.reserve(10000000);
 	bkg3b.reserve(10000000);
 	vecS namesNE;
-	string dir, ext = CmFile::GetExtention(smplW);
-	int num = CmFile::GetNamesNE(smplW, namesNE, dir);
+	string dir, ext;
+	int num = CmFile::GetNamesNE(smplW, namesNE, dir, ext);
 	int foreBinN = 0, backBinN = 0;
 	for (int i = 0; i < num; i++)	{
 		Mat mask1u = imread(dir + namesNE[i] + annoExt, CV_LOAD_IMAGE_GRAYSCALE);

@@ -41,10 +41,10 @@ protected:
 	ComPtr<ID3D11InputLayout>  g_pVertexLayout;
 	ComPtr<ID3D11Buffer>	g_pVertexBuffer;
 	ComPtr<ID3D11Buffer>	g_pIndexBuffer;
-	CComPtr<ID3D11Buffer>	g_pConstantBuffer;
+	ComPtr<ID3D11Buffer>	g_pConstantBuffer;
 
-	CComPtr<ID3D11Texture2D>        g_pDepthStencil;
-	CComPtr<ID3D11DepthStencilView> g_pDepthStencilView;
+	ComPtr<ID3D11Texture2D>        g_pDepthStencil;
+	ComPtr<ID3D11DepthStencilView> g_pDepthStencilView;
 
 	DirectX::XMMATRIX g_World;
 	DirectX::XMMATRIX g_View;

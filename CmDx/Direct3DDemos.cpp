@@ -116,11 +116,11 @@ void Direct3D_DemoCube::Render()
 	cb.mWorld = g_World; // XMMatrixTranspose( g_World );
 	cb.mView =  XMMatrixTranspose( g_View );
 	cb.mProjection = XMMatrixTranspose( g_Projection );
-	g_pImmediateContext->UpdateSubresource( g_pConstantBuffer, 0, nullptr, &cb, 0, 0 );
+	g_pImmediateContext->UpdateSubresource(g_pConstantBuffer.Get(), 0, nullptr, &cb, 0, 0 );
 
 	// Renders a triangle
 	g_pImmediateContext->VSSetShader( g_pVertexShader.Get(), nullptr, 0 );
-	g_pImmediateContext->VSSetConstantBuffers( 0, 1, getComAdrR(g_pConstantBuffer) );
+	g_pImmediateContext->VSSetConstantBuffers( 0, 1, g_pConstantBuffer.GetAddressOf());
 	g_pImmediateContext->PSSetShader( g_pPixelShader.Get(), nullptr, 0 );
 	g_pImmediateContext->DrawIndexed( 36, 0, 0 );        // 36 vertices needed for 12 triangles in a triangle list
 
@@ -136,8 +136,8 @@ HRESULT Direct3D_DemoCube2::InitDevice()
 	CmSRM srm;
 	D3D11_TEXTURE2D_DESC descDepth = srm.createTexture2dDescr(m_Width, m_Height, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
 	V_RETURN(g_pd3dDevice->CreateTexture2D( &descDepth, nullptr, &g_pDepthStencil));
-	srm.createStencilView(g_pd3dDevice.Get(), g_pDepthStencil, g_pDepthStencilView, DXGI_FORMAT_D24_UNORM_S8_UINT);
-	g_pImmediateContext->OMSetRenderTargets( 1, g_pRenderTargetView.GetAddressOf(), g_pDepthStencilView );
+	srm.createStencilView(g_pd3dDevice.Get(), g_pDepthStencil.Get(), g_pDepthStencilView, DXGI_FORMAT_D24_UNORM_S8_UINT);
+	g_pImmediateContext->OMSetRenderTargets( 1, g_pRenderTargetView.GetAddressOf(), g_pDepthStencilView.Get());
 	return hr;
 }
 
@@ -146,7 +146,7 @@ void Direct3D_DemoCube2::Render()
 	// Update our time
 	float t = getRelativeTime();
 	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView.Get(), Colors::MidnightBlue);// Clear the back buffer
-	g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );// Clear the depth buffer to 1.0 (max depth)
+	g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0 );// Clear the depth buffer to 1.0 (max depth)
 
 	// Update variables for the first cube
 	g_World = XMMatrixRotationY( t );
@@ -154,11 +154,11 @@ void Direct3D_DemoCube2::Render()
 	cb1.mWorld = XMMatrixTranspose( g_World );
 	cb1.mView = XMMatrixTranspose( g_View );
 	cb1.mProjection = XMMatrixTranspose( g_Projection );
-	g_pImmediateContext->UpdateSubresource( g_pConstantBuffer, 0, nullptr, &cb1, 0, 0 );
+	g_pImmediateContext->UpdateSubresource(g_pConstantBuffer.Get(), 0, nullptr, &cb1, 0, 0 );
 
 	// Render the first cube
 	g_pImmediateContext->VSSetShader( g_pVertexShader.Get(), nullptr, 0 );
-	g_pImmediateContext->VSSetConstantBuffers( 0, 1, getComAdrR(g_pConstantBuffer));
+	g_pImmediateContext->VSSetConstantBuffers( 0, 1, g_pConstantBuffer.GetAddressOf());
 	g_pImmediateContext->PSSetShader( g_pPixelShader.Get(), nullptr, 0 );
 	g_pImmediateContext->DrawIndexed( 36, 0, 0 );
 
@@ -172,7 +172,7 @@ void Direct3D_DemoCube2::Render()
 	cb2.mWorld = XMMatrixTranspose( g_World2 );
 	cb2.mView = XMMatrixTranspose( g_View );
 	cb2.mProjection = XMMatrixTranspose( g_Projection );
-	g_pImmediateContext->UpdateSubresource( g_pConstantBuffer, 0, nullptr, &cb2, 0, 0 );
+	g_pImmediateContext->UpdateSubresource( g_pConstantBuffer.Get(), 0, nullptr, &cb2, 0, 0 );
 	g_pImmediateContext->DrawIndexed( 36, 0, 0 );// Render the second cube
 
 	// Present our back buffer to our front buffer

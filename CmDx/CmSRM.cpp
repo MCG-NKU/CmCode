@@ -164,14 +164,14 @@ HRESULT CmSRM::createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBu
 	return createConstBuf(pd3dDevice, byteWidth, cbBuffer.p, pInitialData);
 }
 
-HRESULT CmSRM::createConstBufSRU(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBuffer> &cbBuffer)
+HRESULT CmSRM::createConstBufSRU(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &cbBuffer)
 {
 	HRESULT hr = S_OK;
 	D3D11_BUFFER_DESC bDescCB;
 	ZeroMemory(&bDescCB, sizeof(D3D11_BUFFER_DESC));
 	bDescCB.BindFlags	= D3D11_BIND_CONSTANT_BUFFER;
 	bDescCB.ByteWidth	= byteWidth;  // should be updated
-	V_RETURN(pd3dDevice->CreateBuffer(&bDescCB, NULL, &cbBuffer));
+	V_RETURN(pd3dDevice->CreateBuffer(&bDescCB, NULL, cbBuffer.ReleaseAndGetAddressOf()));
 	return hr;
 }
 
@@ -298,7 +298,7 @@ D3D11_TEXTURE2D_DESC CmSRM::createTexture2dDescr(UINT w, UINT h, DXGI_FORMAT fmt
 	return descTex;
 }
 
-HRESULT CmSRM::createStencilView(DxDevice* pd3dDevice, DxTexture2D* texBuf, CComPtr<DxStencil>& pStenView, DXGI_FORMAT fmt)
+HRESULT CmSRM::createStencilView(DxDevice* pd3dDevice, DxTexture2D* texBuf, ComPtr<DxStencil>& pStenView, DXGI_FORMAT fmt)
 {
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 	ZeroMemory( &descDSV, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC) );
@@ -306,7 +306,7 @@ HRESULT CmSRM::createStencilView(DxDevice* pd3dDevice, DxTexture2D* texBuf, CCom
 	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	//descDSV.Texture2D.MipSlice = 0;
 	HRESULT hr = S_OK;
-	V_RETURN(pd3dDevice->CreateDepthStencilView(texBuf, &descDSV, &pStenView.p));
+	V_RETURN(pd3dDevice->CreateDepthStencilView(texBuf, &descDSV, pStenView.ReleaseAndGetAddressOf()));
 	return hr;
 	
 }

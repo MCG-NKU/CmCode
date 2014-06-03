@@ -30,7 +30,7 @@ public: // Manage shaders
 public: // Create buffers
 	static HRESULT createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer*&cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);
 	static HRESULT createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBuffer> &cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);
-	static HRESULT createConstBufSRU(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBuffer> &cbBuffer); // SubResource for Update
+	static HRESULT createConstBufSRU(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &cbBuffer); // SubResource for Update
 
 	static HRESULT createCpuReadBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer*&cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);
 
@@ -76,7 +76,7 @@ public: // Create buffers
 
 	static D3D11_TEXTURE2D_DESC createTexture2dDescr(UINT w, UINT h, DXGI_FORMAT fmt = DXGI_FORMAT_R32G32B32A32_FLOAT, UINT BindFlags = D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_SHADER_RESOURCE);
 
-	static HRESULT createStencilView(DxDevice* pd3dDevice, DxTexture2D* texBuf, CComPtr<DxStencil>& pStenView, DXGI_FORMAT fmt = DXGI_FORMAT_D32_FLOAT);
+	static HRESULT createStencilView(DxDevice* pd3dDevice, DxTexture2D* texBuf, ComPtr<DxStencil>& pStenView, DXGI_FORMAT fmt = DXGI_FORMAT_D32_FLOAT);
 	static HRESULT createTextureSRV(DxDevice* pd3dDevice, DxTexture2D* texBuf, DxSRV*& pSRV, DXGI_FORMAT fmt = DXGI_FORMAT_R32_FLOAT);
 
 	static D3D11_BLEND_DESC getDefaultBlendDesc();

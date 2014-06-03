@@ -36,7 +36,7 @@ protected:
 	ComPtr<ID3D11DeviceContext> g_pImmediateContext;
 	ComPtr<ID3D11RenderTargetView> g_pRenderTargetView;
 
-	CComPtr<ID3D11VertexShader> g_pVertexShader;
+	ComPtr<ID3D11VertexShader> g_pVertexShader;
 	CComPtr<ID3D11PixelShader>  g_pPixelShader;
 	CComPtr<ID3D11InputLayout>  g_pVertexLayout;
 	CComPtr<ID3D11Buffer>	g_pVertexBuffer;

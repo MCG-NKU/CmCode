@@ -120,11 +120,11 @@ HRESULT CmSRM::loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, D
 	return loadShader(csoFileName, pd3dDevice, NULL, NULL, &ppVS, NULL);
 }
 
-HRESULT CmSRM::loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, CComPtr<ID3D11InputLayout> &inputLayout){
+HRESULT CmSRM::loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, CComPtr<ID3D11InputLayout> &inputLayout){
 	ID3DBlob* pBlob = nullptr;
 	HRESULT hr = S_OK;
 	V_RETURN(loadID3DBlob(csoFileName, pBlob));
-	V_RETURN(pd3dDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), NULL, &pVS.p));
+	V_RETURN(pd3dDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), NULL, pVS.ReleaseAndGetAddressOf()));
 	V_RETURN(pd3dDevice->CreateInputLayout(layout, numLayout, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &inputLayout.p));
 	pBlob->Release();
 	return hr;

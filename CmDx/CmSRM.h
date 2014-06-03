@@ -20,7 +20,7 @@ public: // Manage shaders
 
 	static HRESULT loadComputeShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxCShader> &pCS);
 	static HRESULT loadPixelShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxPsShader> &pPS); 
-	static HRESULT loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, CComPtr<ID3D11InputLayout> &inputLayout);
+	static HRESULT loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, CComPtr<ID3D11InputLayout> &inputLayout);
 
 	static HRESULT loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, DxVtShader*& ppVS);
 	static HRESULT loadGeometryShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ID3D11GeometryShader*& ppGS);

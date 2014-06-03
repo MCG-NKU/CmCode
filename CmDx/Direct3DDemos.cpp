@@ -35,7 +35,7 @@ void Direct3D_DemoTriangle::Render()
 	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView.Get(), Colors::MidnightBlue );
 
 	// Render a triangle
-	g_pImmediateContext->VSSetShader(g_pVertexShader, nullptr, 0 );
+	g_pImmediateContext->VSSetShader(g_pVertexShader.Get(), nullptr, 0 );
 	g_pImmediateContext->PSSetShader(g_pPixelShader, nullptr, 0 );
 	g_pImmediateContext->Draw( 3, 0 );
 
@@ -119,7 +119,7 @@ void Direct3D_DemoCube::Render()
 	g_pImmediateContext->UpdateSubresource( g_pConstantBuffer, 0, nullptr, &cb, 0, 0 );
 
 	// Renders a triangle
-	g_pImmediateContext->VSSetShader( g_pVertexShader, nullptr, 0 );
+	g_pImmediateContext->VSSetShader( g_pVertexShader.Get(), nullptr, 0 );
 	g_pImmediateContext->VSSetConstantBuffers( 0, 1, getComAdrR(g_pConstantBuffer) );
 	g_pImmediateContext->PSSetShader( g_pPixelShader, nullptr, 0 );
 	g_pImmediateContext->DrawIndexed( 36, 0, 0 );        // 36 vertices needed for 12 triangles in a triangle list
@@ -157,7 +157,7 @@ void Direct3D_DemoCube2::Render()
 	g_pImmediateContext->UpdateSubresource( g_pConstantBuffer, 0, nullptr, &cb1, 0, 0 );
 
 	// Render the first cube
-	g_pImmediateContext->VSSetShader( g_pVertexShader, nullptr, 0 );
+	g_pImmediateContext->VSSetShader( g_pVertexShader.Get(), nullptr, 0 );
 	g_pImmediateContext->VSSetConstantBuffers( 0, 1, getComAdrR(g_pConstantBuffer));
 	g_pImmediateContext->PSSetShader( g_pPixelShader, nullptr, 0 );
 	g_pImmediateContext->DrawIndexed( 36, 0, 0 );

@@ -18,18 +18,18 @@ public: // Manage shaders
 	static inline UINT getDim(UINT targetVal, UINT baseVal) {return (targetVal + baseVal - 1)/baseVal;}
 	static inline void resetAnUAV(DxContext* context, DxUAV* uav) {context->ClearUnorderedAccessViewUint(uav, ZEROS);}
 
-	static HRESULT loadComputeShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxCShader> &pCS);
+	static HRESULT loadComputeShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxCShader> &pCS);
 	static HRESULT loadPixelShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxPsShader> &pPS); 
 	static HRESULT loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, ComPtr<ID3D11InputLayout> &inputLayout);
 
-	static HRESULT loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, DxVtShader*& ppVS);
+	static HRESULT loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, DxVtShader** ppVS);
 	static HRESULT loadGeometryShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ID3D11GeometryShader*& ppGS);
 
 	static HRESULT loadID3DBlob(LPCWSTR csoFileName, ID3DBlob*& pVSBlob);
 
 public: // Create buffers
-	static HRESULT createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer*&cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);
-	static HRESULT createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBuffer> &cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);
+	static HRESULT createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer**cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);
+	static HRESULT createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);
 	static HRESULT createConstBufSRU(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &cbBuffer); // SubResource for Update
 
 	static HRESULT createCpuReadBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer*&cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData = NULL);

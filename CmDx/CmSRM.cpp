@@ -96,9 +96,9 @@ HRESULT CmSRM::loadShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, DxCShader**
 //	return loadShader(csoFileName, pd3dDevice, &ppCS, NULL, NULL);
 //}
 
-HRESULT CmSRM::loadComputeShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxCShader> &pCS){
+HRESULT CmSRM::loadComputeShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxCShader> &pCS){
 	HRESULT hr = S_OK;
-	V_RETURN(loadShader(csoFileName, pd3dDevice, &pCS.p, NULL, NULL));
+	V_RETURN(loadShader(csoFileName, pd3dDevice, pCS.ReleaseAndGetAddressOf(), NULL, NULL));
 	return hr;
 }
 
@@ -116,8 +116,8 @@ HRESULT CmSRM::loadGeometryShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ID3
 	return loadShader(csoFileName, pd3dDevice, NULL, NULL, NULL, &ppGS);
 }
 
-HRESULT CmSRM::loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, DxVtShader*& ppVS){
-	return loadShader(csoFileName, pd3dDevice, NULL, NULL, &ppVS, NULL);
+HRESULT CmSRM::loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, DxVtShader** ppVS){
+	return loadShader(csoFileName, pd3dDevice, NULL, NULL, ppVS, NULL);
 }
 
 HRESULT CmSRM::loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, ComPtr<ID3D11InputLayout> &inputLayout){
@@ -145,7 +145,7 @@ HRESULT CmSRM::loadID3DBlob(LPCWSTR csoFileName, ID3DBlob*& pVSBlob)
 }
 
 // http://msdn.microsoft.com/en-us/library/windows/desktop/ff476092(v=vs.85).aspx
-HRESULT CmSRM::createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer*&cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData)
+HRESULT CmSRM::createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer**cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData)
 {
 	HRESULT hr = S_OK;
 	// UINT ByteWidth; D3D11_USAGE Usage; UINT BindFlags; UINT CPUAccessFlags; UINT MiscFlags; UINT StructureByteStride;
@@ -155,13 +155,13 @@ HRESULT CmSRM::createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer*&cb
 	bDescCB.Usage		= D3D11_USAGE_DYNAMIC;
 	bDescCB.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	bDescCB.ByteWidth	= byteWidth;  // should be updated
-	V_RETURN(pd3dDevice->CreateBuffer(&bDescCB, pInitialData, &cbBuffer));
+	V_RETURN(pd3dDevice->CreateBuffer(&bDescCB, pInitialData, cbBuffer));
 	return hr;
 }
 
-HRESULT CmSRM::createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBuffer> &cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData)
+HRESULT CmSRM::createConstBuf(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &cbBuffer, D3D11_SUBRESOURCE_DATA *pInitialData)
 {
-	return createConstBuf(pd3dDevice, byteWidth, cbBuffer.p, pInitialData);
+	return createConstBuf(pd3dDevice, byteWidth, cbBuffer.ReleaseAndGetAddressOf(), pInitialData);
 }
 
 HRESULT CmSRM::createConstBufSRU(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &cbBuffer)
@@ -344,8 +344,8 @@ D3D11_BLEND_DESC CmSRM::getDefaultBlendDesc()
 HRESULT CmSRM::createCuDxDeviceAndSwapChain(HWND hWnd, UINT winW, UINT winH, IDXGISwapChain** ppSwapChain, ID3D11Device** ppDevice, ID3D11DeviceContext** ppImmediateContext)
 {
 	HRESULT hr = S_OK;
-	CComPtr<IDXGIAdapter>   cuCapableAdapter;
-	CComPtr<IDXGIFactory> pFactory;
+	ComPtr<IDXGIAdapter>   cuCapableAdapter;
+	ComPtr<IDXGIFactory> pFactory;
 	V_RETURN(CreateDXGIFactory(__uuidof(IDXGIFactory), (void **)(&pFactory)));
 	V_RETURN(pFactory->EnumAdapters(0, &cuCapableAdapter));
 
@@ -367,7 +367,7 @@ HRESULT CmSRM::createCuDxDeviceAndSwapChain(HWND hWnd, UINT winW, UINT winH, IDX
 	D3D_FEATURE_LEVEL tour_fl[] = {D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_10_1, D3D_FEATURE_LEVEL_10_0};
 	D3D_FEATURE_LEVEL flRes;
 	// Create device and swapchain
-	return D3D11CreateDeviceAndSwapChain(cuCapableAdapter, D3D_DRIVER_TYPE_UNKNOWN,//D3D_DRIVER_TYPE_HARDWARE,
+	return D3D11CreateDeviceAndSwapChain(cuCapableAdapter.Get(), D3D_DRIVER_TYPE_UNKNOWN,//D3D_DRIVER_TYPE_HARDWARE,
 		NULL, 0, tour_fl, 3, D3D11_SDK_VERSION, &sd, ppSwapChain, ppDevice, &flRes, ppImmediateContext);
 }
 

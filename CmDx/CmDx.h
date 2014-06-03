@@ -5,7 +5,7 @@
 #include <list>
 using namespace std;
 
-#include <atlcomcli.h>
+//#include <atlcomcli.h>
 
 #include <dxgi.h>
 
@@ -65,7 +65,4 @@ typedef DirectX::PrimitiveBatch<DirectX::VertexPositionColor> CmVertexPosClrBatc
 #pragma comment(lib, "comctl32")
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "dxgi")
-
-// Get COM Address read only view
-template <class T> T *const *getComAdrR(CComPtr<T> &comPtr) {return &comPtr.p;};
 

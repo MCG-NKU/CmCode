@@ -1,7 +1,5 @@
 #pragma once
 
-#include <atlcomcli.h>
-
 class Direct3DBase
 {
 public:

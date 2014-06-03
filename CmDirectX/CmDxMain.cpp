@@ -13,8 +13,8 @@
 int WINAPI wWinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow )
 {
 	STD_LOGGER; 
-	CmDxBase cmDx;
-	//DxCuda cmDx;
+	//CmDxBase cmDx;
+	DxCuda cmDx;
 	//Direct3D_DemoCube2 cmDx;
 	return cmDx.exec(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 }

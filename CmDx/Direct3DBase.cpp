@@ -103,9 +103,9 @@ HRESULT Direct3DBase::InitDevice()
 	V_RETURN(hr);
 
 	// Create a render target view
-	CComPtr<ID3D11Texture2D> pBackBuffer;
-	V_RETURN(g_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)getComAdrR(pBackBuffer)));
-	V_RETURN(g_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &g_pRenderTargetView));
+	ComPtr<ID3D11Texture2D> pBackBuffer;
+	V_RETURN(g_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)pBackBuffer.GetAddressOf()));
+	V_RETURN(g_pd3dDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &g_pRenderTargetView));
 	g_pImmediateContext->OMSetRenderTargets(1, g_pRenderTargetView.GetAddressOf(), NULL);
 
 	// Setup the viewport

@@ -14,16 +14,16 @@ HRESULT Direct3D_DemoTriangle::InitDevice()
 
 	CmSRM srm;
 	D3D11_INPUT_ELEMENT_DESC layout[] = {{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },};
-	srm.loadVertexShader(L"VsPos.cso", g_pd3dDevice, g_pVertexShader, layout, ARRAYSIZE(layout), g_pVertexLayout);
+	srm.loadVertexShader(L"VsPos.cso", g_pd3dDevice.Get(), g_pVertexShader, layout, ARRAYSIZE(layout), g_pVertexLayout);
 	g_pImmediateContext->IASetInputLayout( g_pVertexLayout );	
-	srm.loadPixelShader(L"PsYellow.cso", g_pd3dDevice, g_pPixelShader);
+	srm.loadPixelShader(L"PsYellow.cso", g_pd3dDevice.Get(), g_pPixelShader);
 
 	// Create vertex buffer
 	XMFLOAT3 vertices[] = {XMFLOAT3( 0.0f, 0.5f, 0.5f ), XMFLOAT3( 0.5f, -0.5f, 0.5f ), XMFLOAT3( -0.5f, -0.5f, 0.5f ),	};
-	srm.createDefaultBuffer(g_pd3dDevice, sizeof(XMFLOAT3)*3, g_pVertexBuffer, vertices);
+	srm.createDefaultBuffer(g_pd3dDevice.Get(), sizeof(XMFLOAT3)*3, g_pVertexBuffer, vertices);
 
 	UINT stride = sizeof( XMFLOAT3 ), offset = 0;
-	g_pImmediateContext->IASetVertexBuffers( 0, 1, &g_pVertexBuffer, &stride, &offset );	// Set vertex buffer
+	g_pImmediateContext->IASetVertexBuffers( 0, 1, &g_pVertexBuffer.p, &stride, &offset );	// Set vertex buffer
 	g_pImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );// Set primitive topology
 
 	return hr;
@@ -32,7 +32,7 @@ HRESULT Direct3D_DemoTriangle::InitDevice()
 void Direct3D_DemoTriangle::Render()
 {
 	// Just clear the backbuffer
-	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, Colors::MidnightBlue );
+	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView.Get(), Colors::MidnightBlue );
 
 	// Render a triangle
 	g_pImmediateContext->VSSetShader(g_pVertexShader, nullptr, 0 );
@@ -51,9 +51,9 @@ HRESULT Direct3D_DemoCube::InitDevice()
 	CmSRM srm;
 	D3D11_INPUT_ELEMENT_DESC layout[] = {{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }};
-	srm.loadVertexShader(L"VsOrg.cso", g_pd3dDevice, g_pVertexShader, layout, ARRAYSIZE(layout), g_pVertexLayout);
+	srm.loadVertexShader(L"VsOrg.cso", g_pd3dDevice.Get(), g_pVertexShader, layout, ARRAYSIZE(layout), g_pVertexLayout);
 	g_pImmediateContext->IASetInputLayout( g_pVertexLayout );	
-	srm.loadPixelShader(L"PsOrg.cso", g_pd3dDevice, g_pPixelShader);
+	srm.loadPixelShader(L"PsOrg.cso", g_pd3dDevice.Get(), g_pPixelShader);
 
 	// Create vertex buffer    
 	SimpleVertex vertices[] = {
@@ -66,18 +66,18 @@ HRESULT Direct3D_DemoCube::InitDevice()
 		{ XMFLOAT3( 1.0f, -1.0f, 1.0f ), XMFLOAT4( 1.0f, 1.0f, 1.0f, 1.0f ) },
 		{ XMFLOAT3( -1.0f, -1.0f, 1.0f ), XMFLOAT4( 0.0f, 0.0f, 0.0f, 1.0f ) },
 	};
-	srm.createDefaultBuffer(g_pd3dDevice, sizeof(SimpleVertex)*8, g_pVertexBuffer, vertices);
+	srm.createDefaultBuffer(g_pd3dDevice.Get(), sizeof(SimpleVertex)*8, g_pVertexBuffer, vertices);
 	UINT stride = sizeof(SimpleVertex), offset = 0;
 	g_pImmediateContext->IASetVertexBuffers( 0, 1, getComAdrR(g_pVertexBuffer), &stride, &offset );	// Set vertex buffer
 
 
 	WORD indices[] = {3,1,0,	2,1,3,	0,5,4,	1,5,0,	3,4,7,	0,4,3,	1,6,5,	2,6,1,	2,7,6,	3,7,2,	6,4,5,	7,4,6,};
-	srm.createDefaultBuffer(g_pd3dDevice, sizeof(WORD)*36, g_pIndexBuffer, indices, D3D11_BIND_INDEX_BUFFER);
+	srm.createDefaultBuffer(g_pd3dDevice.Get(), sizeof(WORD)*36, g_pIndexBuffer, indices, D3D11_BIND_INDEX_BUFFER);
 	g_pImmediateContext->IASetIndexBuffer( g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0 );
 	g_pImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );// Set primitive topology
 	
 	// Create the constant buffer
-	srm.createConstBufSRU(g_pd3dDevice, sizeof(ConstantBuffer), g_pConstantBuffer);
+	srm.createConstBufSRU(g_pd3dDevice.Get(), sizeof(ConstantBuffer), g_pConstantBuffer);
 	g_World = XMMatrixIdentity(); // Initialize the world matrix
 
 	// Initialize the view matrix
@@ -110,7 +110,7 @@ void Direct3D_DemoCube::Render()
 {	
 	float t = getRelativeTime();
 	g_World = XMMatrixRotationY( t ); // Animate the cube
-	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, Colors::MidnightBlue ); // Clear the back buffer
+	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView.Get(), Colors::MidnightBlue ); // Clear the back buffer
 
 	ConstantBuffer cb; // Update variables
 	cb.mWorld = g_World; // XMMatrixTranspose( g_World );
@@ -136,8 +136,8 @@ HRESULT Direct3D_DemoCube2::InitDevice()
 	CmSRM srm;
 	D3D11_TEXTURE2D_DESC descDepth = srm.createTexture2dDescr(m_Width, m_Height, DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_DEPTH_STENCIL);
 	V_RETURN(g_pd3dDevice->CreateTexture2D( &descDepth, nullptr, &g_pDepthStencil));
-	srm.createStencilView(g_pd3dDevice, g_pDepthStencil, g_pDepthStencilView, DXGI_FORMAT_D24_UNORM_S8_UINT);
-	g_pImmediateContext->OMSetRenderTargets( 1, getComAdrR(g_pRenderTargetView), g_pDepthStencilView );
+	srm.createStencilView(g_pd3dDevice.Get(), g_pDepthStencil, g_pDepthStencilView, DXGI_FORMAT_D24_UNORM_S8_UINT);
+	g_pImmediateContext->OMSetRenderTargets( 1, g_pRenderTargetView.GetAddressOf(), g_pDepthStencilView );
 	return hr;
 }
 
@@ -145,7 +145,7 @@ void Direct3D_DemoCube2::Render()
 {	
 	// Update our time
 	float t = getRelativeTime();
-	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, Colors::MidnightBlue);// Clear the back buffer
+	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView.Get(), Colors::MidnightBlue);// Clear the back buffer
 	g_pImmediateContext->ClearDepthStencilView( g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );// Clear the depth buffer to 1.0 (max depth)
 
 	// Update variables for the first cube

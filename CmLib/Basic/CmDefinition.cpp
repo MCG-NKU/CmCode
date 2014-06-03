@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "../stdafx.h"
 
 Point const DIRECTION4[5] = {
 	Point(1,  0), //Direction 0: right

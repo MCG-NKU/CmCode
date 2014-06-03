@@ -70,10 +70,12 @@
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>.\;C:\SDKs\eigen;$(QtDir)include;$(OpenCV)include;$(OneDriveLib);$(CmGit);$(CUDA_PATH)\Include;$(CudaSample)\inc;$(KINECTSDK10_DIR)inc;$(Matlab)\extern\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>.\;C:\SDKs\eigen;$(QtDir)include;$(OpenCV)include;$(OneDriveLib);$(CmGit);$(CUDA_PATH)\Include;$(CudaSample)\inc;$(KINECTSDK10_DIR)inc;$(Matlab)\extern\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

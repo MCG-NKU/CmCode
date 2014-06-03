@@ -31,10 +31,10 @@ protected:
 	WNDPROC		m_wndProc;
 	D3D_DRIVER_TYPE	g_driverType;
 	D3D_FEATURE_LEVEL	g_featureLevel;
-	CComPtr<ID3D11Device>	g_pd3dDevice;
-	CComPtr<IDXGISwapChain> g_pSwapChain;
-	CComPtr<ID3D11DeviceContext> g_pImmediateContext;
-	CComPtr<ID3D11RenderTargetView> g_pRenderTargetView;
+	ComPtr<ID3D11Device>	g_pd3dDevice;
+	ComPtr<IDXGISwapChain> g_pSwapChain;
+	ComPtr<ID3D11DeviceContext> g_pImmediateContext;
+	ComPtr<ID3D11RenderTargetView> g_pRenderTargetView;
 
 	CComPtr<ID3D11VertexShader> g_pVertexShader;
 	CComPtr<ID3D11PixelShader>  g_pPixelShader;

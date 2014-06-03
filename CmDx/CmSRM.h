@@ -1,5 +1,8 @@
 #pragma once
 
+#include <wrl.h> 
+using namespace Microsoft::WRL; //Microsoft::WRL::ComPtr
+
 class CmSRM
 {
 public: // Manage shaders

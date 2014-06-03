@@ -1,9 +1,5 @@
 #pragma once
 
-
-#include <wrl.h> 
-using namespace Microsoft::WRL; //Microsoft::WRL::ComPtr
-
 class CmEffectFactory : public DirectX::EffectFactory
 {
 public:

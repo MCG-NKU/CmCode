@@ -106,7 +106,7 @@ HRESULT Direct3DBase::InitDevice()
 	CComPtr<ID3D11Texture2D> pBackBuffer;
 	V_RETURN(g_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)getComAdrR(pBackBuffer)));
 	V_RETURN(g_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &g_pRenderTargetView));
-	g_pImmediateContext->OMSetRenderTargets(1, getComAdrR(g_pRenderTargetView), NULL);
+	g_pImmediateContext->OMSetRenderTargets(1, g_pRenderTargetView.GetAddressOf(), NULL);
 
 	// Setup the viewport
 	D3D11_VIEWPORT vp;
@@ -128,7 +128,7 @@ void Direct3DBase::CleanupDevice()
 void Direct3DBase::Render()
 {
 	// Just clear the backbuffer
-	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView, Colors::MidnightBlue );
+	g_pImmediateContext->ClearRenderTargetView( g_pRenderTargetView.Get(), Colors::MidnightBlue );
 
 	// Present the information rendered to the back buffer to the front buffer (the screen)
 	g_pSwapChain->Present( 0, 0 );

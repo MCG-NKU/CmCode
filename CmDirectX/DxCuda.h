@@ -36,6 +36,6 @@ public:
 
 private:
 	DxCudaTexture2D g_texture_2d;
-	CComPtr<ID3D11RasterizerState>  g_pRasterState;
+	ComPtr<ID3D11RasterizerState>  g_pRasterState;
 
 };

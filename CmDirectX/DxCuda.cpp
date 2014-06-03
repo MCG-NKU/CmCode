@@ -77,7 +77,7 @@ HRESULT DxCuda::InitDevice()
 	g_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	D3D11_RASTERIZER_DESC rasterizerState = {D3D11_FILL_SOLID, D3D11_CULL_FRONT, FALSE, 0, 0, 0, FALSE, FALSE, FALSE, FALSE};
 	g_pd3dDevice->CreateRasterizerState(&rasterizerState, &g_pRasterState);
-	g_pImmediateContext->RSSetState(g_pRasterState);
+	g_pImmediateContext->RSSetState(g_pRasterState.Get());
 
 	// begin interop
 	cudaD3D11SetDirect3DDevice(g_pd3dDevice.Get());

@@ -19,8 +19,8 @@ public: // Manage shaders
 	static inline void resetAnUAV(DxContext* context, DxUAV* uav) {context->ClearUnorderedAccessViewUint(uav, ZEROS);}
 
 	static HRESULT loadComputeShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxCShader> &pCS);
-	static HRESULT loadPixelShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxPsShader> &pPS); 
-	static HRESULT loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, CComPtr<ID3D11InputLayout> &inputLayout);
+	static HRESULT loadPixelShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxPsShader> &pPS); 
+	static HRESULT loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, ComPtr<ID3D11InputLayout> &inputLayout);
 
 	static HRESULT loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, DxVtShader*& ppVS);
 	static HRESULT loadGeometryShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ID3D11GeometryShader*& ppGS);
@@ -57,7 +57,7 @@ public: // Create buffers
 		DXGI_FORMAT fmt = DXGI_FORMAT_R32_SINT, void* initCpuMem = NULL,
 		UINT bufMiscFlags = 0, UINT uavFlags = 0);
 
-	static HRESULT createDefaultBuffer(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBuffer> &pBuffer, void* initCpuMem = NULL, UINT bindFlags = D3D11_BIND_VERTEX_BUFFER);
+	static HRESULT createDefaultBuffer(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &pBuffer, void* initCpuMem = NULL, UINT bindFlags = D3D11_BIND_VERTEX_BUFFER);
 
 	// Must be released after use
 	static D3D11_SUBRESOURCE_DATA getIniSubResourceData(void* iniSingleElementData, UINT byteWidth, UINT structByteStride = sizeof(int));

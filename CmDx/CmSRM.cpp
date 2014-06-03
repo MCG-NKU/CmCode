@@ -106,9 +106,9 @@ HRESULT CmSRM::loadComputeShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CCom
 //	return loadShader(csoFileName, pd3dDevice, NULL, &ppPS, NULL);
 //}
 
-HRESULT CmSRM::loadPixelShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, CComPtr<DxPsShader> &pPS){
+HRESULT CmSRM::loadPixelShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxPsShader> &pPS){
 	HRESULT hr = S_OK;
-	V_RETURN(loadShader(csoFileName, pd3dDevice, NULL, &pPS.p, NULL));
+	V_RETURN(loadShader(csoFileName, pd3dDevice, NULL, pPS.ReleaseAndGetAddressOf(), NULL));
 	return hr;
 }
 
@@ -120,12 +120,12 @@ HRESULT CmSRM::loadVertexShaderOnly(LPCWSTR csoFileName, DxDevice* pd3dDevice, D
 	return loadShader(csoFileName, pd3dDevice, NULL, NULL, &ppVS, NULL);
 }
 
-HRESULT CmSRM::loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, CComPtr<ID3D11InputLayout> &inputLayout){
+HRESULT CmSRM::loadVertexShader(LPCWSTR csoFileName, DxDevice* pd3dDevice, ComPtr<DxVtShader> &pVS, D3D11_INPUT_ELEMENT_DESC* layout, UINT numLayout, ComPtr<ID3D11InputLayout> &inputLayout){
 	ID3DBlob* pBlob = nullptr;
 	HRESULT hr = S_OK;
 	V_RETURN(loadID3DBlob(csoFileName, pBlob));
 	V_RETURN(pd3dDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), NULL, pVS.ReleaseAndGetAddressOf()));
-	V_RETURN(pd3dDevice->CreateInputLayout(layout, numLayout, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &inputLayout.p));
+	V_RETURN(pd3dDevice->CreateInputLayout(layout, numLayout, pBlob->GetBufferPointer(), pBlob->GetBufferSize(), inputLayout.ReleaseAndGetAddressOf()));
 	pBlob->Release();
 	return hr;
 }
@@ -245,7 +245,7 @@ HRESULT CmSRM::createBufferZI(DxDevice* pd3dDevice, UINT byteWidth, DxBuffer*&pB
 }
 
 
-HRESULT CmSRM::createDefaultBuffer(DxDevice* pd3dDevice, UINT byteWidth, CComPtr<DxBuffer> &pBuffer, void* initCpuMem, UINT bindFlags)
+HRESULT CmSRM::createDefaultBuffer(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<DxBuffer> &pBuffer, void* initCpuMem, UINT bindFlags)
 {
 	HRESULT hr = S_OK;
 	D3D11_BUFFER_DESC bd;
@@ -257,7 +257,7 @@ HRESULT CmSRM::createDefaultBuffer(DxDevice* pd3dDevice, UINT byteWidth, CComPtr
 	D3D11_SUBRESOURCE_DATA InitData;
 	ZeroMemory( &InitData, sizeof(InitData) );
 	InitData.pSysMem = initCpuMem;
-	V_RETURN(pd3dDevice->CreateBuffer( &bd, &InitData, &pBuffer.p));
+	V_RETURN(pd3dDevice->CreateBuffer( &bd, &InitData, pBuffer.ReleaseAndGetAddressOf()));
 	return hr;
 }
 

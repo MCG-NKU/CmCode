@@ -15,7 +15,7 @@ HRESULT Direct3D_DemoTriangle::InitDevice()
 	CmSRM srm;
 	D3D11_INPUT_ELEMENT_DESC layout[] = {{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },};
 	srm.loadVertexShader(L"VsPos.cso", g_pd3dDevice.Get(), g_pVertexShader, layout, ARRAYSIZE(layout), g_pVertexLayout);
-	g_pImmediateContext->IASetInputLayout( g_pVertexLayout );	
+	g_pImmediateContext->IASetInputLayout( g_pVertexLayout.Get() );	
 	srm.loadPixelShader(L"PsYellow.cso", g_pd3dDevice.Get(), g_pPixelShader);
 
 	// Create vertex buffer
@@ -23,7 +23,7 @@ HRESULT Direct3D_DemoTriangle::InitDevice()
 	srm.createDefaultBuffer(g_pd3dDevice.Get(), sizeof(XMFLOAT3)*3, g_pVertexBuffer, vertices);
 
 	UINT stride = sizeof( XMFLOAT3 ), offset = 0;
-	g_pImmediateContext->IASetVertexBuffers( 0, 1, &g_pVertexBuffer.p, &stride, &offset );	// Set vertex buffer
+	g_pImmediateContext->IASetVertexBuffers( 0, 1, g_pVertexBuffer.GetAddressOf(), &stride, &offset );	// Set vertex buffer
 	g_pImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );// Set primitive topology
 
 	return hr;
@@ -36,7 +36,7 @@ void Direct3D_DemoTriangle::Render()
 
 	// Render a triangle
 	g_pImmediateContext->VSSetShader(g_pVertexShader.Get(), nullptr, 0 );
-	g_pImmediateContext->PSSetShader(g_pPixelShader, nullptr, 0 );
+	g_pImmediateContext->PSSetShader(g_pPixelShader.Get(), nullptr, 0 );
 	g_pImmediateContext->Draw( 3, 0 );
 
 	// Present the information rendered to the back buffer to the front buffer (the screen)
@@ -52,7 +52,7 @@ HRESULT Direct3D_DemoCube::InitDevice()
 	D3D11_INPUT_ELEMENT_DESC layout[] = {{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }};
 	srm.loadVertexShader(L"VsOrg.cso", g_pd3dDevice.Get(), g_pVertexShader, layout, ARRAYSIZE(layout), g_pVertexLayout);
-	g_pImmediateContext->IASetInputLayout( g_pVertexLayout );	
+	g_pImmediateContext->IASetInputLayout( g_pVertexLayout.Get() );	
 	srm.loadPixelShader(L"PsOrg.cso", g_pd3dDevice.Get(), g_pPixelShader);
 
 	// Create vertex buffer    
@@ -68,12 +68,12 @@ HRESULT Direct3D_DemoCube::InitDevice()
 	};
 	srm.createDefaultBuffer(g_pd3dDevice.Get(), sizeof(SimpleVertex)*8, g_pVertexBuffer, vertices);
 	UINT stride = sizeof(SimpleVertex), offset = 0;
-	g_pImmediateContext->IASetVertexBuffers( 0, 1, getComAdrR(g_pVertexBuffer), &stride, &offset );	// Set vertex buffer
+	g_pImmediateContext->IASetVertexBuffers( 0, 1, g_pVertexBuffer.GetAddressOf(), &stride, &offset );	// Set vertex buffer
 
 
 	WORD indices[] = {3,1,0,	2,1,3,	0,5,4,	1,5,0,	3,4,7,	0,4,3,	1,6,5,	2,6,1,	2,7,6,	3,7,2,	6,4,5,	7,4,6,};
 	srm.createDefaultBuffer(g_pd3dDevice.Get(), sizeof(WORD)*36, g_pIndexBuffer, indices, D3D11_BIND_INDEX_BUFFER);
-	g_pImmediateContext->IASetIndexBuffer( g_pIndexBuffer, DXGI_FORMAT_R16_UINT, 0 );
+	g_pImmediateContext->IASetIndexBuffer( g_pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0 );
 	g_pImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );// Set primitive topology
 	
 	// Create the constant buffer
@@ -121,7 +121,7 @@ void Direct3D_DemoCube::Render()
 	// Renders a triangle
 	g_pImmediateContext->VSSetShader( g_pVertexShader.Get(), nullptr, 0 );
 	g_pImmediateContext->VSSetConstantBuffers( 0, 1, getComAdrR(g_pConstantBuffer) );
-	g_pImmediateContext->PSSetShader( g_pPixelShader, nullptr, 0 );
+	g_pImmediateContext->PSSetShader( g_pPixelShader.Get(), nullptr, 0 );
 	g_pImmediateContext->DrawIndexed( 36, 0, 0 );        // 36 vertices needed for 12 triangles in a triangle list
 
 	// Present our back buffer to our front buffer
@@ -159,7 +159,7 @@ void Direct3D_DemoCube2::Render()
 	// Render the first cube
 	g_pImmediateContext->VSSetShader( g_pVertexShader.Get(), nullptr, 0 );
 	g_pImmediateContext->VSSetConstantBuffers( 0, 1, getComAdrR(g_pConstantBuffer));
-	g_pImmediateContext->PSSetShader( g_pPixelShader, nullptr, 0 );
+	g_pImmediateContext->PSSetShader( g_pPixelShader.Get(), nullptr, 0 );
 	g_pImmediateContext->DrawIndexed( 36, 0, 0 );
 
 	// Update variables for the second cube

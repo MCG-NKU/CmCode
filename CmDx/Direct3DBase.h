@@ -37,10 +37,10 @@ protected:
 	ComPtr<ID3D11RenderTargetView> g_pRenderTargetView;
 
 	ComPtr<ID3D11VertexShader> g_pVertexShader;
-	CComPtr<ID3D11PixelShader>  g_pPixelShader;
-	CComPtr<ID3D11InputLayout>  g_pVertexLayout;
-	CComPtr<ID3D11Buffer>	g_pVertexBuffer;
-	CComPtr<ID3D11Buffer>	g_pIndexBuffer;
+	ComPtr<ID3D11PixelShader>  g_pPixelShader;
+	ComPtr<ID3D11InputLayout>  g_pVertexLayout;
+	ComPtr<ID3D11Buffer>	g_pVertexBuffer;
+	ComPtr<ID3D11Buffer>	g_pIndexBuffer;
 	CComPtr<ID3D11Buffer>	g_pConstantBuffer;
 
 	CComPtr<ID3D11Texture2D>        g_pDepthStencil;

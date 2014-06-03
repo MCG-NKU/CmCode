@@ -50,12 +50,12 @@ protected:
 	std::unique_ptr<CmVertexPosClrBatch>g_Batch;
 	std::unique_ptr<SpriteBatch>		g_Sprites;
 	std::unique_ptr<SpriteFont>			g_Font; 
+	std::unique_ptr<CDXUTTextHelper>	g_pTxtHelper;
 
 
 	ComPtr<ID3D11ShaderResourceView>   g_pTextureRV1;
 	ComPtr<ID3D11ShaderResourceView>   g_pTextureRV2;
 	ComPtr<ID3D11InputLayout>	g_pBatchInputLayout;
-	std::unique_ptr<CDXUTTextHelper>	g_pTxtHelper;
 
 	CDXUTDialog		g_SampleUI;             // dialog for sample specific controls
 	CD3DSettingsDlg	g_SettingsDlg;          // Device settings dialog
@@ -77,6 +77,7 @@ protected: // Callbacks
 
 private:
 	enum {IDC_TOGGLEFULLSCREEN = 1, IDC_TOGGLEREF, IDC_CHANGEDEVICE, IDC_TOGGLEWARP, IDC_STATIC, IDC_GROUP, IDC_SLIDER, IDC_SLIDER_STATIC};
+
 };
 
 #pragma warning(disable:4100)

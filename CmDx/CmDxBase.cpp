@@ -46,11 +46,9 @@ CmDxBase::CmDxBase(void)
 
 }
 
-bool gCmDxNotDestroied = true;
 CmDxBase::~CmDxBase(void)
 {
-	gCmDxNotDestroied = false;
- 	OnDestroyDevice();
+ 	//OnDestroyDevice();
 
 	//ComPtr<ID3D11Debug> debugDev;
 	//DXUTGetD3D11Device()->QueryInterface(__uuidof(ID3D11Debug), reinterpret_cast<void**>(debugDev.GetAddressOf()));
@@ -257,8 +255,7 @@ HRESULT CmDxBase::OnCreateDevice(DxDevice* pd3dDevice, const DXGI_SURFACE_DESC* 
 
 HRESULT CmDxBase::OnResizedSwapChain(DxDevice* pd3dDevice, IDXGISwapChain* pSwapChain, const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc)
 {
-	HRESULT hr;
-
+	HRESULT hr = S_OK;
 	V_RETURN( s_DlgRscManager.OnD3D11ResizedSwapChain( pd3dDevice, pBackBufferSurfaceDesc ) );
 	V_RETURN( g_SettingsDlg.OnD3D11ResizedSwapChain( pd3dDevice, pBackBufferSurfaceDesc ) );
 
@@ -328,7 +325,6 @@ void CmDxBase::OnDestroyDevice()
 	g_SettingsDlg.OnD3D11DestroyDevice();
 	DXUTGetGlobalResourceCache().OnDestroyDevice();
 
-
     g_States.reset();
     g_BatchEffect.reset();
     g_FXFactory.reset();
@@ -339,11 +335,9 @@ void CmDxBase::OnDestroyDevice()
     g_Font.reset();
 	g_pTxtHelper.reset();
 
-    //SAFE_DELETE( g_pTxtHelper );
-    //SAFE_RELEASE( g_pBatchInputLayout );
-    //SAFE_RELEASE( g_pTextureRV1 );
-    //SAFE_RELEASE( g_pTextureRV2 );
-
+	g_pTextureRV1.Reset();
+	g_pTextureRV2.Reset();
+	g_pBatchInputLayout.Reset();
 }
 
 void CmDxBase::OnFrameRender(DxDevice* pd3dDevice, DxContext* pd3dImmediateContext, double fTime, float fElapsedTime)
@@ -463,8 +457,7 @@ void CALLBACK CmDxBase::OnD3D11ReleasingSwapChain(void* pUserContext)
 
 void CALLBACK CmDxBase::OnD3D11DestroyDevice(void* pUserContext)
 {
-	if (gCmDxNotDestroied)
-		((CmDxBase*)pUserContext)->OnDestroyDevice();
+	((CmDxBase*)pUserContext)->OnDestroyDevice();
 }
 
 

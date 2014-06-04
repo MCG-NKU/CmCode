@@ -68,13 +68,18 @@ public: // Create buffers
 
 	static void setUavIniCount(int slotId, DxUAV*& pUAV, const UINT initCount);
 
-	static HRESULT creatTexture2D(DxDevice* pd3dDevice, DxTexture2D*& texBuf, DxSRV **ppSRView, 
+	static HRESULT creatTexture2D(DxDevice* pd3dDevice, DxTexture2D** texBuf, DxSRV **ppSRView, 
 		DxUAV **ppUAView, UINT w, UINT h, DXGI_FORMAT fmt = DXGI_FORMAT_R32G32B32A32_FLOAT);
 
-	static HRESULT creatTexture2D(DxDevice* pd3dDevice, DxTexture2D*& texBuf, DxSRV **ppSRView, 
+	static HRESULT creatTexture2D(DxDevice* pd3dDevice, DxTexture2D** texBuf, DxSRV **ppSRView, 
 		DxUAV **ppUAView, const D3D11_TEXTURE2D_DESC &descr);
 
-	static D3D11_TEXTURE2D_DESC createTexture2dDescr(UINT w, UINT h, DXGI_FORMAT fmt = DXGI_FORMAT_R32G32B32A32_FLOAT, UINT BindFlags = D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_SHADER_RESOURCE);
+	static HRESULT creatTexture2D(DxDevice* pd3dDevice, ComPtr<DxTexture2D> &texBuf, ComPtr<DxSRV> &ppSRView, 
+		ComPtr<DxUAV> &ppUAView, const D3D11_TEXTURE2D_DESC &descr);
+
+	static D3D11_TEXTURE2D_DESC createTexture2dDescr(UINT w, UINT h, DXGI_FORMAT fmt = DXGI_FORMAT_R32G32B32A32_FLOAT, 
+		UINT BindFlags = D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_SHADER_RESOURCE,
+		D3D11_USAGE usage = D3D11_USAGE_DEFAULT, UINT cpuAccess = 0);
 
 	static HRESULT createStencilView(DxDevice* pd3dDevice, DxTexture2D* texBuf, ComPtr<DxStencil>& pStenView, DXGI_FORMAT fmt = DXGI_FORMAT_D32_FLOAT);
 	static HRESULT createTextureSRV(DxDevice* pd3dDevice, DxTexture2D* texBuf, DxSRV*& pSRV, DXGI_FORMAT fmt = DXGI_FORMAT_R32_FLOAT);

@@ -36,19 +36,23 @@ void CmEffectFactory::CreateTexture( _In_z_ const WCHAR* name, _In_opt_ ID3D11De
 	DirectX::EffectFactory::CreateTexture( path, deviceContext, textureView );
 }
 
-
 CmDxBase::CmDxBase(void)
-	: g_pTextureRV1(nullptr)
-	, g_pTextureRV2(nullptr)
-	, g_pBatchInputLayout(nullptr)
-	, g_pTxtHelper(nullptr)
+	: _pTextureRV1(nullptr)
+	, _pTextureRV2(nullptr)
+	, _pBatchInputLayout(nullptr)
+	, _pTxtHelper(nullptr)
+	, _winW(640)
+	, _winH(480)
+	, _txtX(5)
+	, _txtY(5)
+	, _winTitle(L"Simple Sample for CmDxBase")
 {
-
 }
 
 CmDxBase::~CmDxBase(void)
 {
- 	//OnDestroyDevice();
+	OnDestroyDevice();
+	DXUTSetCallbackD3D11DeviceDestroyed(NULL, this);
 
 	//ComPtr<ID3D11Debug> debugDev;
 	//DXUTGetD3D11Device()->QueryInterface(__uuidof(ID3D11Debug), reinterpret_cast<void**>(debugDev.GetAddressOf()));
@@ -65,20 +69,20 @@ int CmDxBase::exec(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	DXUTSetCallbackD3D11DeviceAcceptable(IsD3D11DeviceAcceptable, this);
 	DXUTSetCallbackD3D11DeviceCreated(OnD3D11CreateDevice, this);
+	DXUTSetCallbackD3D11DeviceDestroyed(OnD3D11DestroyDevice, this);
 	DXUTSetCallbackD3D11SwapChainResized(OnD3D11ResizedSwapChain, this);
 	DXUTSetCallbackD3D11SwapChainReleasing(OnD3D11ReleasingSwapChain, this);
-	DXUTSetCallbackD3D11DeviceDestroyed(OnD3D11DestroyDevice, this);
 	DXUTSetCallbackD3D11FrameRender(OnD3D11FrameRender, this);
 
 	DXUTInit(true, true, nullptr ); // Parse the command line, show msgboxes on error, no extra command line params
 	DXUTSetCursorSettings(true, true );
-	DXUTCreateWindow(L"Simple Sample for CmDxBase");
+	DXUTCreateWindow(_winTitle.c_str());
 
 	InitApp();
 
 	// Only require 10-level hardware, change to D3D_FEATURE_LEVEL_11_0 to require 11-class hardware
 	// Switch to D3D_FEATURE_LEVEL_9_x for 10level9 hardware
-	DXUTCreateDevice(D3D_FEATURE_LEVEL_10_0, true, 640, 480);
+	DXUTCreateDevice(D3D_FEATURE_LEVEL_10_0, true, _winW, _winH);
 
 	DXUTMainLoop(); // Enter into the DXUT render loop
 
@@ -87,50 +91,50 @@ int CmDxBase::exec(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 void CmDxBase::InitApp()
 {
-	g_SettingsDlg.Init( &s_DlgRscManager);
-	g_HUD.Init( &s_DlgRscManager);
-	g_SampleUI.Init( &s_DlgRscManager);
+	_SettingsDlg.Init( &s_DlgRscManager);
+	_HUD.Init( &s_DlgRscManager);
+	_SampleUI.Init( &s_DlgRscManager);
 
-	g_HUD.SetCallback(OnGUIEvent, this);
+	_HUD.SetCallback(OnGUIEvent, this);
 	int iY = 30;
 	int iYo = 26;
-	g_HUD.AddButton(IDC_TOGGLEFULLSCREEN, L"Toggle full screen", 0, iY, 170, 22 );
-	g_HUD.AddButton(IDC_CHANGEDEVICE, L"Change device (F2)", 0, iY += iYo, 170, 22, VK_F2 );
-	g_HUD.AddButton(IDC_TOGGLEREF, L"Toggle REF (F3)", 0, iY += iYo, 170, 22, VK_F3 );
-	g_HUD.AddButton(IDC_TOGGLEWARP, L"Toggle WARP (F4)", 0, iY += iYo, 170, 22, VK_F4 );
+	_HUD.AddButton(IDC_TOGGLEFULLSCREEN, L"Toggle full screen", 0, iY, 170, 22 );
+	_HUD.AddButton(IDC_CHANGEDEVICE, L"Change device (F2)", 0, iY += iYo, 170, 22, VK_F2 );
+	_HUD.AddButton(IDC_TOGGLEREF, L"Toggle REF (F3)", 0, iY += iYo, 170, 22, VK_F3 );
+	_HUD.AddButton(IDC_TOGGLEWARP, L"Toggle WARP (F4)", 0, iY += iYo, 170, 22, VK_F4 );
 
 	// Create sample UI
 	CDXUTComboBox* pComboBox = nullptr;
-	g_SampleUI.AddStatic( IDC_STATIC, L"Group", 10, 0, 170, 25 );
-	g_SampleUI.AddComboBox( IDC_GROUP, 0, 25, 170, 24, 'G', false, &pComboBox );
+	_SampleUI.AddStatic( IDC_STATIC, L"Group", 10, 0, 170, 25 );
+	_SampleUI.AddComboBox( IDC_GROUP, 0, 25, 170, 24, 'G', false, &pComboBox );
 	if( pComboBox )
 		pComboBox->SetDropHeight( 50 );
 	pComboBox->AddItem( L"Frustum", IntToPtr( 0 ) );
 	pComboBox->AddItem( L"Axis-aligned Box", IntToPtr( 1 ) );
 	pComboBox->AddItem( L"Oriented Box", IntToPtr( 2 ) );
 	pComboBox->AddItem( L"Ray", IntToPtr( 3 ) );
-	g_SampleUI.AddStatic(IDC_SLIDER_STATIC, L"Slider", 0, 50, 10, 25);
-	g_SampleUI.AddSlider(IDC_SLIDER, 55, 50, 100, 20, 0, 100, 50, false);
+	_SampleUI.AddStatic(IDC_SLIDER_STATIC, L"Slider", 0, 50, 10, 25);
+	_SampleUI.AddSlider(IDC_SLIDER, 55, 50, 100, 20, 0, 100, 50, false);
 
-	g_SampleUI.SetCallback(OnGUIEvent, this); 
+	_SampleUI.SetCallback(OnGUIEvent, this); 
 }
 
 void CmDxBase::RenderText()
 {
-	g_pTxtHelper->Begin();
-	g_pTxtHelper->SetInsertionPos( 5, 5 );
-	g_pTxtHelper->SetForegroundColor( Colors::Yellow );
-	g_pTxtHelper->DrawTextLine( DXUTGetFrameStats( DXUTIsVsyncEnabled() ) );
-	g_pTxtHelper->DrawTextLine( DXUTGetDeviceStats() );
-	g_pTxtHelper->End();
+	_pTxtHelper->Begin();
+	_pTxtHelper->SetInsertionPos(_txtX, _txtY);
+	_pTxtHelper->SetForegroundColor( Colors::Yellow );
+	_pTxtHelper->DrawTextLine( DXUTGetFrameStats( DXUTIsVsyncEnabled() ) );
+	_pTxtHelper->DrawTextLine( DXUTGetDeviceStats() );
+	_pTxtHelper->End();
 }
 
 void CmDxBase::DrawGrid(FXMVECTOR xAxis, FXMVECTOR yAxis, FXMVECTOR origin, size_t xdivs, size_t ydivs, GXMVECTOR color)
 {
 	ComPtr<ID3D11DeviceContext> context = DXUTGetD3D11DeviceContext();
-	g_BatchEffect->Apply(context.Get());
-	context->IASetInputLayout(g_pBatchInputLayout.Get());
-	g_Batch->Begin();
+	_BatchEffect->Apply(context.Get());
+	context->IASetInputLayout(_pBatchInputLayout.Get());
+	_Batch->Begin();
 	xdivs = std::max<size_t>( 1, xdivs );
 	ydivs = std::max<size_t>( 1, ydivs );
 
@@ -142,7 +146,7 @@ void CmDxBase::DrawGrid(FXMVECTOR xAxis, FXMVECTOR yAxis, FXMVECTOR origin, size
 
 		VertexPositionColor v1( XMVectorSubtract( vScale, yAxis ), color );
 		VertexPositionColor v2( XMVectorAdd( vScale, yAxis ), color );
-		g_Batch->DrawLine( v1, v2 );
+		_Batch->DrawLine( v1, v2 );
 	}
 
 	for( size_t i = 0; i <= ydivs; i++ ){
@@ -153,10 +157,10 @@ void CmDxBase::DrawGrid(FXMVECTOR xAxis, FXMVECTOR yAxis, FXMVECTOR origin, size
 
 		VertexPositionColor v1( XMVectorSubtract( vScale, xAxis ), color );
 		VertexPositionColor v2( XMVectorAdd( vScale, xAxis ), color );
-		g_Batch->DrawLine( v1, v2 );
+		_Batch->DrawLine( v1, v2 );
 	}
 
-	g_Batch->End();
+	_Batch->End();
 
 }
 
@@ -168,22 +172,22 @@ LRESULT CmDxBase::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bo
 		return 0;
 
 	// Pass messages to settings dialog if its active
-	if( g_SettingsDlg.IsActive() )
+	if( _SettingsDlg.IsActive() )
 	{
-		g_SettingsDlg.MsgProc( hWnd, uMsg, wParam, lParam );
+		_SettingsDlg.MsgProc( hWnd, uMsg, wParam, lParam );
 		return 0;
 	}
 
 	// Give the dialogs a chance to handle the message first
-	*pbNoFurtherProcessing = g_HUD.MsgProc( hWnd, uMsg, wParam, lParam );
+	*pbNoFurtherProcessing = _HUD.MsgProc( hWnd, uMsg, wParam, lParam );
 	if( *pbNoFurtherProcessing )
 		return 0;
-	*pbNoFurtherProcessing = g_SampleUI.MsgProc( hWnd, uMsg, wParam, lParam );
+	*pbNoFurtherProcessing = _SampleUI.MsgProc( hWnd, uMsg, wParam, lParam );
 	if( *pbNoFurtherProcessing )
 		return 0;
 
 	// Pass all remaining windows messages to camera so it can respond to user input
-	g_Camera.HandleMessages( hWnd, uMsg, wParam, lParam );
+	_Camera.HandleMessages( hWnd, uMsg, wParam, lParam );
 
 	return 0;
 }
@@ -196,59 +200,57 @@ HRESULT CmDxBase::OnCreateDevice(DxDevice* pd3dDevice, const DXGI_SURFACE_DESC* 
 
 	//auto pd3dImmediateContext = DXUTGetD3D11DeviceContext();
 	V_RETURN( s_DlgRscManager.OnD3D11CreateDevice( pd3dDevice, pd3dImmediateContext.Get() ) );
-	V_RETURN( g_SettingsDlg.OnD3D11CreateDevice( pd3dDevice ) );
+	V_RETURN( _SettingsDlg.OnD3D11CreateDevice( pd3dDevice ) );
 	// TODO - 
-	g_pTxtHelper.reset(new CDXUTTextHelper(pd3dDevice, pd3dImmediateContext.Get(), &s_DlgRscManager, 15 ));
+	_pTxtHelper.reset(new CDXUTTextHelper(pd3dDevice, pd3dImmediateContext.Get(), &s_DlgRscManager, 20 ));
 
 	// Create other render resources here
-	g_States.reset( new CommonStates( pd3dDevice ) );
-	g_Sprites.reset( new SpriteBatch( pd3dImmediateContext.Get() ) );
-	g_FXFactory.reset( new CmEffectFactory( pd3dDevice ) );
-	g_Batch.reset( new PrimitiveBatch<VertexPositionColor>( pd3dImmediateContext.Get() ) );
+	_States.reset( new CommonStates( pd3dDevice ) );
+	_Sprites.reset( new SpriteBatch( pd3dImmediateContext.Get() ) );
+	_FXFactory.reset( new CmEffectFactory( pd3dDevice ) );
+	_Batch.reset( new PrimitiveBatch<VertexPositionColor>( pd3dImmediateContext.Get() ) );
 
-	g_BatchEffect.reset( new BasicEffect( pd3dDevice ) );
-	g_BatchEffect->SetVertexColorEnabled(true);
+	_BatchEffect.reset( new BasicEffect( pd3dDevice ) );
+	_BatchEffect->SetVertexColorEnabled(true);
 
 	{
 		void const* shaderByteCode;
 		size_t byteCodeLength;
 
-		g_BatchEffect->GetVertexShaderBytecode( &shaderByteCode, &byteCodeLength );
+		_BatchEffect->GetVertexShaderBytecode( &shaderByteCode, &byteCodeLength );
 
 		hr = pd3dDevice->CreateInputLayout( VertexPositionColor::InputElements,
 			VertexPositionColor::InputElementCount,
 			shaderByteCode, byteCodeLength,
-			&g_pBatchInputLayout );
+			&_pBatchInputLayout );
 		if( FAILED( hr ) )
 			return hr;
 	}
 
 	WCHAR str[ MAX_PATH ];
 	V_RETURN( DXUTFindDXSDKMediaFileCch( str, MAX_PATH, L"UI\\italic.spritefont" ) );
-	g_Font.reset( new SpriteFont( pd3dDevice, str ) );
+	_Font.reset( new SpriteFont( pd3dDevice, str ) );
 
-	g_Shape = GeometricPrimitive::CreateTeapot( pd3dImmediateContext.Get(), 4.f, 8, false );
+	_Shape = GeometricPrimitive::CreateTeapot( pd3dImmediateContext.Get(), 4.f, 8, false );
 
 	V_RETURN( DXUTFindDXSDKMediaFileCch( str, MAX_PATH, L"Tiny\\tiny.sdkmesh" ) );
-	g_FXFactory->SetPath( L"Tiny\\" );
-	g_Model = Model::CreateFromSDKMESH( pd3dDevice, str, *g_FXFactory, true );
+	_FXFactory->SetPath( L"Tiny\\" );
+	_Model = Model::CreateFromSDKMESH( pd3dDevice, str, *_FXFactory, true );
 
 	// Load the Texture
 	V_RETURN( DXUTFindDXSDKMediaFileCch( str, MAX_PATH, L"misc\\seafloor.dds" ) );
-	hr = CreateDDSTextureFromFile( pd3dDevice, str, nullptr, &g_pTextureRV1 );
+	hr = CreateDDSTextureFromFile( pd3dDevice, str, nullptr, &_pTextureRV1 );
 	if( FAILED( hr ) )
 		return hr;
 
 	V_RETURN( DXUTFindDXSDKMediaFileCch( str, MAX_PATH, L"misc\\windowslogo.dds" ) );
-	hr = CreateDDSTextureFromFile( pd3dDevice, str, nullptr, &g_pTextureRV2 );
-	if( FAILED( hr ) )
-		return hr;
+	V_RETURN(CreateDDSTextureFromFile( pd3dDevice, str, nullptr, &_pTextureRV2 ));
 
 	// Setup the camera's view parameters
 	static const XMVECTORF32 s_vecEye = { 0.0f, 3.0f, -6.0f, 0.f };
-	g_Camera.SetViewParams( s_vecEye, g_XMZero );
+	_Camera.SetViewParams( s_vecEye, g_XMZero );
 
-	//g_HUD.GetButton( IDC_TOGGLEWARP )->SetEnabled( true );
+	//_HUD.GetButton( IDC_TOGGLEWARP )->SetEnabled( true );
 
 	return S_OK;
 }
@@ -257,19 +259,19 @@ HRESULT CmDxBase::OnResizedSwapChain(DxDevice* pd3dDevice, IDXGISwapChain* pSwap
 {
 	HRESULT hr = S_OK;
 	V_RETURN( s_DlgRscManager.OnD3D11ResizedSwapChain( pd3dDevice, pBackBufferSurfaceDesc ) );
-	V_RETURN( g_SettingsDlg.OnD3D11ResizedSwapChain( pd3dDevice, pBackBufferSurfaceDesc ) );
+	V_RETURN( _SettingsDlg.OnD3D11ResizedSwapChain( pd3dDevice, pBackBufferSurfaceDesc ) );
 
 	// Setup the camera's projection parameters
 	float fAspectRatio = pBackBufferSurfaceDesc->Width / ( FLOAT )pBackBufferSurfaceDesc->Height;
-	g_Camera.SetProjParams( XM_PI / 4, fAspectRatio, 0.1f, 1000.0f );
-	g_Camera.SetWindow( pBackBufferSurfaceDesc->Width, pBackBufferSurfaceDesc->Height );
-	g_Camera.SetButtonMasks( MOUSE_LEFT_BUTTON, MOUSE_WHEEL, MOUSE_MIDDLE_BUTTON );
+	_Camera.SetProjParams( XM_PI / 4, fAspectRatio, 0.1f, 1000.0f );
+	_Camera.SetWindow( pBackBufferSurfaceDesc->Width, pBackBufferSurfaceDesc->Height );
+	_Camera.SetButtonMasks( MOUSE_LEFT_BUTTON, MOUSE_WHEEL, MOUSE_MIDDLE_BUTTON );
 
-	g_HUD.SetLocation( pBackBufferSurfaceDesc->Width - 170, 0 );
-	g_HUD.SetSize( 170, 170 );
+	_HUD.SetLocation( pBackBufferSurfaceDesc->Width - 170, 0 );
+	_HUD.SetSize( 170, 170 );
 
-	g_SampleUI.SetLocation( pBackBufferSurfaceDesc->Width - 170, 150 );
-	g_SampleUI.SetSize( 170, 300 );
+	_SampleUI.SetLocation( pBackBufferSurfaceDesc->Width - 170, 150 );
+	_SampleUI.SetSize( 170, 300 );
 	return S_OK;
 }
 
@@ -293,12 +295,12 @@ void CmDxBase::OnGUIEvent(UINT nEvent, int nControlID, CDXUTControl* pControl)
 		DXUTToggleWARP();
 		break;
 	case IDC_CHANGEDEVICE:
-		g_SettingsDlg.SetActive( !g_SettingsDlg.IsActive() );
+		_SettingsDlg.SetActive( !_SettingsDlg.IsActive() );
 		break;
 	case IDC_SLIDER:
 		CStringW str;
-		str.Format(L"S=%d", g_SampleUI.GetSlider(IDC_SLIDER)->GetValue());
-		g_SampleUI.GetStatic(IDC_SLIDER_STATIC)->SetText(str);
+		str.Format(L"S=%d", _SampleUI.GetSlider(IDC_SLIDER)->GetValue());
+		_SampleUI.GetStatic(IDC_SLIDER_STATIC)->SetText(str);
 		break;
 	}
 }
@@ -306,7 +308,7 @@ void CmDxBase::OnGUIEvent(UINT nEvent, int nControlID, CDXUTControl* pControl)
 void CmDxBase::OnFrameMove(double fTime, float fElapsedTime)
 {
 	// Update the camera's position based on user input 
-	g_Camera.FrameMove( fElapsedTime );
+	_Camera.FrameMove( fElapsedTime );
 }
 
 bool CmDxBase::ModifyDeviceSettings(DXUTDeviceSettings* pDeviceSettings)
@@ -322,30 +324,30 @@ bool CmDxBase::IsDeviceAcceptable(const CD3D11EnumAdapterInfo *AdapterInfo, UINT
 void CmDxBase::OnDestroyDevice()
 {
 	s_DlgRscManager.OnD3D11DestroyDevice();
-	g_SettingsDlg.OnD3D11DestroyDevice();
+	_SettingsDlg.OnD3D11DestroyDevice();
 	DXUTGetGlobalResourceCache().OnDestroyDevice();
 
-    g_States.reset();
-    g_BatchEffect.reset();
-    g_FXFactory.reset();
-    g_Shape.reset();
-    g_Model.reset();
-    g_Batch.reset();
-    g_Sprites.reset();
-    g_Font.reset();
-	g_pTxtHelper.reset();
+    _States.reset();
+    _BatchEffect.reset();
+    _FXFactory.reset();
+    _Shape.reset();
+    _Model.reset();
+    _Batch.reset();
+    _Sprites.reset();
+    _Font.reset();
+	_pTxtHelper.reset();
 
-	g_pTextureRV1.Reset();
-	g_pTextureRV2.Reset();
-	g_pBatchInputLayout.Reset();
+	_pTextureRV1.Reset();
+	_pTextureRV2.Reset();
+	_pBatchInputLayout.Reset();
 }
 
-void CmDxBase::OnFrameRender(DxDevice* pd3dDevice, DxContext* pd3dImmediateContext, double fTime, float fElapsedTime)
+void CmDxBase::OnRender(DxDevice* pd3dDevice, DxContext* pd3dImmediateContext, double fTime, float fElapsedTime)
 {
 	// If the settings dialog is being shown, then render it instead of rendering the app's scene
-	if( g_SettingsDlg.IsActive() )
+	if( _SettingsDlg.IsActive() )
 	{
-		g_SettingsDlg.OnRender( fElapsedTime );
+		_SettingsDlg.OnRender( fElapsedTime );
 		return;
 	}       
 
@@ -357,12 +359,12 @@ void CmDxBase::OnFrameRender(DxDevice* pd3dDevice, DxContext* pd3dImmediateConte
 	pd3dImmediateContext->ClearDepthStencilView( pDSV, D3D11_CLEAR_DEPTH, 1.0, 0 );
 
 	// Get the projection & view matrix from the camera class
-	XMMATRIX mWorld = g_Camera.GetWorldMatrix();
-	XMMATRIX mView = g_Camera.GetViewMatrix();
-	XMMATRIX mProj = g_Camera.GetProjMatrix();
+	XMMATRIX mWorld = _Camera.GetWorldMatrix();
+	XMMATRIX mView = _Camera.GetViewMatrix();
+	XMMATRIX mProj = _Camera.GetProjMatrix();
 
-	g_BatchEffect->SetView( mView );
-	g_BatchEffect->SetProjection( mProj );
+	_BatchEffect->SetView( mView );
+	_BatchEffect->SetProjection( mProj );
 
 	// Draw procedurally generated dynamic grid
 	const XMVECTORF32 xaxis = { 20.f, 0.f, 0.f };
@@ -370,28 +372,28 @@ void CmDxBase::OnFrameRender(DxDevice* pd3dDevice, DxContext* pd3dImmediateConte
 	DrawGrid( xaxis, yaxis, g_XMZero, 20, 20, Colors::Gray );
 
 	// Draw sprite
-	g_Sprites->Begin( SpriteSortMode_Deferred );
-	g_Sprites->Draw( g_pTextureRV2.Get(), XMFLOAT2(10, 75 ), nullptr, Colors::White );
+	_Sprites->Begin( SpriteSortMode_Deferred );
+	_Sprites->Draw( _pTextureRV2.Get(), XMFLOAT2(10, 75 ), nullptr, Colors::White );
 
-	g_Font->DrawString( g_Sprites.get(), L"DirectXTK Simple Sample", XMFLOAT2( 100, 350 ), Colors::Yellow );
-	g_Sprites->End();
+	_Font->DrawString( _Sprites.get(), L"DirectXTK Simple Sample", XMFLOAT2( 100, 350 ), Colors::Yellow );
+	_Sprites->End();
 
 	// Draw 3D object
 	XMMATRIX local = XMMatrixMultiply( mWorld, XMMatrixTranslation( -2.f, -2.f, 4.f ) );
-	g_Shape->Draw( local, mView, mProj, Colors::White, g_pTextureRV1.Get());
+	_Shape->Draw( local, mView, mProj, Colors::White, _pTextureRV1.Get());
 
 	XMVECTOR qid = XMQuaternionIdentity();
 	const XMVECTORF32 scale = { 0.01f, 0.01f, 0.01f};
 	const XMVECTORF32 translate = { 3.f, -2.f, 4.f };
 	XMVECTOR rotate = XMQuaternionRotationRollPitchYaw( 0, XM_PI/2.f, XM_PI/2.f );
 	local = XMMatrixMultiply( mWorld, XMMatrixTransformation( g_XMZero, qid, scale, g_XMZero, rotate, translate ) );
-	g_Model->Draw( pd3dImmediateContext, *g_States, local, mView, mProj );
+	_Model->Draw( pd3dImmediateContext, *_States, local, mView, mProj );
 
 	// Render HUD
 	//tm.Start();
 	DXUT_BeginPerfEvent( DXUT_PERFEVENTCOLOR, L"HUD / Stats" );
-	g_HUD.OnRender( fElapsedTime );
-	g_SampleUI.OnRender( fElapsedTime );
+	_HUD.OnRender( fElapsedTime );
+	_SampleUI.OnRender( fElapsedTime );
 	RenderText();
 	DXUT_EndPerfEvent();
 
@@ -463,5 +465,5 @@ void CALLBACK CmDxBase::OnD3D11DestroyDevice(void* pUserContext)
 
 void CALLBACK CmDxBase::OnD3D11FrameRender( ID3D11Device* pd3dDevice, ID3D11DeviceContext* pd3dImmediateContext, double fTime, float fElapsedTime, void* pUserContext )
 {
-	((CmDxBase*)pUserContext)->OnFrameRender(pd3dDevice, pd3dImmediateContext, fTime, fElapsedTime);
+	((CmDxBase*)pUserContext)->OnRender(pd3dDevice, pd3dImmediateContext, fTime, fElapsedTime);
 }

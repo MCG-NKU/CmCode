@@ -261,32 +261,37 @@ HRESULT CmSRM::createDefaultBuffer(DxDevice* pd3dDevice, UINT byteWidth, ComPtr<
 	return hr;
 }
 
-HRESULT CmSRM::creatTexture2D(DxDevice* pd3dDevice, DxTexture2D*& texBuf, 
+HRESULT CmSRM::creatTexture2D(DxDevice* pd3dDevice, DxTexture2D** texBuf, 
 											DxSRV **ppSRView, DxUAV **ppUAView, UINT w, UINT h, DXGI_FORMAT fmt)
 {
 	D3D11_TEXTURE2D_DESC descTex = createTexture2dDescr(w, h, fmt);
 	return creatTexture2D(pd3dDevice, texBuf, ppSRView, ppUAView, descTex);
 }
 
-HRESULT CmSRM::creatTexture2D(DxDevice* pd3dDevice, DxTexture2D*& texBuf, 
+HRESULT CmSRM::creatTexture2D(DxDevice* pd3dDevice, DxTexture2D** texBuf, 
 											DxSRV **ppSRView, DxUAV **ppUAView, const D3D11_TEXTURE2D_DESC &descr)
 {
 	HRESULT hr = S_OK;
-	V_RETURN(pd3dDevice->CreateTexture2D(&descr, NULL, &texBuf));
+	V_RETURN(pd3dDevice->CreateTexture2D(&descr, NULL, texBuf));
 	if (ppSRView != NULL)
-	{V_RETURN(pd3dDevice->CreateShaderResourceView(texBuf, NULL, ppSRView));}
-	if (ppSRView != NULL)
-	{V_RETURN(pd3dDevice->CreateUnorderedAccessView(texBuf, NULL, ppUAView));}
+		{V_RETURN(pd3dDevice->CreateShaderResourceView(*texBuf, NULL, ppSRView));}
+	if (ppUAView != NULL)
+		{V_RETURN(pd3dDevice->CreateUnorderedAccessView(*texBuf, NULL, ppUAView));}
 	return hr;
 }
 
-D3D11_TEXTURE2D_DESC CmSRM::createTexture2dDescr(UINT w, UINT h, DXGI_FORMAT fmt, UINT BindFlags)
+HRESULT CmSRM::creatTexture2D(DxDevice* pd3dDevice, ComPtr<DxTexture2D> &texBuf, ComPtr<DxSRV> &ppSRView, ComPtr<DxUAV> &ppUAView, const D3D11_TEXTURE2D_DESC &descr)
+{
+	return creatTexture2D(pd3dDevice, texBuf.ReleaseAndGetAddressOf(), ppSRView.ReleaseAndGetAddressOf(), ppUAView.ReleaseAndGetAddressOf(), descr);
+}
+
+D3D11_TEXTURE2D_DESC CmSRM::createTexture2dDescr(UINT w, UINT h, DXGI_FORMAT fmt, UINT BindFlags, D3D11_USAGE usage, UINT cpuAccess)
 {
 	D3D11_TEXTURE2D_DESC descTex;
 	ZeroMemory(&descTex, sizeof(D3D11_TEXTURE2D_DESC));
-	//descTex.Usage = D3D11_USAGE_DEFAULT;
+	descTex.Usage = usage;
 	descTex.BindFlags = BindFlags;
-	//descTex.CPUAccessFlags = 0;
+	descTex.CPUAccessFlags = cpuAccess;
 	//descTex.MiscFlags = 0;
 	descTex.SampleDesc.Count = 1;
 	//descTex.SampleDesc.Quality = 0;

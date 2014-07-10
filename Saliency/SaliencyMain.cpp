@@ -4,14 +4,14 @@
 #include "stdafx.h"
 
 int main(int argc, char* argv[])
-{
-	CStr wkDir = "E:/Saliency/ECSSD/";
+{	
+	CStr wkDir = "D:/Saliency/MSRA10K/";
 
 	// Saliency detection method pretended in my ICCV 2013 paper http://mmcheng.net/effisalobj/.
-	//return CmSaliencyGC::Demo(wkDir + "Imgs/*.jpg", wkDir + "/Saliency/"); 
+	return CmSaliencyGC::Demo(wkDir + "Imgs/*.jpg", wkDir + "/Saliency/"); 
 
 	// Saliency detection method presented in CVPR11 paper and its journal version http://mmcheng.net/salobj/.
-	//return CmSaliencyRC::Demo("D:/WkDir/Saliency/FT1000/");
+	return CmSaliencyRC::Demo("D:/WkDir/Saliency/FT1000/");
 
 	vecS des;
 	des.push_back("_RC");

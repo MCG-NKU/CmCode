@@ -7,8 +7,7 @@ see the source code download adrees for latest citation informations.
 Notice: this project is used to support speach recognition of my 
 ImageSpirit project. See the corresponding paper for more detials.
 The CORE part of ImageSpirit system will be made public avlialible 
-after paper acceptence.
-
+soon.
 
 Dependence: 
 1. <sphelper.h> from 'Windows software development kit (SDK)'. 

@@ -55,11 +55,11 @@
 # endif
 #endif
 
-#ifdef WIN32
-static float round( float v ) {
-	return floor( v+0.5f );
+
+static int float2IntRound( float v ) {
+	return (int)floorf( v+0.5f );
 }
-#endif
+
 
 /************************************************/
 /***                Hash Table                ***/
@@ -279,7 +279,7 @@ public:
 			float up_factor = (float)(d_+1);
 			int sum = 0;
 			for( int i=0; i<=d_; i++ ){
-				int rd = (int)round( down_factor * elevated[i]);
+				int rd = float2IntRound( down_factor * elevated[i]);
 				rem0[i] = rd*up_factor;
 				sum += rd;
 			}

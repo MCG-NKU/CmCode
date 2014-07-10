@@ -24,6 +24,7 @@
 #include <iostream>
 #include <math.h>
 #include <assert.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -207,8 +208,8 @@ void DynNode::rotateRight(CapType grossminU, CapType grossminUR) {
   unew->data = uData;
 
   //fix height fields
-  unew->height = max(unew->bLeft->height, unew->bRight->height) + 1;
-  vnew->height = max(vnew->bLeft->height, vnew->bRight->height) + 1;
+  unew->height = std::max(unew->bLeft->height, unew->bRight->height) + 1;
+  vnew->height = std::max(vnew->bLeft->height, vnew->bRight->height) + 1;
 }
 
 void DynNode::rotateLeft(CapType grossminU, CapType grossminUR) {

@@ -590,12 +590,13 @@ void CmCurveEx::Demo(CMat &img1u, bool isCartoon)
 {
 	Mat srcImg1f, show3u = Mat::zeros(img1u.size(), CV_8UC3);
 	img1u.convertTo(srcImg1f, CV_32FC1, 1.0/255);
+	GaussianBlur(srcImg1f, srcImg1f, Size(3, 3), 0, 0);
 
 	CmCurveEx dEdge;
 	if (isCartoon)
-		dEdge.CalSecDer(srcImg1f);
+		imshow("Edge Map 2", dEdge.CalSecDer(srcImg1f));
 	else
-		dEdge.CalFirDer(srcImg1f);
+		imshow("Edge Map 1", dEdge.CalFirDer(srcImg1f));
 
 	dEdge.Link();
 	const vector<CEdge> &edges = dEdge.GetEdges();
@@ -606,7 +607,7 @@ void CmCurveEx::Demo(CMat &img1u, bool isCartoon)
 		for (size_t j = 0; j < pnts.size(); j++)
 			show3u.at<Vec3b>(pnts[j]) = color;
 	}
-	imshow("Image", show3u);
+	imshow("Linked edge (same color for the same edge index)", show3u);
 	waitKey(0);
 }
 

@@ -2,13 +2,13 @@ This solution contains source code from Ming-Ming Cheng's research projects.
 Please refer to the project page for more source code and research data: 
 http://mmcheng.net/
 
-The souce code is for educational and research use only; commercial use are 
+The source code is for educational and research use only; commercial use are 
 forbidden. See: http://mmcheng.net/code-data/ for related patents.
 If you use any part of the source code, please cite related papers.
 
-Questions directly related to my source code and project is wellcome. Please
+Questions directly related to my source code and project is welcome. Please
 refer to the project page for detailed contact information. Emails regarding
-questions like `how to install and configure opencv?' will not be replied.
+questions like `how to install and configure opencv?` will not be replied.
 
 
 Version History:

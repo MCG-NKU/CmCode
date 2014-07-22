@@ -2,12 +2,12 @@
 #include "CmEvaluation.h"
 
 int CmEvaluation::STEP = 1;
-const int CmEvaluation::MI =  COLOR_NUM / STEP + 1;
+const int CmEvaluation::NUM_THRESHOLD =  COLOR_NUM / STEP + 1;
 
 void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 {
-	int TN = des.size(); // Type Number of different methods
-	vector<vecD> precision(TN), recall(TN), tpr(TN), fpr(TN);
+	int NumMethod = des.size(); // Number of different methods
+	vector<vecD> precision(NumMethod), recall(NumMethod), tpr(NumMethod), fpr(NumMethod);
 	static const int CN = 21; // Color Number 
 	static const char* c[CN] = {"'k'", "'b'", "'g'", "'r'", "'c'", "'m'", "'y'",
 		"':k'", "':b'", "':g'", "':r'", "':c'", "':m'", "':y'", 
@@ -16,19 +16,19 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 	FILE* f = fopen(_S(resName), "w");
 	CV_Assert(f != NULL);
 	fprintf(f, "clear;\nclose all;\nclc;\n\n\n%%%%\nfigure(1);\nhold on;\n");
-	vecD thr(MI);
-	for (int i = 0; i < MI; i++)
+	vecD thr(NUM_THRESHOLD);
+	for (int i = 0; i < NUM_THRESHOLD; i++)
 		thr[i] = i * STEP;
 	PrintVector(f, thr, "Threshold");
 	fprintf(f, "\n");
 	
-	vecD mae(TN);
-	for (int i = 0; i < TN; i++)
+	vecD mae(NumMethod);
+	for (int i = 0; i < NumMethod; i++)
 		mae[i] = Evaluate_(gtW, salDir, "_" + des[i] + ".png", precision[i], recall[i], tpr[i], fpr[i]); //Evaluate(salDir + "*" + des[i] + ".png", gtW, val[i], recall[i], t);
 
 	string leglendStr("legend(");
-	vecS strPre(TN), strRecall(TN), strTpr(TN), strFpr(TN);
-	for (int i = 0; i < TN; i++){
+	vecS strPre(NumMethod), strRecall(NumMethod), strTpr(NumMethod), strFpr(NumMethod);
+	for (int i = 0; i < NumMethod; i++){
 		strPre[i] = format("Precision_%s", _S(des[i]));
 		strRecall[i] = format("Recall_%s", _S(des[i]));
 		strTpr[i] = format("TPR_%s", _S(des[i]));
@@ -48,22 +48,24 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 
 
 	fprintf(f, "\n\n\n%%%%\nfigure(2);\nhold on;\n");
-	for (int i = 0; i < TN; i++)
+	for (int i = 0; i < NumMethod; i++)
 		fprintf(f, "plot(%s, %s,  %s, 'linewidth', %d);\n", _S(strFpr[i]), _S(strTpr[i]), c[i % CN], i < CN ? 2 : 1);
 	xLabel = "label('False positive rate');\n";
 	yLabel = "label('True positive rate')\n";
 	fprintf(f, "hold off;\nx%sy%s\n%s\ngrid on;\naxis([0 1 0 1]);\n\n\n%%%%\nfigure(3);\ntitle('ROC curve');\n", _S(xLabel), _S(yLabel), _S(leglendStr));
 
 	double betaSqr = 0.3; // As suggested by most papers for salient object detection
-	vecD areaROC(TN, 0), avgFMeasure(TN, 0), maxFMeasure(TN, 0);
-	for (int i = 0; i < TN; i++){
+	vecD areaROC(NumMethod, 0), avgFMeasure(NumMethod, 0), maxFMeasure(NumMethod, 0);
+	for (int i = 0; i < NumMethod; i++){
 		CV_Assert(fpr[i].size() == tpr[i].size() && precision[i].size() == recall[i].size() && fpr[i].size() == precision[i].size());
 		for (size_t t = 0; t < fpr[i].size(); t++){
 			double fMeasure = (1+betaSqr) * precision[i][t] * recall[i][t] / (betaSqr * precision[i][t] + recall[i][t]);
-			avgFMeasure[i] += fMeasure/fpr[i].size();
+			//avgFMeasure[i] += fMeasure/fpr[i].size(); // Doing average like this might have strange effect as in: 
 			maxFMeasure[i] = max(maxFMeasure[i], fMeasure);
-			if (t > 0)
+			if (t > 0){
 				areaROC[i] += (tpr[i][t] + tpr[i][t - 1]) * (fpr[i][t - 1] - fpr[i][t]) / 2.0;
+
+			}
 		}
 		fprintf(f, "%%%5s: AUC = %5.3f, MeanF = %5.3f, MaxF = %5.3f, MAE = %5.3f\n", _S(des[i]), areaROC[i], avgFMeasure[i], maxFMeasure[i], mae[i]);
 	}
@@ -74,12 +76,12 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 
 	// methodLabels = {'AC', 'SR', 'DRFI', 'GU', 'GB'};
 	fprintf(f, "methodLabels = {'%s'", _S(des[0]));
-	for (int i = 1; i < TN; i++)
+	for (int i = 1; i < NumMethod; i++)
 		fprintf(f, ", '%s'", _S(des[i]));
-	fprintf(f, "};\n\nbar([MeanFMeasure; MaxFMeasure; AUC]');\nlegend('Mean F_\\beta', 'Max F_\\beta', 'AUC');xlim([0 %d]);\n\n", TN+1);
-	fprintf(f, "xticklabel_rotate([1:%d],90, methodLabels,'interpreter','none');\n", TN);
-	fprintf(f, "\n\nfigure(4);\nbar(MAE);\ntitle('MAE');\nxlim([0 %d]);", TN+1);
-	fprintf(f, "xticklabel_rotate([1:%d],90, methodLabels,'interpreter','none');\n", TN);
+	fprintf(f, "};\n\nbar([MeanFMeasure; MaxFMeasure; AUC]');\nlegend('Mean F_\\beta', 'Max F_\\beta', 'AUC');xlim([0 %d]);\ngrid on;\n", NumMethod+1);
+	fprintf(f, "xticklabel_rotate([1:%d],90, methodLabels,'interpreter','none');\n", NumMethod);
+	fprintf(f, "\n\nfigure(4);\nbar(MAE);\ntitle('MAE');\ngrid on;\nxlim([0 %d]);", NumMethod+1);
+	fprintf(f, "xticklabel_rotate([1:%d],90, methodLabels,'interpreter','none');\n", NumMethod);
 	fclose(f);
 	printf("%-70s\r", "");
 }
@@ -98,10 +100,10 @@ double CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &pr
 	vecS names;
 	string truthDir, gtExt;
 	int imgNum = CmFile::GetNamesNE(gtImgW, names, truthDir, gtExt); 
-	precision.resize(MI, 0);
-	recall.resize(MI, 0);
-	tpr.resize(MI, 0);
-	fpr.resize(MI, 0);
+	precision.resize(NUM_THRESHOLD, 0);
+	recall.resize(NUM_THRESHOLD, 0);
+	tpr.resize(NUM_THRESHOLD, 0);
+	fpr.resize(NUM_THRESHOLD, 0);
 	if (imgNum == 0){
 		printf("Can't load ground truth images %s\n", _S(gtImgW));
 		return 10^20;
@@ -114,7 +116,7 @@ double CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &pr
 		if(i % 100 == 0)
 			printf("Evaluating %03d/%d %-40s\r", i, imgNum, _S(names[i] + resExt));
 		Mat resS = imread(inDir + names[i] + resExt, CV_LOAD_IMAGE_GRAYSCALE);
-		CV_Assert_(resS.data != NULL, ("Can't load saliency map: %s\n", _S(names[i]) + resExt));
+		CV_Assert_(resS.data != NULL, ("Can't load saliency map: %s\n", _S(names[i] + resExt)));
 		normalize(resS, resS, 0, 255, NORM_MINMAX);
 		Mat gtFM = imread(truthDir + names[i] + gtExt, CV_LOAD_IMAGE_GRAYSCALE), gtBM;
 		if (gtFM.data == NULL) 
@@ -127,7 +129,7 @@ double CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &pr
 
 
 #pragma omp parallel for
-		for (int thr = 0; thr < MI; thr++){
+		for (int thr = 0; thr < NUM_THRESHOLD; thr++){
 			Mat resM, tpM, fpM;
 			compare(resS, thr * STEP, resM, CMP_GE);
 			bitwise_and(resM, gtFM, tpM);
@@ -151,7 +153,7 @@ double CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &pr
 		mea += sum(resS).val[0] / (gtFM.rows * gtFM.cols);
 	}
 
-	int thrS = 0, thrE = MI, thrD = 1;
+	int thrS = 0, thrE = NUM_THRESHOLD, thrD = 1;
 	for (int thr = thrS; thr != thrE; thr += thrD){
 		precision[thr] /= imgNum;
 		recall[thr] /= imgNum;

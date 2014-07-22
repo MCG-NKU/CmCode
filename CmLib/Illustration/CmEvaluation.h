@@ -42,7 +42,7 @@ public: // Assistant functions
 
 protected:
 	static const int COLOR_NUM = 255;  
-	static const int MI;  // Number of difference threshold
+	static const int NUM_THRESHOLD;  // Number of difference threshold
 
 	// Return mean absolute error (MAE)
 	static double Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &precision, vecD &recall, vecD &tpr, vecD &fpr);

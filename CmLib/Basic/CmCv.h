@@ -90,6 +90,8 @@ struct CmCv {
 	static void CannySimpleRGB(CMat &img3u, Mat &edge1u, double thresh1, double thresh2, int apertureSize, bool L2gradient = false);
 	static Mat getGrabMask(CMat &img3u, Rect rect);//, CStr sameNameNE, int ext = 4
 	static void rubustifyBorderMask(Mat& mask1u); 
+
+	static int intMatMax(CMat idx1i); // return the max value in an int matrix
 };
 
 // Normalize size/image to min(width, height) = shortLen and use width 

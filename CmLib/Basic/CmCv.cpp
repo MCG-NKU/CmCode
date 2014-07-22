@@ -557,6 +557,17 @@ void CmCv::rubustifyBorderMask(Mat& mask1u)
 	mask1u = CmCv::GetBorderReg(regIdx1i, regNum, 0.02, 0.5);
 }
 
+int CmCv::intMatMax(CMat idx1i)
+{
+	int maxV = -INT_MAX;
+	for (int r = 0; r < idx1i.rows; r++){
+		const int *idx = idx1i.ptr<int>(r);
+		for (int c = 0; c < idx1i.cols; c++)
+			maxV = max(idx[c], maxV);
+	}
+	return maxV;
+}
+
 Mat CmCv::getGrabMask(CMat &img3u, Rect rect)
 {		
 	// Initialize flood fill

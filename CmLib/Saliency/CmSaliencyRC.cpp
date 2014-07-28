@@ -23,7 +23,7 @@ void CmSaliencyRC::Get(CStr &imgNameW, CStr &salFileDir)
 #pragma omp parallel for 
 	for (int i = 0; i < imgNum; i++){
 		string name = names[i] + ext;
-		printf("Processing %d/%dth image: %-20s\r", i, imgNum, name.c_str());
+		//printf("Processing %d/%dth image: %-20s\r", i, imgNum, name.c_str());
 		Mat sal, img3f = imread(inDir + name);
 		if (img3f.data == NULL){
 			printf("Can't load image %s, in %s:%d\n", name.c_str(), __FILE__, __LINE__);

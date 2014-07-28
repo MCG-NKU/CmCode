@@ -60,7 +60,7 @@ void CmEvaluation::Evaluate(CStr gtW, CStr &salDir, CStr &resName, vecS &des)
 		CV_Assert(fpr[i].size() == tpr[i].size() && precision[i].size() == recall[i].size() && fpr[i].size() == precision[i].size());
 		for (size_t t = 0; t < fpr[i].size(); t++){
 			double fMeasure = (1+betaSqr) * precision[i][t] * recall[i][t] / (betaSqr * precision[i][t] + recall[i][t]);
-			//avgFMeasure[i] += fMeasure/fpr[i].size(); // Doing average like this might have strange effect as in: 
+			avgFMeasure[i] += fMeasure/fpr[i].size(); // Doing average like this might have strange effect as in: 
 			maxFMeasure[i] = max(maxFMeasure[i], fMeasure);
 			if (t > 0){
 				areaROC[i] += (tpr[i][t] + tpr[i][t - 1]) * (fpr[i][t - 1] - fpr[i][t]) / 2.0;
@@ -182,17 +182,17 @@ double CmEvaluation::interUnionBBox(const Vec4i &box1, const Vec4i &box2) // eac
 	return ov;
 }
 
-void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, CStr &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix) 
+void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix) 
 {
 	vecS descri(1); descri[0] = des; 
-	EvalueMask(gtW, maskDir, gtExt, descri, resFile, betaSqr, alertNul, suffix);
+	EvalueMask(gtW, maskDir, descri, resFile, betaSqr, alertNul, suffix);
 }
 
-void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix)
+void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, vecS &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix)
 {
 	vecS namesNS; 
-	string gtDir;
-	int imgNum = CmFile::GetNamesNoSuffix(gtW, namesNS, gtExt, gtDir);
+	string gtDir, gtExt;
+	int imgNum = CmFile::GetNamesNE(gtW, namesNS, gtDir, gtExt);
 	int methodNum = (int)des.size();
 	vecD pr(methodNum), rec(methodNum), count(methodNum), fm(methodNum);
 	for (int i = 0; i < imgNum; i++){
@@ -230,7 +230,7 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &gtExt, vecS &des, C
 	CmEvaluation::PrintVector(f, pr, "PrecisionMask" + suffix);
 	CmEvaluation::PrintVector(f, rec, "RecallMask" + suffix);
 	CmEvaluation::PrintVector(f, fm, "FMeasureMask" + suffix);
-	fprintf(f, "bar(%s);\ntitle('%s')\n", _S("FMeasureMask" + suffix), _S("FMeasureMask" + suffix));
+	fprintf(f, "bar([%s]');\ntitle('%s');\ngrid on\n", _S("PrecisionMask" + suffix + "; RecallMask" + suffix + "; FMeasureMask" + suffix), _S("Segmentation" + suffix));
 	fclose(f);
 }
 

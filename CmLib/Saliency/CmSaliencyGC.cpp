@@ -287,7 +287,7 @@ int CmSaliencyGC::Demo(CStr imgW, CStr salDir)
 		imwrite(outName + "_GC.png", sal1f*255);
 	}
 	tm.Stop();
-	printf("Speed: %g seconds = %g fps\n", tm.TimeInSeconds()/imgNum, imgNum/tm.TimeInSeconds());
+	printf("Speed of GC method: %g seconds = %g fps\n", tm.TimeInSeconds()/imgNum, imgNum/tm.TimeInSeconds());
 
 	des.push_back("GC");
 	CmEvaluation::Evaluate(imgDir + "*.png", salDir, salDir + "Eval.m", des);

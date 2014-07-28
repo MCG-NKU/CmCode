@@ -151,6 +151,9 @@
     <ClInclude Include="OtherAlg\CmValStructVec.h">
       <Filter>OhterAlg</Filter>
     </ClInclude>
+    <ClInclude Include="Saliency\CmSalCut.h">
+      <Filter>Saliency</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="Illustration\CmIllu.cpp">
       <Filter>Illustration</Filter>
+    </ClCompile>
+    <ClCompile Include="Saliency\CmSalCut.cpp">
+      <Filter>Saliency</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

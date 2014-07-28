@@ -45,19 +45,6 @@ using namespace std;
 #pragma comment( lib, cvLIB("core"))
 #pragma comment( lib, cvLIB("imgproc"))
 #pragma comment( lib, cvLIB("highgui"))
-#pragma comment( lib, cvLIB("features2d"))
-#pragma comment( lib, cvLIB("flann"))
-#pragma comment( lib, cvLIB("calib3d"))
-#pragma comment( lib, cvLIB("objdetect"))
-#pragma comment( lib, cvLIB("contrib"))
-#pragma comment( lib, cvLIB("nonfree"))
-#pragma comment( lib, cvLIB("legacy"))
-#pragma comment( lib, cvLIB("ml"))
-#pragma comment( lib, cvLIB("photo"))
-#pragma comment( lib, cvLIB("stitching"))
-#pragma comment( lib, cvLIB("ts"))
-#pragma comment( lib, cvLIB("video"))
-#pragma comment( lib, cvLIB("videostab"))
 using namespace cv;
 
 
@@ -117,7 +104,7 @@ using namespace cv;
 // Saliency detection algorithms
 #include "./Saliency/CmSaliencyRC.h"
 #include "./Saliency/CmSaliencyGC.h"
-//#include "./Saliency/CmSalCut.h"
+#include "./Saliency/CmSalCut.h"
 //#include "./Saliency/CmGrabCutUI.h"
 //
 //

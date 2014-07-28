@@ -72,15 +72,11 @@ private:
 
 /************************************************************************/
 /*[1]R. Achanta, S. Hemami, F. Estrada and S. Susstrunk, Frequency-tuned*/
-/*   Salient Region Detection, IEEE International Conference on Computer*/
-/*	 Vision and Pattern Recognition (CVPR), 2009.						*/
+/*   Salient Region Detection, IEEE CVPR, 2009.							*/
 /*[2]Y. Zhai and M. Shah. Visual attention detection in video sequences */
-/*   using spatiotemporal cues. In ACM Multimedia, pages 815¨C824. ACM, */
-/*   2006.																*/
-/*[3]M.-M. Cheng, G.-X. Zhang, N. J. Mitra, X. Huang, S.-M. Hu. Global  */
-/*   Contrast based Salient Region Detection. IEEE CVPR, p. 409-416,    */
-/*   2011																*/
+/*   using spatiotemporal cues. In ACM Multimedia 2006.					*/
+/*[3]M.-M. Cheng, N. J. Mitra, X. Huang, P.H.S. Torr S.-M. Hu. Global	*/
+/*   Contrast based Salient Region Detection. IEEE PAMI, 2014.			*/
 /*[4]X. Hou and L. Zhang. Saliency detection: A spectral residual		*/
-/*   approach. In IEEE Conference on Computer Vision and Pattern		*/
-/*	 Recognition, 2007. CVPR 2007, pages 1¨C8, 2007.					*/
+/*   approach. In IEEE CVPR 2007, 2007.									*/
 /************************************************************************/

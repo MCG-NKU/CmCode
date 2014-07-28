@@ -160,6 +160,7 @@
     <ClInclude Include="Illustration\CmShow.h" />
     <ClInclude Include="OtherAlg\CmCurveEx.h" />
     <ClInclude Include="OtherAlg\CmValStructVec.h" />
+    <ClInclude Include="Saliency\CmSalCut.h" />
     <ClInclude Include="Saliency\CmSaliencyGC.h" />
     <ClInclude Include="Saliency\CmSaliencyRC.h" />
     <ClInclude Include="Segmentation\EfficientGraphBased\disjoint-set.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Illustration\CmIllu.cpp" />
     <ClCompile Include="Illustration\CmShow.cpp" />
     <ClCompile Include="OtherAlg\CmCurveEx.cpp" />
+    <ClCompile Include="Saliency\CmSalCut.cpp" />
     <ClCompile Include="Saliency\CmSaliencyGC.cpp" />
     <ClCompile Include="Saliency\CmSaliencyRC.cpp" />
     <ClCompile Include="Segmentation\EfficientGraphBased\segment-image.cpp" />

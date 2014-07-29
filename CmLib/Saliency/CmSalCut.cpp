@@ -303,6 +303,8 @@ int CmSalCut::Demo(CStr imgNameW, CStr gtImgW, CStr salDir)
 	int imgNum = CmFile::GetNamesNE(imgNameW, names, inDir, ext);
 	CmFile::MkDir(salDir);
 	printf("Get saliency maps for images `%s' and save results to `%s'\n", imgNameW.c_str(), salDir.c_str());
+	CmTimer tm("Saliency detection and segmentation");
+	tm.Start();
 
 #pragma omp parallel for 
 	for (int i = 0; i < imgNum; i++){
@@ -315,11 +317,13 @@ int CmSalCut::Demo(CStr imgNameW, CStr gtImgW, CStr salDir)
 		CV_Assert_(img3f.data != NULL, ("Can't load image %s\n", _S(name)));
 		img3f.convertTo(img3f, CV_32FC3, 1.0/255);
 		sal = CmSaliencyRC::GetRC(img3f);
-		imwrite(salDir + names[i] + "_RC.png", sal*255);
+		imwrite(salDir + names[i] + "_RC2.png", sal*255);
 
 		Mat cutMat;
 		float t = 0.9f;
 		int maxIt = 4;
+		GaussianBlur(sal, sal, Size(9, 9), 0);
+		normalize(sal, sal, 0, 1, NORM_MINMAX);
 		while (cutMat.empty() && maxIt--){
 			cutMat = CmSalCut::CutObjs(img3f, sal, 0.1f, t);
 			t -= 0.2f;
@@ -329,9 +333,10 @@ int CmSalCut::Demo(CStr imgNameW, CStr gtImgW, CStr salDir)
 		else
 			printf("Image(.jpg): %s", _S(names[i] + "\n"));
 	}
-	printf("Get saliency finished%-40s\n", "");
+	tm.Stop();
+	printf("Salient object detection and segmentation finished, %g seconds used per image\n", tm.TimeInSeconds()/imgNum);
 
-	printf("Evaluate saliency maps according to ground truth results `%s'\n", gtImgW.c_str());
+	//printf("Evaluate saliency maps according to ground truth results `%s'\n", gtImgW.c_str());
 	//CmEvaluation::Evaluate(gtImgW, salDir, resultFileName, "_RC");
 	//CmEvaluation::EvalueMask(gtImgW, salDir, "RCC", CmFile::GetFatherFolder(salDir) + "CutRes.m");
 	

@@ -232,6 +232,9 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, vecS &des, CStr resFile, 
 	CmEvaluation::PrintVector(f, fm, "FMeasureMask" + suffix);
 	fprintf(f, "bar([%s]');\ntitle('%s');\ngrid on\n", _S("PrecisionMask" + suffix + "; RecallMask" + suffix + "; FMeasureMask" + suffix), _S("Segmentation" + suffix));
 	fclose(f);
+
+	if (des.size() == 1)
+		printf("Precision = %g, recall = %g, F-Measure = %g\n", pr[0], rec[0], fm[0]);
 }
 
 double CmEvaluation::FMeasure(CMat &res, CMat &truM)

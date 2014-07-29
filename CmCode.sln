@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CmLib", "CmLib\CmLib.vcxproj", "{925E8D9D-F4BB-431C-BE63-5F95F6CCC460}"
 EndProject
@@ -10,12 +10,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CurveExtractionHHME09", "Cu
 		{925E8D9D-F4BB-431C-BE63-5F95F6CCC460} = {925E8D9D-F4BB-431C-BE63-5F95F6CCC460}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SaliencyCVPR11_ICCV13", "Saliency\Saliency.vcxproj", "{E83E9B34-F6BB-417C-A1A8-66E7168AFF29}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Saliency", "Saliency\Saliency.vcxproj", "{E83E9B34-F6BB-417C-A1A8-66E7168AFF29}"
 	ProjectSection(ProjectDependencies) = postProject
 		{925E8D9D-F4BB-431C-BE63-5F95F6CCC460} = {925E8D9D-F4BB-431C-BE63-5F95F6CCC460}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpRecoTOG14", "SpReco\SpRecoTOG14.vcxproj", "{123B5B18-F605-4C54-B2FE-1D7F71D8DC68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7681D28E-550E-48BE-B40F-0737D231294A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

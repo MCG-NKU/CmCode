@@ -317,7 +317,7 @@ int CmSalCut::Demo(CStr imgNameW, CStr gtImgW, CStr salDir)
 		CV_Assert_(img3f.data != NULL, ("Can't load image %s\n", _S(name)));
 		img3f.convertTo(img3f, CV_32FC3, 1.0/255);
 		sal = CmSaliencyRC::GetRC(img3f);
-		imwrite(salDir + names[i] + "_RC2.png", sal*255);
+		imwrite(salDir + names[i] + "_RC.png", sal*255);
 
 		Mat cutMat;
 		float t = 0.9f;

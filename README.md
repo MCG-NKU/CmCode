@@ -13,9 +13,19 @@ questions like `how to install and configure opencv?` will not be replied.
 
 Version History:
 
+--------------------------- Version 0.9.2: ----------------------------------
+Salient object detection and segmentation source code for `[14PAMI]Global 
+Contrast based Salient Region Detection` have been added.
+
+
+--------------------------- Version 0.9.1: ----------------------------------
+Partial source code for `[14TOG]ImageSpirit: Verbal Guided Image Parsing` 
+have been added.
+
+
 --------------------------- Version 0.9: ----------------------------------
 
-Source code for `[13ICCV] Efficient Salient Region Detection with Soft Image 
+Source code for `[13ICCV]Efficient Salient Region Detection with Soft Image 
 Abstraction` and related source code from other projects are added. It 
 contains source code from: `[13TVCJ]SalientShape: Group Saliency in Image 
 Collections`, `[14TPAMI]Salient Object Detection and Segmentation`,

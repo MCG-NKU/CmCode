@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibLinear", "LibLinear\LibLinear.vcxproj", "{86266F16-8B7E-4666-A12F-96E351579ADA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Objectness", "Objectness\Objectness.vcxproj", "{7FD1BF61-2F9E-4ADC-A4F4-6A26C5702E74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -62,6 +66,18 @@ Global
 		{123B5B18-F605-4C54-B2FE-1D7F71D8DC68}.Release|Win32.Build.0 = Release|Win32
 		{123B5B18-F605-4C54-B2FE-1D7F71D8DC68}.Release|x64.ActiveCfg = Release|x64
 		{123B5B18-F605-4C54-B2FE-1D7F71D8DC68}.Release|x64.Build.0 = Release|x64
+		{86266F16-8B7E-4666-A12F-96E351579ADA}.Debug|Win32.ActiveCfg = Debug|x64
+		{86266F16-8B7E-4666-A12F-96E351579ADA}.Debug|x64.ActiveCfg = Debug|x64
+		{86266F16-8B7E-4666-A12F-96E351579ADA}.Debug|x64.Build.0 = Debug|x64
+		{86266F16-8B7E-4666-A12F-96E351579ADA}.Release|Win32.ActiveCfg = Release|x64
+		{86266F16-8B7E-4666-A12F-96E351579ADA}.Release|x64.ActiveCfg = Release|x64
+		{86266F16-8B7E-4666-A12F-96E351579ADA}.Release|x64.Build.0 = Release|x64
+		{7FD1BF61-2F9E-4ADC-A4F4-6A26C5702E74}.Debug|Win32.ActiveCfg = Debug|x64
+		{7FD1BF61-2F9E-4ADC-A4F4-6A26C5702E74}.Debug|x64.ActiveCfg = Debug|x64
+		{7FD1BF61-2F9E-4ADC-A4F4-6A26C5702E74}.Debug|x64.Build.0 = Debug|x64
+		{7FD1BF61-2F9E-4ADC-A4F4-6A26C5702E74}.Release|Win32.ActiveCfg = Release|x64
+		{7FD1BF61-2F9E-4ADC-A4F4-6A26C5702E74}.Release|x64.ActiveCfg = Release|x64
+		{7FD1BF61-2F9E-4ADC-A4F4-6A26C5702E74}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

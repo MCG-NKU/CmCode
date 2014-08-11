@@ -13,6 +13,13 @@ questions like `how to install and configure opencv?` will not be replied.
 
 Version History:
 
+
+--------------------------- Version 0.9.3: ----------------------------------
+
+Objectness estimation source code for `[14CVPR]BING: Binarized Normed Gradients 
+for Objectness Estimation at 300fp` have been added.
+
+
 --------------------------- Version 0.9.2: ----------------------------------
 
 Salient object detection and segmentation source code for `[14PAMI]Global 

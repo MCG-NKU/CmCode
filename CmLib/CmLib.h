@@ -45,6 +45,7 @@ using namespace std;
 #pragma comment( lib, cvLIB("core"))
 #pragma comment( lib, cvLIB("imgproc"))
 #pragma comment( lib, cvLIB("highgui"))
+#pragma comment(lib, cvLIB("contrib"))
 using namespace cv;
 
 

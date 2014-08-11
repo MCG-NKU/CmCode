@@ -103,7 +103,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\$(TargetName).lib $(CmGit)Lib\</Command>
+      <Command>xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\$(TargetName).lib ..\..\Lib\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,7 +141,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\$(TargetName).lib $(CmGit)Lib\</Command>
+      <Command>xcopy /y $(SolutionDir)$(Platform)\$(Configuration)\$(TargetName).lib ..\..\Lib\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

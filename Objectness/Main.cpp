@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
 void RunObjectness(CStr &resName, double base, double intUionThr, int W, int NSS, int numPerSz)
 {
 	srand((unsigned int)time(NULL));
-	DataSetVOC voc2007("D:/WkDir/DetectionProposals/VOC2007/");
+	//DataSetVOC voc2007("D:/WkDir/DetectionProposals/VOC2007/");
+	DataSetVOC voc2007("./VOC2007/");
 	voc2007.loadAnnotations();
 	//voc2007.loadDataGenericOverCls();
 

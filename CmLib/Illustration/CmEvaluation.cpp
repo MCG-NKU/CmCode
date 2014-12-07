@@ -136,15 +136,15 @@ double CmEvaluation::Evaluate_(CStr &gtImgW, CStr &inDir, CStr& resExt, vecD &pr
 			bitwise_and(resM, gtBM, fpM);
 			double tp = sum(tpM).val[0]; 
 			double fp = sum(fpM).val[0];
-			double fn = gtF - tp;
-			double tn = gtB - fp;
+			//double fn = gtF - tp;
+			//double tn = gtB - fp;
 
 			recall[thr] += tp/(gtF+EPS);
 			double total = EPS + tp + fp;
 			precision[thr] += (tp+EPS)/total;
 
-			tpr[thr] += (tp + EPS) / (tp + fn + EPS);
-			fpr[thr] += (fp + EPS) / (fp + tn + EPS);
+			tpr[thr] += (tp + EPS) / (gtF + EPS);
+			fpr[thr] += (fp + EPS) / (gtB + EPS);
 		}
 
 		gtFM.convertTo(gtFM, CV_32F, 1.0/255);

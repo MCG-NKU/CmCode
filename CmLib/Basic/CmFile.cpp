@@ -400,6 +400,10 @@ void CmFile::UnZipFiles(CStr &zipFileName, CStr &tgtDir, bool overwriteWarning/*
 	string param = format("e \"%s\" \"-o%s\" -r", _S(zipFileName), _S(tgtDir));
 	if (!overwriteWarning)
 		param += " -y";
-	printf("UnZip files: %s --> %s\n", _S(zipFileName), _S(tgtDir));
+	if (!FileExist(zipFileName))
+		printf("File missing: %s\n", _S(zipFileName));
+
+	if (overwriteWarning)
+		printf("UnZip files: %s --> %s\n", _S(zipFileName), _S(tgtDir));
 	CmFile::RunProgram("7z.exe", param, true, overwriteWarning);
 }

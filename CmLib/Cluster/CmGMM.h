@@ -39,6 +39,7 @@ public:
 	~CmGMM_(void);
 
 	int K() const {return _K; }
+	int maxK() const { return _MaxK; }
 	const CmGaussian<D>* GetGaussians() const {return _Guassians;}
 
 	// Returns the probability density of color c in this GMM
@@ -65,8 +66,10 @@ public:
 	double GetSumWeight() const {return _sumW;}
 
 	void GetProbs(CMat sampleDf, vector<Mat> &pci1f) const; // Get Probabilities of each Channel i
+	void GetProbsWN(CMat sampleDf, vector<Mat> &pci1f) const; // Get Probabilities of each Channel i, without normalize
 
-	void iluProbs(CMat sampleDf, CStr &nameNE) const; // Get Probabilities of each Channel i, and illustrate it
+	void iluProbs(CMat sampleDf, CStr &nameNE) const; // Get Probabilities of each Channel i, and illustrate it, without normalize
+	void iluProbsWN(CMat sampleDf, CStr &nameNE) const; // Get Probabilities of each Channel i, and illustrate it, without normalize
 
 protected:
 	int _K, _MaxK; // Number of Gaussian
@@ -92,7 +95,10 @@ public:
 
 	// Show GMM images
 	void Show(CMat& components1i, CStr& title);
+
+	void reWeights(vecD &mulWs);
 };
+
 
 /************************************************************************/
 /*  Helper class that fits a single Gaussian to color samples           */
@@ -404,7 +410,7 @@ template <int D> void CmGMM_<D>::AssignEachPixel(CMat& sampleDf, Mat &component1
 }
 
 template <int D> Vec<float, D> CmGMM_<D>::getMean(int k) const {
-	CV_Assert(k >= 0 && k < _K);
+	CV_Assert(k >= 0 && k <= _K);
 	Vec3f meanColor;
 	meanColor[0] = (float)_Guassians[k].mean[0];
 	meanColor[1] = (float)_Guassians[k].mean[1];
@@ -413,7 +419,7 @@ template <int D> Vec<float, D> CmGMM_<D>::getMean(int k) const {
 }
 
 template <int D> double CmGMM_<D>::getWeight(int k) const{
-	if (k < 0 || k > _K) 
+	if (k < 0 || k >= _K) 
 		return 0.0;
 	return _Guassians[k].w;
 }
@@ -464,7 +470,7 @@ template <int D> void CmGMM_<D>::GetProbs(CMat sampleDf, vector<Mat> &pci) const
 			float* prob = pci[c].ptr<float>(y); 
 			const float* sp = sampleDf.ptr<float>(y);
 			for (int x = 0; x < sampleDf.cols; x++, sp += D)
-				prob[x] = (float)P(c, sp);
+				prob[x] = (float)(P(c, sp) *_Guassians[c].w);
 		}
 		add(pci[c], pI, pI); 
 	}
@@ -473,12 +479,47 @@ template <int D> void CmGMM_<D>::GetProbs(CMat sampleDf, vector<Mat> &pci) const
 		divide(pci[c], pI, pci[c]); 
 }
 
+template <int D> void CmGMM_<D>::GetProbsWN(CMat sampleDf, vector<Mat> &pci) const
+{
+	pci.resize(_K);
+	for (int c = 0; c < _K; c++) {// for each component c
+		pci[c].create(sampleDf.size(), CV_32F);
+		for (int y = 0; y < sampleDf.rows; y++){
+			float* prob = pci[c].ptr<float>(y);
+			const float* sp = sampleDf.ptr<float>(y);
+			for (int x = 0; x < sampleDf.cols; x++, sp += D)
+				prob[x] = (float)(P(c, sp) *_Guassians[c].w);
+		}
+	}
+}
+
 template <int D> void CmGMM_<D>::iluProbs(CMat sampleDf, CStr &nameNE) const
 {
 	vector<Mat> pci;
 	GetProbs(sampleDf, pci);
-	for (int i = 0; i < _K; i++)
-		CmShow::SaveShow(pci[i], nameNE + format("%d.png", i));
+	Mat tmpShow;
+	for (int i = 0; i < _K; i++){
+		normalize(pci[i], tmpShow, 0, 255, NORM_MINMAX, CV_8U);
+		CmShow::SaveShow(tmpShow, nameNE + format("%d.png", i));
+	}
+	for (int i = _K; i < _MaxK; i++)
+		CmFile::WriteNullFile(nameNE + format("%d.nul", i));
+}
+
+template <int D> void CmGMM_<D>::iluProbsWN(CMat sampleDf, CStr &nameNE) const
+{
+	vector<Mat> pci;
+	GetProbsWN(sampleDf, pci);
+	Mat tmpShow;
+	for (int i = 0; i < _K; i++){
+		double minVal, maxVal;
+		cv::minMaxLoc(pci[i], &minVal, &maxVal);
+		pci[i].convertTo(tmpShow, CV_8U, 255 / (maxVal - minVal + EPS), -minVal);
+		cvtColor(tmpShow, tmpShow, CV_GRAY2BGR);
+		putText(tmpShow, format("Min = %g, ", minVal), Point(5, 20), CV_FONT_HERSHEY_PLAIN, 1, CV_RGB(255, 0, 0));
+		putText(tmpShow, format("Max = %g", maxVal), Point(5, 40), CV_FONT_HERSHEY_PLAIN, 1, CV_RGB(255, 0, 0));
+		CmShow::SaveShow(tmpShow, nameNE + format("%d.png", i));
+	}
 	for (int i = _K; i < _MaxK; i++)
 		CmFile::WriteNullFile(nameNE + format("%d.nul", i));
 }

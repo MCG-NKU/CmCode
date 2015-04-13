@@ -188,13 +188,14 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, CStr &des, CStr resFile, 
 	EvalueMask(gtW, maskDir, descri, resFile, betaSqr, alertNul, suffix);
 }
 
-void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, vecS &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix)
+void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, vecS &des, CStr resFile, double betaSqr, bool alertNul, CStr suffix, CStr title)
 {
 	vecS namesNS; 
 	string gtDir, gtExt;
 	int imgNum = CmFile::GetNamesNE(gtW, namesNS, gtDir, gtExt);
 	int methodNum = (int)des.size();
 	vecD pr(methodNum), rec(methodNum), count(methodNum), fm(methodNum);
+	vecD intUnio(methodNum), mae(methodNum);
 	for (int i = 0; i < imgNum; i++){
 		Mat truM = imread(gtDir + namesNS[i] + gtExt, CV_LOAD_IMAGE_GRAYSCALE);
 		for (int m = 0; m < methodNum; m++)	{
@@ -208,13 +209,17 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, vecS &des, CStr resFile, 
 			}
 			compare(truM, 128, truM, CMP_GE);
 			compare(res, 128, res, CMP_GE);
-			Mat commMat;
+			Mat commMat, unionMat, diff1f;
 			bitwise_and(truM, res, commMat);
+			bitwise_or(truM, res, unionMat);
 			double commV = sum(commMat).val[0];
 			double p = commV/(sum(res).val[0] + EPS);
 			double r = commV/(sum(truM).val[0] + EPS);
 			pr[m] += p;
 			rec[m] += r;
+			intUnio[m] += commV / (sum(unionMat).val[0] + EPS);
+			absdiff(truM, res, diff1f);
+			mae[m] += sum(diff1f).val[0]/(diff1f.rows * diff1f.cols * 255);
 			count[m]++;
 		}
 	}
@@ -222,19 +227,30 @@ void CmEvaluation::EvalueMask(CStr gtW, CStr &maskDir, vecS &des, CStr resFile, 
 	for (int m = 0; m < methodNum; m++){
 		pr[m] /= count[m], rec[m] /= count[m];
 		fm[m] = (1 + betaSqr) * pr[m] * rec[m] / (betaSqr * pr[m] + rec[m] + EPS);
+		intUnio[m] /= count[m];
+		mae[m] /= count[m];
 	}
 
 	FILE *f; 
 	fopen_s(&f, _S(resFile), "a");
-	CV_Assert(f != NULL);
-	CmEvaluation::PrintVector(f, pr, "PrecisionMask" + suffix);
-	CmEvaluation::PrintVector(f, rec, "RecallMask" + suffix);
-	CmEvaluation::PrintVector(f, fm, "FMeasureMask" + suffix);
-	fprintf(f, "bar([%s]');\ntitle('%s');\ngrid on\n", _S("PrecisionMask" + suffix + "; RecallMask" + suffix + "; FMeasureMask" + suffix), _S("Segmentation" + suffix));
-	fclose(f);
+	if (f != NULL){
+		fprintf(f, "\n%%%%\n");
+		CmEvaluation::PrintVector(f, pr, "PrecisionMask" + suffix);
+		CmEvaluation::PrintVector(f, rec, "RecallMask" + suffix);
+		CmEvaluation::PrintVector(f, fm, "FMeasureMask" + suffix);
+		CmEvaluation::PrintVector(f, intUnio, "IntUnion" + suffix);
+		CmEvaluation::PrintVector(f, intUnio, "MAE" + suffix);
+		fprintf(f, "bar([%s]');\ngrid on\n", _S("PrecisionMask" + suffix + "; RecallMask" + suffix + "; FMeasureMask" + suffix + "; IntUnion" + suffix));
+		fprintf(f, "title('%s');\naxis([0 %d 0.8 1]);\nmethodLabels = { '%s'", _S(title), des.size() + 1, _S(des[0]));
+		for (size_t i = 1; i < des.size(); i++)
+			fprintf(f, ", '%s'", _S(des[i]));
+		fprintf(f, " };\nlegend('Precision', 'Recall', 'FMeasure', 'IntUnion');\n");
+		fprintf(f, "xticklabel_rotate([1:%d], 90, methodLabels, 'interpreter', 'none');\n", des.size());
+		fclose(f);
+	}
 
 	if (des.size() == 1)
-		printf("Precision = %g, recall = %g, F-Measure = %g\n", pr[0], rec[0], fm[0]);
+		printf("Precision = %g, recall = %g, F-Measure = %g, intUnion = %g, mae = %g\n", pr[0], rec[0], fm[0], intUnio[0], mae[0]);
 }
 
 double CmEvaluation::FMeasure(CMat &res, CMat &truM)

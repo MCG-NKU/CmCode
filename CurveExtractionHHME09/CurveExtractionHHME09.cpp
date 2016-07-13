@@ -15,7 +15,7 @@
 
 int main(int argc, char* argv[])
 {
-	Mat cImg = imread(".\\data\\Test.jpg", CV_LOAD_IMAGE_GRAYSCALE);
+	Mat cImg = imread(".\\data\\Test1.jpg", CV_LOAD_IMAGE_GRAYSCALE);
 	Mat nImg = imread(".\\data\\Nature.png", CV_LOAD_IMAGE_GRAYSCALE);
 	CV_Assert(cImg.data != NULL && nImg.data != NULL);
 

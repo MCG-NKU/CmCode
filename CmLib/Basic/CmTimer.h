@@ -58,7 +58,7 @@ void CmTimer::Stop()
 void CmTimer::Reset()
 {
 	if (is_started)	{
-		printf("CmTimer '%s'is started during reset request.\n Only reset cumulative time.\n");
+		printf("CmTimer '%s'is started during reset request.\n Only reset cumulative time.\n", title.c_str());
 		return;
 	}
 	cumulative_clock = 0;

@@ -4,6 +4,15 @@
 //
 
 #pragma once
+#pragma warning(disable: 4996)
+#pragma warning(disable: 4995)
+#pragma warning(disable: 4805)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4819)
+
+// TODO: reference additional headers your program requires here
+#include "../LibLinear/linear.h"
+#include <opencv2/opencv.hpp> 
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -12,11 +21,6 @@
 #include <SDKDDKVer.h>
 #include <stdio.h>
 
-#pragma once
-#pragma warning(disable: 4996)
-#pragma warning(disable: 4995)
-#pragma warning(disable: 4805)
-#pragma warning(disable: 4267)
 
 #include <assert.h>
 #include <string>
@@ -34,9 +38,6 @@
 #include <strstream>
 using namespace std;
 
-// TODO: reference additional headers your program requires here
-#include "../LibLinear/linear.h"
-#include <opencv2/opencv.hpp> 
 
 #define CV_VERSION_ID CVAUX_STR(CV_MAJOR_VERSION) CVAUX_STR(CV_MINOR_VERSION) CVAUX_STR(CV_SUBMINOR_VERSION)
 #ifdef _DEBUG
@@ -48,6 +49,7 @@ using namespace std;
 #pragma comment( lib, cvLIB("core"))
 #pragma comment( lib, cvLIB("imgproc"))
 #pragma comment( lib, cvLIB("highgui"))
+#pragma comment(lib, cvLIB("imgcodecs"))
 using namespace cv;
 
 typedef vector<int> vecI;

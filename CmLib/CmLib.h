@@ -3,7 +3,12 @@
 #pragma warning(disable: 4995)
 #pragma warning(disable: 4805)
 #pragma warning(disable: 4267)
+#pragma warning(disable: 4819)
 
+
+#include <opencv2/opencv.hpp> 
+#define CV_VERSION_ID CVAUX_STR(CV_MAJOR_VERSION) CVAUX_STR(CV_MINOR_VERSION) CVAUX_STR(CV_SUBMINOR_VERSION)
+#define cvLIB(name) lnkLIB("opencv_" name CV_VERSION_ID)
 
 #include <assert.h>
 #include <string>
@@ -38,18 +43,16 @@ using namespace std;
 #endif
 
 
-#include <opencv2/opencv.hpp> 
-#define CV_VERSION_ID CVAUX_STR(CV_MAJOR_VERSION) CVAUX_STR(CV_MINOR_VERSION) CVAUX_STR(CV_SUBMINOR_VERSION)
-#define cvLIB(name) lnkLIB("opencv_" name CV_VERSION_ID)
 
-#if CV_MAJOR_VERSION == 3
-#pragma comment(lib, cvLIB("world"))
-#else
+
+//#pragma comment(lib, cvLIB("world"))
+
 #pragma comment( lib, cvLIB("core"))
 #pragma comment( lib, cvLIB("imgproc"))
 #pragma comment( lib, cvLIB("highgui"))
-#pragma comment(lib, cvLIB("contrib"))
-#endif
+//#pragma comment(lib, cvLIB("contrib"))
+#pragma comment(lib, cvLIB("imgcodecs"))
+
 
 using namespace cv;
 

@@ -65,7 +65,7 @@ using namespace cv;
 
 // For illustration
 #include "./Illustration/CmShow.h"
-//#include "./Illustration/CmIllustr.h"
+#include "./Illustration/CmIllustr.h"
 #include "./Illustration/CmEvaluation.h"
 #include "./Illustration/CmIllu.h"
 //

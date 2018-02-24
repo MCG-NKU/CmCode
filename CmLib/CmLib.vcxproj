@@ -157,6 +157,7 @@
     <ClInclude Include="CRF\permutohedral.h" />
     <ClInclude Include="Illustration\CmEvaluation.h" />
     <ClInclude Include="Illustration\CmIllu.h" />
+    <ClInclude Include="Illustration\CmIllustr.h" />
     <ClInclude Include="Illustration\CmShow.h" />
     <ClInclude Include="OtherAlg\CmCurveEx.h" />
     <ClInclude Include="OtherAlg\CmValStructVec.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="Cluster\CmGMM.cpp" />
     <ClCompile Include="Illustration\CmEvaluation.cpp" />
     <ClCompile Include="Illustration\CmIllu.cpp" />
+    <ClCompile Include="Illustration\CmIllustr.cpp" />
     <ClCompile Include="Illustration\CmShow.cpp" />
     <ClCompile Include="OtherAlg\CmCurveEx.cpp" />
     <ClCompile Include="Saliency\CmSalCut.cpp" />

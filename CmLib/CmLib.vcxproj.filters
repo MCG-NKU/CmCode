@@ -154,6 +154,9 @@
     <ClInclude Include="Saliency\CmSalCut.h">
       <Filter>Saliency</Filter>
     </ClInclude>
+    <ClInclude Include="Illustration\CmIllustr.h">
+      <Filter>Illustration</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="Saliency\CmSalCut.cpp">
       <Filter>Saliency</Filter>
+    </ClCompile>
+    <ClCompile Include="Illustration\CmIllustr.cpp">
+      <Filter>Illustration</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
